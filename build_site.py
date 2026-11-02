@@ -18,6 +18,8 @@ from pathlib import Path
 from main import house_rule_times, listing_id
 
 TRIP_TITLE = "Beach House Weekend"
+# Date range the group recommends; highlighted in the overview table
+RECOMMENDED_DATES = "2026-11-13_2026-11-15"
 ROOT = Path(__file__).parent
 RAW = ROOT / "raw"
 DOCS = ROOT / "docs"
@@ -223,6 +225,7 @@ def main():
         "trip": {
             "title": TRIP_TITLE,
             "guests": guests,
+            "recommended": RECOMMENDED_DATES,
             "updated": max((s["checked_at"] for d in model_stays.values() for s in d.values()), default=None),
         },
         "dates": [{

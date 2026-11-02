@@ -87,6 +87,13 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .matrix .sub { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
 .matrix td.na { color: var(--muted); }
 .matrix td.best { background: var(--accent-soft); font-weight: 700; }
+.matrix .rec { background: color-mix(in srgb, var(--gold-soft) 70%, transparent); }
+.matrix td.rec.best { background: color-mix(in srgb, var(--gold-soft) 55%, var(--accent-soft)); }
+.matrix thead th.rec { vertical-align: bottom; }
+.rec-badge {
+  display: block; width: fit-content; margin: 0 0 6px auto; padding: 2px 10px; border-radius: 999px;
+  background: var(--gold); color: var(--surface); font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+}
 .foot { margin: 0; font-size: 13px; }
 
 /* ---------- date page ---------- */

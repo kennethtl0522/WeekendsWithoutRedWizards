@@ -48,8 +48,9 @@ function overview() {
       const l = listings[id];
       const cells = priced.map((d) => {
         const s = stays[d.key][id];
-        if (!s) return `<td class="na">—</td>`;
-        return `<td${s.total === best[d.key] ? ' class="best"' : ""}><a href="${pageLink({ dates: d.key, id })}">${money(split(s))}</a></td>`;
+        const cls = [d.key === trip.recommended && "rec", s && s.total === best[d.key] && "best"].filter(Boolean).join(" ");
+        if (!s) return `<td class="na${cls ? ` ${cls}` : ""}">—</td>`;
+        return `<td${cls ? ` class="${cls}"` : ""}><a href="${pageLink({ dates: d.key, id })}">${money(split(s))}</a></td>`;
       }).join("");
       // The house name opens its block on the cheapest date it's available
       const cheapest = priced.filter((d) => stays[d.key][id])
@@ -76,7 +77,9 @@ function overview() {
   <section>
     <h2>Houses &amp; prices</h2>
     <div class="table-wrap"><table class="matrix">
-      <thead><tr><th>House</th>${priced.map((d) => `<th><a href="${pageLink({ dates: d.key })}">${esc(d.label)}</a></th>`).join("")}</tr></thead>
+      <thead><tr><th>House</th>${priced.map((d) => d.key === trip.recommended
+        ? `<th class="rec"><span class="rec-badge">Recommended</span><a href="${pageLink({ dates: d.key })}">${esc(d.label)}</a></th>`
+        : `<th><a href="${pageLink({ dates: d.key })}">${esc(d.label)}</a></th>`).join("")}</tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
   </section>
