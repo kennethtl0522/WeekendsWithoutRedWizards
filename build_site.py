@@ -167,6 +167,9 @@ def build_listing(d, guests, note):
         "link": d.get("link") or f"https://www.airbnb.com/rooms/{d['id']}",
         "city": city(d),
         "area": area(d),
+        # Street address isn't returned by the API; "Oceano, California" is the closest it gets
+        "location": (d.get("location") or {}).get("address")
+                    or re.sub(r",\s*United States$", "", (d.get("location") or {}).get("name") or ""),
         "property_type": d.get("property_type"),
         "capacity": d.get("person_capacity"),
         "bedrooms": d.get("bedrooms"),

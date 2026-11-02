@@ -16,3 +16,6 @@ results.csv
 .env
 raw/
 results*.csv
+
+# macOS
+.DS_Store

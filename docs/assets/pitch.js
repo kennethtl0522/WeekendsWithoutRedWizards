@@ -4,8 +4,10 @@
 //   <div data-pitch="1040827055809906305" data-dates="2026-11-14_2026-11-16"></div>
 //   <script type="module" src="assets/pitch.js"></script>
 //
+// Rows: 1 gallery · 2 name, dates, split price · 3 the space | highlights ·
+// 4 summary · 5 other dates + Airbnb link.
 // The block adapts to its container width (CSS container queries), so the same
-// markup works full-page, as a scrollable list card, or as a compare column.
+// markup works full-page or as a scrollable block on the date page.
 
 export const SITE = new URL("../", import.meta.url);
 
@@ -24,14 +26,57 @@ export const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
 export const pageLink = (params) => `${SITE}?${new URLSearchParams(params)}`;
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
+// ---------- people counter (shared by every block on the page, remembered per browser) ----------
+
+const PEOPLE_KEY = "airbnb-pitch:people";
+const DEFAULT_PEOPLE = 8;
+let people = DEFAULT_PEOPLE;
+try { people = parseInt(localStorage.getItem(PEOPLE_KEY), 10) || DEFAULT_PEOPLE; } catch {}
+
+export const getPeople = () => people;
+
+export function setPeople(n) {
+  people = Math.min(30, Math.max(1, n));
+  try { localStorage.setItem(PEOPLE_KEY, String(people)); } catch {}
+  refreshPeople();
+  document.dispatchEvent(new CustomEvent("people-change", { detail: people }));
+}
+
+export const counterHTML = () => `<span class="counter">
+  <button type="button" data-people="-1" aria-label="Fewer people">−</button>
+  <output class="people-n">${people}</output>
+  <button type="button" data-people="1" aria-label="More people">+</button>
+</span>`;
+
+function airbnbURL(link, checkIn, checkOut) {
+  return `${link}?${new URLSearchParams({ check_in: checkIn, check_out: checkOut, adults: people })}`;
+}
+
+// Update everything that depends on the head count without re-rendering the blocks
+function refreshPeople(root = document) {
+  root.querySelectorAll(".people-n").forEach((el) => { el.textContent = people; });
+  root.querySelectorAll("[data-split]").forEach((el) => { el.textContent = money(el.dataset.split / people); });
+  root.querySelectorAll("[data-cap]").forEach((el) => { el.hidden = people <= Number(el.dataset.cap); });
+  root.querySelectorAll("a[data-airbnb]").forEach((a) => {
+    const [link, ci, co] = a.dataset.airbnb.split("|");
+    a.href = airbnbURL(link, ci, co);
+  });
+}
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-people]");
+  if (btn) setPeople(people + Number(btn.dataset.people));
+});
+
+// ---------- block ----------
+
 function photo(l, i, label, cls = "") {
   const f = l.photos[i];
   const src = f && (/^https?:/.test(f) ? f : `${SITE}images/${l.id}/${encodeURIComponent(f)}`);
   return `<div class="ph ${cls}"><span>${label}</span>${src ? `<img src="${esc(src)}" alt="" loading="lazy">` : ""}</div>`;
 }
 
-const list = (items, empty, cls = "plain") =>
-  `<ul class="${cls}">${items.length ? items.map((x) => `<li>${x}</li>`).join("") : `<li class="muted">${empty}</li>`}</ul>`;
+const fact = (label, value) => `<div class="fact"><span>${label}</span><b>${value}</b></div>`;
 
 export function pitchHTML(model, id, key) {
   const l = model.listings[id];
@@ -39,65 +84,82 @@ export function pitchHTML(model, id, key) {
   const d = model.dates.find((x) => x.key === key);
   if (!l || !s || !d) return `<p class="callout">No price for this house on these dates.</p>`;
 
-  const badges = [`<span class="badge">${esc(l.area)}</span>`];
-  if (l.guest_favorite) badges.push(`<span class="badge gold">Guest favorite</span>`);
-  if (l.superhost) badges.push(`<span class="badge">Superhost</span>`);
+  const tags = [
+    l.note && `<li class="tag-note">“${esc(l.note)}”</li>`,
+    l.guest_favorite && `<li class="tag-gold">Guest favorite</li>`,
+    l.superhost && `<li>Superhost</li>`,
+    ...l.highlights.map((h) => `<li>${esc(h)}</li>`),
+  ].filter(Boolean).join("");
 
-  const facts = [
-    ["Guests", `${d.guests} <small>of ${l.capacity ?? "?"}</small>`],
-    ["Bedrooms", l.bedrooms ?? "?"],
-    ["Beds", l.beds ?? "?"],
-    ["Baths", l.baths ?? "?"],
-    ["Rating", `★ ${l.rating ?? "–"} <small>(${l.reviews})</small>`],
-    ["Check-in / out", `${esc(l.check_in_time ?? "–")}<br><small>out ${esc(l.check_out_time ?? "–")}</small>`],
-  ].map(([k, v]) => `<div class="fact"><span>${k}</span><b>${v}</b></div>`).join("");
+  const sleeping = l.sleeping.length
+    ? l.sleeping.map((r) => `<li><b>${esc(r.title)}</b> ${esc(r.beds)}</li>`).join("")
+    : `<li class="muted">Bed details not listed by host</li>`;
 
-  const sleeping = l.sleeping.map((r) => `<b>${esc(r.title)}</b> ${esc(r.beds)}`);
   const desc = l.description;
-  const short = desc.length > 260 ? desc.slice(0, 260).replace(/\s+\S*$/, "") + "…" : desc;
-  const about = desc.length > 260
+  const short = desc.length > 320 ? desc.slice(0, 320).replace(/\s+\S*$/, "") + "…" : desc;
+  const summary = desc.length > 320
     ? `<details><summary>${esc(short)}</summary><p>${esc(desc)}</p></details>`
     : `<p>${esc(desc)}</p>`;
 
   const others = model.dates
     .filter((x) => x.key !== key && model.stays[x.key]?.[id])
-    .map((x) => `<a href="${pageLink({ dates: x.key, id })}">${esc(x.label)} · ${money(model.stays[x.key][id].per_person)}/person</a>`);
+    .map((x) => {
+      const o = model.stays[x.key][id];
+      return `<a href="${pageLink({ dates: x.key, id })}">${esc(x.long_label)} · <span data-split="${o.total}">${money(o.total / people)}</span>/person</a>`;
+    });
 
-  const gallery = [1, 2, 3, 4].map((i) => photo(l, i, `Photo ${i + 1}`)).join("");
-  const airbnb = `${l.link}?${new URLSearchParams({ check_in: d.check_in, check_out: d.check_out, adults: d.guests })}`;
+  const gallery = [photo(l, 0, "Photo 1", "hero"), ...[1, 2, 3, 4].map((i) => photo(l, i, `Photo ${i + 1}`))].join("");
 
   return `<article class="pitch">
-  <div class="pitch-hero">${photo(l, 0, "Hero photo", "hero")}
-    <div class="badges">${badges.join("")}</div>
-  </div>
+  <div class="gallery">${gallery}</div>
   <div class="pitch-body">
     <header class="pitch-top">
-      <div>
-        <p class="eyebrow">${esc(l.city)} · ${esc(l.property_type)}</p>
+      <div class="pitch-title">
+        <p class="where">${esc(l.location || l.city)}${l.area !== l.city ? ` <span>· ${esc(l.area)}</span>` : ""}</p>
         <h2>${esc(l.name)}</h2>
-        ${l.note ? `<p class="note">“${esc(l.note)}”</p>` : ""}
+        <p class="when">${esc(d.long_label)}</p>
       </div>
       <div class="price">
-        <span><span class="pp">${money(s.per_person)}</span><span class="per">/ person</span></span>
-        <span class="total">${s.was ? `<s>${money(s.was)}</s> ` : ""}${money(s.total)} total · ${money(s.per_night)}/night</span>
-        <span class="when">${esc(d.long_label)} · ${plural(d.nights, "night")}</span>
+        <div class="split">
+          <span class="pp" data-split="${s.total}">${money(s.total / people)}</span>
+          <span class="per">/ person</span>
+        </div>
+        <div class="split-by">Split between ${counterHTML()} people</div>
+        <p class="cap-warn" data-cap="${l.capacity ?? 99}"${people <= (l.capacity ?? 99) ? " hidden" : ""}>Fits ${l.capacity} max</p>
+        <div class="total">${s.was ? `<s>${money(s.was)}</s> ` : ""}<b>${money(s.total)}</b> total · ${money(s.per_night)} / night</div>
       </div>
     </header>
-    <div class="facts">${facts}</div>
+
     <div class="pitch-cols">
-      <section><h3>Why this one</h3>${list(l.highlights.map(esc), "Nothing special listed", "chips")}</section>
-      <section><h3>Sleeping</h3>${list(sleeping, `Not listed by host: ${l.beds ?? "?"} beds in total`)}</section>
+      <section>
+        <h3>The space</h3>
+        <div class="facts">
+          ${fact("Beds", l.beds ?? "?")}${fact("Bedrooms", l.bedrooms ?? "?")}${fact("Baths", l.baths ?? "?")}
+        </div>
+        <ul class="plain beds">${sleeping}</ul>
+      </section>
+      <section>
+        <h3>Highlights</h3>
+        <p class="rating"><b>★ ${l.rating ?? "–"}</b> <span class="muted">${plural(l.reviews, "review")}</span></p>
+        <ul class="chips">${tags}</ul>
+        <div class="facts two">
+          ${fact("Check-in", esc(l.check_in_time ?? "–"))}${fact("Check-out", esc(l.check_out_time ?? "–"))}
+        </div>
+      </section>
     </div>
-    <div class="gallery">${gallery}</div>
-    <div class="pitch-cols">
-      <section><h3>House rules</h3>${list(l.rules.map(esc), "None listed")}</section>
-      <section class="watch"><h3>Watch out</h3>${list(l.watch.map(esc), "Nothing flagged")}</section>
-    </div>
-    <section><h3>About</h3>${about}</section>
-    <section><h3>Other dates</h3><div class="other-dates">${others.join("") || `<span class="muted">No other requested dates available</span>`}</div></section>
+
+    <section>
+      <h3>Summary</h3>
+      ${summary}
+    </section>
+
     <footer class="pitch-foot">
-      <a class="btn" href="${esc(airbnb)}" target="_blank" rel="noopener">View on Airbnb ↗</a>
-      <span class="muted">Price before taxes &amp; service fees</span>
+      <div class="other-dates">
+        <span class="muted">Other dates</span>
+        ${others.join("") || `<span class="muted">none available</span>`}
+      </div>
+      <a class="btn" data-airbnb="${esc(`${l.link}|${d.check_in}|${d.check_out}`)}"
+         href="${esc(airbnbURL(l.link, d.check_in, d.check_out))}" target="_blank" rel="noopener">View on Airbnb ↗</a>
     </footer>
   </div>
 </article>`;
