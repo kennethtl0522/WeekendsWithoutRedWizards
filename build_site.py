@@ -17,7 +17,7 @@ from pathlib import Path
 
 from main import house_rule_times, listing_id
 
-TRIP_TITLE = "Beach House Weekend"
+TRIP_TITLE = "WeekendsWithoutRedWizards"
 # Date range the group recommends; highlighted in the overview table
 RECOMMENDED_DATES = "2026-11-13_2026-11-15"
 ROOT = Path(__file__).parent
