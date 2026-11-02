@@ -46,6 +46,10 @@ block on the date page. The site has to be served over http (GitHub Pages, or
 
 ## Photos
 
+`uv run fetch_photos.py` downloads each house's 5 Airbnb photos (from the raw logs) into
+`docs/images/<listing_id>/01.jpg … 05.jpg`. It never overwrites existing files, so photos you
+replace by hand stay. Run `uv run build_site.py` afterwards.
+
 Put images in `docs/images/<listing_id>/` (jpg/png/webp). Files are used in name order:
 the first is the hero, the next four fill the gallery. Rebuild after adding them
 (the model stores the file names). A full `https://` URL in a listing's `photos` also works.
