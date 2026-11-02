@@ -13,7 +13,8 @@ export const SITE = new URL("../", import.meta.url);
 
 let modelPromise;
 export function loadModel() {
-  modelPromise ??= fetch(new URL("data/model.json", SITE)).then((r) => {
+  // "no-cache" revalidates with the server each load, so new prices/photos show right after a push
+  modelPromise ??= fetch(new URL("data/model.json", SITE), { cache: "no-cache" }).then((r) => {
     if (!r.ok) throw new Error(`data/model.json: HTTP ${r.status}`);
     return r.json();
   });
