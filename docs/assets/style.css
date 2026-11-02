@@ -191,3 +191,4 @@ button.link { font: inherit; border: 0; background: none; color: var(--accent); 
   .pitch-cols { grid-template-columns: 1fr 1fr; }
   .gallery { grid-template-columns: repeat(4, 1fr); }
 }
+.loading { padding: 40px 16px; text-align: center; color: var(--muted); }
