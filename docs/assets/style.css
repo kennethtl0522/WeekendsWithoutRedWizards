@@ -76,7 +76,14 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .matrix { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; }
 .matrix th, .matrix td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
-.matrix thead th { font-size: 13px; color: var(--muted); font-weight: 600; }
+.matrix thead th { font-size: 13px; color: var(--muted); font-weight: 600; vertical-align: bottom; padding-top: 38px; position: relative; }
+.date-btn {
+  display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: var(--surface);
+  color: var(--accent); font-weight: 700; white-space: nowrap;
+}
+.date-btn::after { content: "›"; font-size: 15px; line-height: 1; }
+.date-btn:hover { text-decoration: none; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .matrix th[scope="row"], .matrix thead th:first-child { text-align: left; white-space: normal; }
 .matrix tbody tr:last-child > * { border-bottom: 0; }
 .matrix .house { display: block; font-weight: 600; }
@@ -89,9 +96,8 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .matrix td.best { background: var(--accent-soft); font-weight: 700; }
 .matrix .rec { background: color-mix(in srgb, var(--gold-soft) 70%, transparent); }
 .matrix td.rec.best { background: color-mix(in srgb, var(--gold-soft) 55%, var(--accent-soft)); }
-.matrix thead th.rec { vertical-align: bottom; }
 .rec-badge {
-  display: block; width: fit-content; margin: 0 0 6px auto; padding: 2px 10px; border-radius: 999px;
+  position: absolute; top: 10px; right: 12px; padding: 2px 10px; border-radius: 999px;
   background: var(--gold); color: var(--surface); font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
 }
 .foot { margin: 0; font-size: 13px; }
@@ -301,3 +307,9 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .blk:hover .blk-del, .blk:focus .blk-del, .blk:focus-within .blk-del { opacity: 1; }
 @media (hover: none) { .blk-del { opacity: 1; } }
 
+
+/* Phone: keep a free strip on the right so a thumb can scroll the page
+   instead of grabbing the timeline, table or a house block's own scroll */
+@media (max-width: 640px) {
+  .overview, .board { padding-right: 44px; }
+}

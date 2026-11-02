@@ -78,8 +78,8 @@ function overview() {
     <h2>Houses &amp; prices</h2>
     <div class="table-wrap"><table class="matrix">
       <thead><tr><th>House</th>${priced.map((d) => d.key === trip.recommended
-        ? `<th class="rec"><span class="rec-badge">Recommended</span><a href="${pageLink({ dates: d.key })}">${esc(d.label)}</a></th>`
-        : `<th><a href="${pageLink({ dates: d.key })}">${esc(d.label)}</a></th>`).join("")}</tr></thead>
+        ? `<th class="rec"><span class="rec-badge">Recommended</span><a class="date-btn" href="${pageLink({ dates: d.key })}">${esc(d.label)}</a></th>`
+        : `<th><a class="date-btn" href="${pageLink({ dates: d.key })}">${esc(d.label)}</a></th>`).join("")}</tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
   </section>
