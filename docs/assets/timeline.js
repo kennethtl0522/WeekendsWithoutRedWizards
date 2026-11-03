@@ -1,226 +1,305 @@
-// Weekend timeline planner for the overview page.
-// Drag activities from the palette onto the timeline, drag blocks to move them
-// (left/right = time, up/down = row), drag either edge to resize, × to remove.
-// Arrow keys move a focused block, Shift+arrows resize it, Delete removes it.
-// The plan is saved per browser; "Copy link" encodes it in ?plan= to share.
+// Weekend plans for the overview page: Plan A and Plan B as two calendar-style
+// timelines side by side (time runs down). Drag activities from the palette into
+// either plan, drag blocks to move them (up/down = time, left/right = column),
+// drag the top or bottom edge to resize, × to remove. Arrow keys move a focused
+// block, Shift+Up/Down resizes it, Delete removes it.
+// Both plans are saved per browser; "Copy link" encodes them in ?plans= to share.
 
-// Bump the version when DEFAULT_PLAN changes so browsers pick up the new default
-const STORE = "airbnb-pitch:timeline:v3";
-const SNAP = 0.5; // hours
-const LANES = 3;
-const DAYS = ["Fri", "Sat", "Sun", "Mon"];
-// Times are hours from Friday 00:00 (Sat 00:00 = 24, Sun 10:00 = 58)
+// Bump the version when DEFAULT_PLANS changes so browsers pick up the new defaults
+const STORE = "airbnb-pitch:plans:v4";
+const SNAP = 0.25; // hours
+const LANES = 2;
+const KEYS = ["A", "B"];
+const RECOMMENDED = "A";
+// Times are hours from check-in day 00:00 (next day 00:00 = 24, check-out 10:00 = 58)
 const CHECK_IN = 16;
 const CHECK_OUT = 58;
 
+// Palette activities. A block can override the name with its own `label` (double-click to rename).
 export const TYPES = {
-  meal: { zh: "简餐", dur: 1 },
-  evening: { zh: "度过夜晚", dur: 4 },
-  prep: { zh: "肉类准备", dur: 2 },
+  drive: { zh: "出发 / 路上", dur: 2 },
+  shop: { zh: "Costco / 采购", dur: 1.5 },
+  checkin: { zh: "Check-in / 卸行李", dur: 0.5 },
+  solvang: { zh: "丹麦小镇", dur: 2 },
+  dinner: { zh: "烹饪 / 晚餐", dur: 3 },
+  // open: no preset length; the chip shows no hours and a new block starts short, then gets resized
+  drinks: { zh: "喝酒", dur: 2, open: true },
+  games: { zh: "桌游", dur: 2 },
   trpg: { zh: "跑团", dur: 6 },
+  wake: { zh: "起床 / 早餐", dur: 2 },
+  meal: { zh: "简餐", dur: 1 },
+  beach: { zh: "沙滩", dur: 2 },
+  prep: { zh: "肉类准备", dur: 2 },
   bbq: { zh: "烧烤", dur: 3 },
-  drinks: { zh: "喝酒", dur: 4 },
+  free: { zh: "自由娱乐", dur: 2 },
   sleep: { zh: "睡觉洗漱", dur: 8 },
-  travel: { zh: "回程 / 丹麦小镇", dur: 2 },
+  travel: { zh: "返程", dur: 2 },
+  stay: { zh: "留宿至周一（可选）", dur: 12 },
 };
 
-const FROM_OPTIONS = [[12, "Fri 12:00"], [16, "Fri 16:00"], [18, "Fri 18:00"]];
-const TO_OPTIONS = [[58, "Sun 10:00"], [60, "Sun 12:00"], [62, "Sun 14:00"], [66, "Sun 18:00"]];
+const FROM_HOURS = [8, 10, 12, 16];
+const TO_HOURS = [48, 52, 58, 60, 64];
 
-const DEFAULT_PLAN = {
-  from: 16,
-  to: 60,
-  // Fri: check in, light dinner, evening, 8h sleep. Sat: meat prep at noon, 跑团 in the
-  // afternoon, BBQ + drinks at dinner, 8h sleep. Sun: check out 10:00.
-  blocks: [
-    ["meal", 18, 1, 0], ["evening", 19, 4, 0], ["sleep", 23, 8, 0], ["prep", 35.5, 2, 0],
-    ["trpg", 37.5, 5.5, 0], ["bbq", 43, 3, 0], ["drinks", 43, 4, 1], ["sleep", 47.5, 8, 0],
-    ["travel", 58, 2, 0],
-  ].map(([type, start, dur, lane]) => ({ type, start, dur, lane })),
+const toBlocks = (rows) => rows.map(([type, start, dur, lane, label]) => ({ type, start, dur, lane, ...(label && { label }) }));
+const DEFAULT_PLANS = {
+  from: 10,
+  to: 58,
+  plans: {
+    // Solvang on the way up on day 1, full 跑团 on day 2, some head home Sunday night.
+    // Things that happen at the same time sit side by side (column 0 | column 1).
+    A: toBlocks([
+      ["drive", 10.5, 3, 0, "集合出发、前往 Solvang"],
+      ["solvang", 13.5, 1.25, 0, "丹麦小镇：午餐、观光"],
+      ["shop", 14.75, 1.25, 0, "Costco / 超市采购、前往住宿"],
+      ["prep", 16, 2, 0], ["checkin", 16, 2, 1, "Check-in、卸行李"],
+      ["bbq", 18, 6, 0], ["drinks", 18, 6, 1],
+      ["sleep", 25, 10, 0],
+      ["wake", 35, 2, 0, "起床、早餐"],
+      ["trpg", 37, 6, 0, "完整跑团"],
+      ["meal", 43, 1, 0, "整理、晚餐"],
+      ["travel", 44, 2, 0, "马尔基诺返程"], ["stay", 44, 14, 1, "其余可选择住至周一"],
+    ]),
+    // Shop and drive up on day 1, 跑团 alongside dinner + drinks that night; beach + Solvang on day 2
+    B: toBlocks([
+      ["shop", 12, 0.5, 0, "Costco / 超市采购完成、集合"],
+      ["drive", 12.5, 3, 0, "出发、前往住宿"],
+      ["free", 15.5, 0.5, 0, "到达附近、休息、等待入住"],
+      ["prep", 16, 2, 0], ["checkin", 16, 2, 1, "Check-in、卸行李"],
+      ["bbq", 18, 3, 0, "烧烤、晚餐"], ["drinks", 21, 3.5, 0],
+      ["trpg", 18.5, 6, 1, "完整跑团"],
+      ["free", 24.5, 1.5, 0, "自由娱乐"],
+      ["sleep", 26, 8, 0],
+      ["wake", 34, 1.5, 0, "起床、早餐"],
+      ["beach", 35.5, 2.5, 0, "沙滩"],
+      ["meal", 38, 1, 0, "简餐"],
+      ["drive", 39, 1, 0, "前往 Solvang"],
+      ["solvang", 40, 2.5, 0, "Solvang 丹麦小镇：观光、甜点"],
+      ["drive", 42.5, 1, 0, "返回住宿"],
+      ["dinner", 43.5, 1.5, 0, "晚餐或休息"],
+      ["travel", 45, 2, 0, "返程"], ["stay", 45, 13, 1, "其余可选择住至周一"],
+    ]),
+  },
 };
 
 const pad = (n) => String(n).padStart(2, "0");
 const clock = (h) => { const m = Math.round(h * 60) % 1440; return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`; };
-const day = (h) => DAYS[Math.floor(h / 24)] ?? "";
-const when = (h) => `${day(h)} ${clock(h)}`;
 const hrs = (d) => `${+d.toFixed(1)}h`;
 const snap = (h) => Math.round(h / SNAP) * SNAP;
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-const clone = (plan) => JSON.parse(JSON.stringify(plan));
+const clone = (x) => JSON.parse(JSON.stringify(x));
 
 // ---------- state ----------
 
-// Compact share format: "16-60~prep.34.4.0~bbq.38.6.0" (start/duration in half hours)
-function encode(plan) {
-  return [`${plan.from}-${plan.to}`, ...plan.blocks.map((b) => `${b.type}.${b.start * 2}.${b.dur * 2}.${b.lane}`)].join("~");
+// Share format: "10-58_A~drive.42.12.0.集合…~sleep.100.40.0_B~…" (start/duration in quarter hours,
+// optional URI-encoded label)
+const escLabel = (t) => encodeURIComponent(t).replace(/[.~_!]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase());
+
+function encode(state) {
+  return [`${state.from}-${state.to}`, ...KEYS.map((k) =>
+    [k, ...state.plans[k].map((b) => [b.type, b.start * 4, b.dur * 4, b.lane, ...(b.label ? [escLabel(b.label)] : [])].join("."))].join("~"))].join("_");
 }
 
 function decode(text) {
-  const [range, ...items] = text.split("~");
+  const [range, ...parts] = text.split("_");
   const [from, to] = range.split("-").map(Number);
   if (!(from < to)) return null;
-  const blocks = items.map((s) => {
-    const [type, start, dur, lane] = s.split(".");
-    return { type, start: Number(start) / 2, dur: Number(dur) / 2, lane: clamp(Number(lane) || 0, 0, LANES - 1) };
-  }).filter((b) => TYPES[b.type] && b.dur > 0 && Number.isFinite(b.start));
-  return { from, to, blocks };
+  const plans = Object.fromEntries(KEYS.map((k) => [k, []]));
+  for (const part of parts) {
+    const [key, ...items] = part.split("~");
+    if (!plans[key]) continue;
+    plans[key] = items.map((s) => {
+      const [type, start, dur, lane, label] = s.split(".");
+      const b = { type, start: Number(start) / 4, dur: Number(dur) / 4, lane: clamp(Number(lane) || 0, 0, LANES - 1) };
+      if (label) { try { b.label = decodeURIComponent(label); } catch {} }
+      return b;
+    }).filter((b) => TYPES[b.type] && b.dur > 0 && Number.isFinite(b.start));
+  }
+  return { from, to, plans };
+}
+
+function save(state) {
+  try { localStorage.setItem(STORE, JSON.stringify(state)); } catch {}
 }
 
 function load() {
   const url = new URL(location.href);
-  const shared = url.searchParams.get("plan");
+  const shared = url.searchParams.get("plans");
   if (shared) {
-    url.searchParams.delete("plan");
+    url.searchParams.delete("plans");
     history.replaceState(null, "", url);
-    const plan = decode(shared);
-    if (plan) { save(plan); return plan; }
+    const state = decode(shared);
+    if (state) { save(state); return state; }
   }
   try {
-    const plan = JSON.parse(localStorage.getItem(STORE));
-    if (plan?.blocks) return plan;
+    const state = JSON.parse(localStorage.getItem(STORE));
+    if (state?.plans?.A && state?.plans?.B) return state;
   } catch {}
-  return clone(DEFAULT_PLAN);
-}
-
-function save(plan) {
-  try { localStorage.setItem(STORE, JSON.stringify(plan)); } catch {}
+  return clone(DEFAULT_PLANS);
 }
 
 // ---------- view ----------
 
-export function mountTimeline(root) {
-  let plan = load();
-  let focusIndex = null;
+// dayNames: weekday labels starting from the check-in day, e.g. ["Sat", "Sun", "Mon", "Tue"]
+// quiet: the house's quiet hours, e.g. { from: 21, to: 8, label: "9:00 PM – 8:00 AM" }; shaded
+// on both plans (falls back to plain night shading 22:00–07:00)
+export function mountPlans(root, { dayNames, quiet }) {
+  const day = (h) => dayNames[Math.floor(h / 24)] ?? "";
+  const when = (h) => `${day(h)} ${clock(h)}`;
+  let state = load();
+  let focus = null; // { key, i } of the block that just changed
+  let lastKey = "A"; // tapping a palette chip adds to the plan used last
 
-  const pct = (h) => ((h - plan.from) / (plan.to - plan.from)) * 100;
-  const span = (a, b) => `left:${pct(a)}%;width:${pct(b) - pct(a)}%`;
-
-  root.innerHTML = `<div class="tl">
+  root.innerHTML = `<div class="pl">
   <div class="tl-bar">
-    <div class="tl-palette" aria-label="Activities: drag onto the timeline, or tap to add">
+    <div class="tl-palette" aria-label="Activities: drag into a plan, or tap to add">
       ${Object.entries(TYPES).map(([type, t]) => `<button type="button" class="tl-chip" data-add="${type}" data-type="${type}">
-        <b>${t.zh}</b><span>${t.dur}h</span></button>`).join("")}
-    </div>
-    <div class="tl-controls">
-      <label>From <select data-range="from">${FROM_OPTIONS.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select></label>
-      <label>To <select data-range="to">${TO_OPTIONS.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select></label>
-      <button type="button" class="tl-btn" data-act="share">Copy link</button>
-      <button type="button" class="tl-btn" data-act="reset">Reset</button>
+        <b>${t.zh}</b>${t.open ? "" : `<span>${t.dur}h</span>`}</button>`).join("")}
     </div>
   </div>
-  <div class="tl-scroll"><div class="tl-inner"></div></div>
+  <div class="tl-controls">
+    <label>From <select data-range="from">${FROM_HOURS.map((h) => `<option value="${h}">${when(h)}</option>`).join("")}</select></label>
+    <label>To <select data-range="to">${TO_HOURS.map((h) => `<option value="${h}">${when(h)}</option>`).join("")}</select></label>
+    <button type="button" class="tl-btn" data-act="share">Copy link</button>
+    <button type="button" class="tl-btn" data-act="reset">Reset</button>
+  </div>
+  <div class="pl-grid">
+    <div></div>
+    ${KEYS.map((k) => `<div class="pl-head${k === RECOMMENDED ? " rec" : ""}">Plan ${k}${k === RECOMMENDED ? ' <span class="rec-badge">Recommended</span>' : ""}</div>`).join("")}
+    <div class="pl-axis"></div>
+    ${KEYS.map((k) => `<div class="pl-track" data-plan="${k}"></div>`).join("")}
+  </div>
 </div>`;
 
-  const inner = root.querySelector(".tl-inner");
+  const grid = root.querySelector(".pl-grid");
+  const axis = root.querySelector(".pl-axis");
+  const tracks = Object.fromEntries(KEYS.map((k) => [k, root.querySelector(`.pl-track[data-plan="${k}"]`)]));
   const fromSel = root.querySelector('[data-range="from"]');
   const toSel = root.querySelector('[data-range="to"]');
 
-  function blockHTML(b, i) {
-    const t = TYPES[b.type];
-    return `<div class="blk" data-i="${i}" data-type="${b.type}" tabindex="0" title="${t.zh}: ${when(b.start)}–${when(b.start + b.dur)} (${hrs(b.dur)})" style="${span(b.start, b.start + b.dur)};--lane:${b.lane}"
-      aria-label="${t.zh}, ${when(b.start)} to ${when(b.start + b.dur)}">
-      <span class="blk-h blk-h-l"></span>
-      <span class="blk-zh">${t.zh}</span>
-      <span class="blk-time">${when(b.start)}–${clock(b.start + b.dur)} · ${hrs(b.dur)}</span>
-      <button type="button" class="blk-del" aria-label="Remove ${t.zh}">×</button>
-      <span class="blk-h blk-h-r"></span>
+  const pct = (h) => ((h - state.from) / (state.to - state.from)) * 100;
+  const timeText = (b) => `${clock(b.start)}–${clock(b.start + b.dur)}`;
+
+  const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
+  const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ESC[c]);
+
+  function blockHTML(key, b, i) {
+    const name = esc(b.label || TYPES[b.type].zh);
+    return `<div class="blk${b.dur <= 1 ? " short" : ""}${b.dur <= 0.5 ? " tiny" : ""}" data-plan="${key}" data-i="${i}" data-type="${b.type}" tabindex="0"
+      title="${name}: ${when(b.start)}–${when(b.start + b.dur)} (${hrs(b.dur)}). Double-click to rename" aria-label="${name}, ${when(b.start)} to ${when(b.start + b.dur)}"
+      style="top:${pct(b.start)}%;height:${pct(b.start + b.dur) - pct(b.start)}%;--lane:${b.lane}">
+      <span class="blk-h blk-h-t"></span>
+      <span class="blk-zh">${name}</span>
+      <span class="blk-time">${timeText(b)}</span>
+      <button type="button" class="blk-del" aria-label="Remove ${name}">×</button>
+      <span class="blk-h blk-h-b"></span>
     </div>`;
   }
 
   function render() {
-    const { from, to } = plan;
+    const { from, to } = state;
     fromSel.value = from;
     toSel.value = to;
-    inner.style.setProperty("--hours", to - from);
+    grid.style.setProperty("--hours", to - from);
+    grid.style.setProperty("--lanes", LANES);
 
-    const days = [];
-    for (let d = Math.floor(from / 24) * 24; d < to; d += 24) {
-      const a = Math.max(from, d), b = Math.min(to, d + 24);
-      days.push(`<div class="tl-day" style="${span(a, b)}">${day(d)}</div>`);
+    const ticks = [`<span class="pl-day" style="top:0%">${day(from)}</span>`];
+    for (let h = Math.ceil(from / 2) * 2; h < to; h += 2) {
+      if (h === from) continue;
+      ticks.push(h % 24 === 0
+        ? `<span class="pl-day" style="top:${pct(h)}%">${day(h)}</span>`
+        : `<span class="pl-tick" style="top:${pct(h)}%">${clock(h)}</span>`);
     }
-    const ticks = [];
-    for (let h = Math.ceil(from / 3) * 3; h <= to; h += 3) {
-      if (h > from && h < to) ticks.push(`<span class="tl-tick" style="left:${pct(h)}%">${clock(h)}</span>`);
-    }
-    const nights = [];
-    for (let n = 22; n < to; n += 24) {
-      const a = Math.max(from, n), b = Math.min(to, n + 9);
-      if (b > a) nights.push(`<div class="tl-night" style="${span(a, b)}"></div>`);
-    }
-    const marks = [[CHECK_IN, "Check-in"], [CHECK_OUT, "Check-out"]]
-      .filter(([h]) => h >= from && h <= to)
-      .map(([h, label]) => `<div class="tl-mark${pct(h) > 80 ? " end" : ""}" style="left:${pct(h)}%"><span>${label} ${clock(h)}</span></div>`);
+    axis.innerHTML = ticks.join("");
 
-    inner.innerHTML = `<div class="tl-axis">${days.join("")}${ticks.join("")}</div>
-      <div class="tl-track" style="--lanes:${LANES}">
-        ${nights.join("")}${marks.join("")}
-        ${plan.blocks.map((b, i) => (b.start + b.dur > from && b.start < to ? blockHTML(b, i) : "")).join("")}
-      </div>`;
+    const backdrop = [];
+    for (let d = Math.ceil(from / 24) * 24; d < to; d += 24) {
+      if (d > from) backdrop.push(`<div class="pl-midnight" style="top:${pct(d)}%"></div>`);
+    }
+    const nightFrom = quiet?.from ?? 22;
+    const nightLen = (quiet?.to ?? 7) + 24 - nightFrom;
+    for (let n = nightFrom - 24; n < to; n += 24) {
+      const a = Math.max(from, n), b = Math.min(to, n + nightLen);
+      if (b > a) {
+        backdrop.push(`<div class="pl-night${quiet ? " quiet" : ""}" style="top:${pct(a)}%;height:${pct(b) - pct(a)}%">${
+          quiet && b - a >= 2 ? "<span>Quiet hours</span>" : ""}</div>`);
+      }
+    }
+    for (const [h, label] of [[CHECK_IN, "Check-in"], [CHECK_OUT, "Check-out"]]) {
+      if (h >= from && h <= to) backdrop.push(`<div class="pl-mark" style="top:${pct(h)}%"><span>${label} ${clock(h)}</span></div>`);
+    }
 
-    if (focusIndex != null) inner.querySelector(`.blk[data-i="${focusIndex}"]`)?.focus();
-    focusIndex = null;
+    for (const key of KEYS) {
+      tracks[key].innerHTML = backdrop.join("") + state.plans[key]
+        .map((b, i) => (b.start + b.dur > from && b.start < to ? blockHTML(key, b, i) : "")).join("");
+    }
+
+    if (focus) root.querySelector(`.blk[data-plan="${focus.key}"][data-i="${focus.i}"]`)?.focus();
+    focus = null;
   }
 
-  const overlaps = (b, lane) => plan.blocks.some((o) =>
+  const overlaps = (blocks, b, lane) => blocks.some((o) =>
     o !== b && o.lane === lane && o.start < b.start + b.dur && b.start < o.start + o.dur);
 
-  // focusIndex is the block that just changed; if it now covers another block, move it to a free row
+  // If the block that just changed now covers another one, move it to a free column
   function commit() {
-    const b = plan.blocks[focusIndex];
-    if (b && overlaps(b, b.lane)) {
-      const free = [...Array(LANES).keys()].find((lane) => !overlaps(b, lane));
+    const blocks = focus && state.plans[focus.key];
+    const b = blocks?.[focus.i];
+    if (b && overlaps(blocks, b, b.lane)) {
+      const free = [...Array(LANES).keys()].find((lane) => !overlaps(blocks, b, lane));
       if (free !== undefined) b.lane = free;
     }
-    save(plan);
+    save(state);
     render();
   }
 
-  // Place a dragged block without a full re-render
+  // Redraw a dragged block without a full re-render
   function place(el, b) {
-    el.style.left = `${pct(b.start)}%`;
-    el.style.width = `${pct(b.start + b.dur) - pct(b.start)}%`;
+    el.style.top = `${pct(b.start)}%`;
+    el.style.height = `${pct(b.start + b.dur) - pct(b.start)}%`;
     el.style.setProperty("--lane", b.lane);
-    el.querySelector(".blk-time").textContent = `${when(b.start)}–${clock(b.start + b.dur)} · ${hrs(b.dur)}`;
+    el.querySelector(".blk-time").textContent = timeText(b);
   }
 
-  // First spot (row by row, left to right) where a block of this length doesn't overlap anything
-  function freeSlot(dur) {
+  // First spot (column by column, top to bottom) where a block of this length fits
+  function freeSlot(blocks, dur) {
     for (let lane = 0; lane < LANES; lane++) {
-      for (let start = plan.from; start + dur <= plan.to; start += SNAP) {
-        const clash = plan.blocks.some((b) => b.lane === lane && b.start < start + dur && start < b.start + b.dur);
+      for (let start = state.from; start + dur <= state.to; start += SNAP) {
+        const clash = blocks.some((b) => b.lane === lane && b.start < start + dur && start < b.start + b.dur);
         if (!clash) return { start, lane };
       }
     }
-    return { start: plan.from, lane: LANES - 1 };
+    return { start: state.from, lane: LANES - 1 };
   }
 
-  // Move / resize existing blocks
-  inner.addEventListener("pointerdown", (e) => {
+  // Move / resize blocks
+  grid.addEventListener("pointerdown", (e) => {
     const el = e.target.closest(".blk");
     if (!el || e.target.closest(".blk-del") || e.button > 0) return;
     e.preventDefault();
-    const b = plan.blocks[el.dataset.i];
+    const key = el.dataset.plan;
+    lastKey = key;
+    const b = state.plans[key][el.dataset.i];
     const orig = { ...b };
-    const mode = e.target.closest(".blk-h-l") ? "left" : e.target.closest(".blk-h-r") ? "right" : "move";
-    const track = inner.querySelector(".tl-track");
-    const pxPerHour = track.getBoundingClientRect().width / (plan.to - plan.from);
-    const laneHeight = parseFloat(getComputedStyle(track).getPropertyValue("--lane-h")) || 56;
+    const mode = e.target.closest(".blk-h-t") ? "top" : e.target.closest(".blk-h-b") ? "bottom" : "move";
+    const rect = tracks[key].getBoundingClientRect();
+    const pxPerHour = rect.height / (state.to - state.from);
+    const laneWidth = rect.width / LANES;
     const sx = e.clientX, sy = e.clientY;
     el.setPointerCapture(e.pointerId);
     el.classList.add("dragging");
     el.focus({ preventScroll: true });
 
     const move = (ev) => {
-      const dh = snap((ev.clientX - sx) / pxPerHour);
+      const dh = snap((ev.clientY - sy) / pxPerHour);
       if (mode === "move") {
-        b.start = clamp(orig.start + dh, plan.from, plan.to - orig.dur);
-        b.lane = clamp(orig.lane + Math.round((ev.clientY - sy) / laneHeight), 0, LANES - 1);
-      } else if (mode === "left") {
+        b.start = clamp(orig.start + dh, state.from, state.to - orig.dur);
+        b.lane = clamp(orig.lane + Math.round((ev.clientX - sx) / laneWidth), 0, LANES - 1);
+      } else if (mode === "top") {
         const end = orig.start + orig.dur;
-        b.start = clamp(orig.start + dh, plan.from, end - SNAP);
+        b.start = clamp(orig.start + dh, state.from, end - SNAP);
         b.dur = end - b.start;
       } else {
-        b.dur = clamp(orig.dur + dh, SNAP, plan.to - orig.start);
+        b.dur = clamp(orig.dur + dh, SNAP, state.to - orig.start);
       }
       place(el, b);
     };
@@ -228,7 +307,7 @@ export function mountTimeline(root) {
       el.removeEventListener("pointermove", move);
       el.removeEventListener("pointerup", end);
       el.removeEventListener("pointercancel", end);
-      focusIndex = Number(el.dataset.i);
+      focus = { key, i: Number(el.dataset.i) };
       commit();
     };
     el.addEventListener("pointermove", move);
@@ -236,28 +315,50 @@ export function mountTimeline(root) {
     el.addEventListener("pointercancel", end);
   });
 
-  inner.addEventListener("click", (e) => {
+  grid.addEventListener("click", (e) => {
     const del = e.target.closest(".blk-del");
     if (!del) return;
-    plan.blocks.splice(Number(del.closest(".blk").dataset.i), 1);
+    const el = del.closest(".blk");
+    state.plans[el.dataset.plan].splice(Number(el.dataset.i), 1);
     commit();
   });
 
-  inner.addEventListener("keydown", (e) => {
+  // Double-click (or Enter) a block to give it its own name
+  function rename(el) {
+    const key = el.dataset.plan, i = Number(el.dataset.i);
+    const b = state.plans[key][i];
+    const name = prompt("Block name", b.label || TYPES[b.type].zh);
+    if (name === null) return;
+    if (name.trim() && name.trim() !== TYPES[b.type].zh) b.label = name.trim();
+    else delete b.label;
+    focus = { key, i };
+    commit();
+  }
+  grid.addEventListener("dblclick", (e) => {
+    const el = e.target.closest(".blk");
+    if (el && !e.target.closest(".blk-del")) rename(el);
+  });
+
+  grid.addEventListener("keydown", (e) => {
     const el = e.target.closest(".blk");
     if (!el) return;
+    const key = el.dataset.plan;
     const i = Number(el.dataset.i);
-    const b = plan.blocks[i];
+    const b = state.plans[key][i];
+    if (e.key === "Enter") {
+      e.preventDefault();
+      return rename(el);
+    }
     if (e.key === "Delete" || e.key === "Backspace") {
-      plan.blocks.splice(i, 1);
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      const dh = e.key === "ArrowLeft" ? -SNAP : SNAP;
-      if (e.shiftKey) b.dur = clamp(b.dur + dh, SNAP, plan.to - b.start);
-      else b.start = clamp(b.start + dh, plan.from, plan.to - b.dur);
-      focusIndex = i;
+      state.plans[key].splice(i, 1);
     } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-      b.lane = clamp(b.lane + (e.key === "ArrowUp" ? -1 : 1), 0, LANES - 1);
-      focusIndex = i;
+      const dh = e.key === "ArrowUp" ? -SNAP : SNAP;
+      if (e.shiftKey) b.dur = clamp(b.dur + dh, SNAP, state.to - b.start);
+      else b.start = clamp(b.start + dh, state.from, state.to - b.dur);
+      focus = { key, i };
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      b.lane = clamp(b.lane + (e.key === "ArrowLeft" ? -1 : 1), 0, LANES - 1);
+      focus = { key, i };
     } else {
       return;
     }
@@ -265,7 +366,7 @@ export function mountTimeline(root) {
     commit();
   });
 
-  // Drag a new activity from the palette; a tap without dragging drops it in the first free slot
+  // Drag a new activity from the palette into a plan; a tap adds it to the last-used plan
   root.querySelector(".tl-palette").addEventListener("pointerdown", (e) => {
     const chip = e.target.closest("[data-add]");
     if (!chip || e.button > 0) return;
@@ -290,21 +391,26 @@ export function mountTimeline(root) {
       window.removeEventListener("pointerup", up);
       window.removeEventListener("pointercancel", up);
       if (!ghost) {
-        plan.blocks.push({ type, dur, ...freeSlot(dur) });
-        focusIndex = plan.blocks.length - 1;
+        const blocks = state.plans[lastKey];
+        blocks.push({ type, dur, ...freeSlot(blocks, dur) });
+        focus = { key: lastKey, i: blocks.length - 1 };
         return commit();
       }
       ghost.remove();
       if (ev.type === "pointercancel") return;
-      const r = inner.querySelector(".tl-track").getBoundingClientRect();
-      if (ev.clientX < r.left || ev.clientX > r.right || ev.clientY < r.top || ev.clientY > r.bottom) return;
-      const h = plan.from + ((ev.clientX - r.left) / r.width) * (plan.to - plan.from);
-      plan.blocks.push({
+      const track = document.elementFromPoint(ev.clientX, ev.clientY)?.closest(".pl-track");
+      if (!track || !root.contains(track)) return;
+      const key = track.dataset.plan;
+      const r = track.getBoundingClientRect();
+      const h = state.from + ((ev.clientY - r.top) / r.height) * (state.to - state.from);
+      const blocks = state.plans[key];
+      blocks.push({
         type, dur,
-        start: clamp(snap(h - dur / 2), plan.from, Math.max(plan.from, plan.to - dur)),
-        lane: clamp(Math.floor(((ev.clientY - r.top) / r.height) * LANES), 0, LANES - 1),
+        start: clamp(snap(h - dur / 2), state.from, Math.max(state.from, state.to - dur)),
+        lane: clamp(Math.floor(((ev.clientX - r.left) / r.width) * LANES), 0, LANES - 1),
       });
-      focusIndex = plan.blocks.length - 1;
+      lastKey = key;
+      focus = { key, i: blocks.length - 1 };
       commit();
     };
     window.addEventListener("pointermove", move);
@@ -312,17 +418,17 @@ export function mountTimeline(root) {
     window.addEventListener("pointercancel", up);
   });
 
-  fromSel.addEventListener("change", () => { plan.from = Number(fromSel.value); commit(); });
-  toSel.addEventListener("change", () => { plan.to = Number(toSel.value); commit(); });
+  fromSel.addEventListener("change", () => { state.from = Number(fromSel.value); commit(); });
+  toSel.addEventListener("change", () => { state.to = Number(toSel.value); commit(); });
 
   root.querySelector('[data-act="reset"]').addEventListener("click", () => {
-    plan = clone(DEFAULT_PLAN);
+    state = clone(DEFAULT_PLANS);
     commit();
   });
 
   root.querySelector('[data-act="share"]').addEventListener("click", async (e) => {
     const url = new URL(location.href);
-    url.searchParams.set("plan", encode(plan));
+    url.searchParams.set("plans", encode(state));
     const btn = e.currentTarget;
     try {
       await navigator.clipboard.writeText(url.href);

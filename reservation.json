@@ -1,0 +1,58 @@
+{
+  "id": "1040827055809906305",
+  "dates": "2026-11-14_2026-11-16",
+  "status": "Booked",
+  "confirmation_code": "HMFMYCPBQY",
+  "guests": 8,
+  "amount_paid": 2481.75,
+  "receipt_url": "https://www.airbnb.com/receipt-on-demand?bill_token=81aYXO9lnuFjZxp0bXli1z80WHG&bill_version_token=81aYXO9zZyA0uF8F80xs0CF1m8m&tender_token=81aYXO9zma74N01fOAMGFYz5m8m&product_id=1811156780890662738&user_id=227526192",
+  "check_in": { "day": "Sat, Nov 14", "time": "4:00 PM" },
+  "check_out": { "day": "Mon, Nov 16", "time": "10:00 AM" },
+  "check_in_method": "Smart lock. Please reach out to the host for check-in instructions.",
+  "address": "1358 Strand Way, Oceano, CA 93445",
+  "directions": [
+    {
+      "from": "From the North",
+      "steps": [
+        "Head south on Highway 101",
+        "Take exit 190B towards Hinds Ave",
+        "Turn right onto Hinds Ave",
+        "Turn left on Price St (100 ft)",
+        "Turn right on Ocean View Ave (0.1 mi)",
+        "Turn left onto CA-1 S / Dolliver St (0.1 mi)",
+        "Turn right onto Pier Ave (2.4 mi)",
+        "Turn left onto Strand Way (0.4 mi)"
+      ]
+    },
+    {
+      "from": "From the South",
+      "steps": [
+        "Head north on Highway 101",
+        "Take exit 189 for N 4th St toward 5 Cities",
+        "Turn left onto N 4th St",
+        "Continue straight, turn right onto W Grand Ave (1.1 mi)",
+        "Turn left onto Pacific Blvd after crossing over the train tracks (0.2 mi)",
+        "Turn right onto Pier Ave (1.1 mi)",
+        "Turn left onto Strand Way (0.4 mi)"
+      ]
+    }
+  ],
+  "directions_note": "The Strand is a specific strip of homes along the beach, offering a unique experience with direct access to the Pacific Ocean.",
+  "quiet_hours": { "label": "9:00 PM – 8:00 AM", "from": 21, "to": 8 },
+  "house_rules": [
+    "Up to 10 overnight guests",
+    "No pets",
+    "No smoking, including vaping and e-cigarettes",
+    "Quiet hours 9:00 PM – 8:00 AM",
+    "No parties or events",
+    "No commercial photography or filming",
+    "Lock up at checkout: doors and windows, double-check the sliding glass doors",
+    "Occupancy is limited to the number of guests on the reservation"
+  ],
+  "cancellation": [
+    { "when": "Within 24 hours of booking", "result": "Full refund", "detail": "Get back 100% of what you paid." },
+    { "when": "Before Nov 7, 4:00 PM", "result": "Partial refund", "detail": "Get back 50% of every night. No refund of the service fee." },
+    { "when": "After Nov 7, 4:00 PM", "result": "No refund", "detail": "This reservation is non-refundable." }
+  ],
+  "cancellation_note": "Times are based on the listing's location."
+}

@@ -24,6 +24,8 @@ export function loadModel() {
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ESC[c]);
 export const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
+// Exact amounts (what was actually paid / owed), e.g. $2,481.75
+export const cents = (n) => "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 export const pageLink = (params) => `${SITE}?${new URLSearchParams(params)}`;
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
@@ -56,7 +58,9 @@ function airbnbURL(link, checkIn, checkOut) {
 // Update everything that depends on the head count without re-rendering the blocks
 function refreshPeople(root = document) {
   root.querySelectorAll(".people-n").forEach((el) => { el.textContent = people; });
-  root.querySelectorAll("[data-split]").forEach((el) => { el.textContent = money(el.dataset.split / people); });
+  root.querySelectorAll("[data-split]").forEach((el) => {
+    el.textContent = ("cents" in el.dataset ? cents : money)(el.dataset.split / people);
+  });
   root.querySelectorAll("[data-cap]").forEach((el) => { el.hidden = people <= Number(el.dataset.cap); });
   root.querySelectorAll("a[data-airbnb]").forEach((a) => {
     const [link, ci, co] = a.dataset.airbnb.split("|");

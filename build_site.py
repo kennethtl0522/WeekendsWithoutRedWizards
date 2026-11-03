@@ -10,6 +10,7 @@ Run:
     uv run build_site.py
 """
 import csv
+import hashlib
 import json
 import re
 from datetime import date
@@ -20,11 +21,17 @@ from main import house_rule_times, listing_id
 TRIP_TITLE = "WeekendsWithoutRedWizards"
 # Date range the group recommends; highlighted in the overview table
 RECOMMENDED_DATES = "2026-11-13_2026-11-15"
+# Google Apps Script web app URL for the shared 采购清单 (see apps-script/Code.gs).
+# Empty: the list still works, but only saves in each visitor's own browser.
+LISTS_URL = "https://script.google.com/macros/s/AKfycbxsyrcfxGQ31KQUdJxvb4jroLTJBdYkUc2Ml8Lj7tcaK-3Ut-zoVhYeRQ8PHDb4WWhp/exec"
 ROOT = Path(__file__).parent
 RAW = ROOT / "raw"
 DOCS = ROOT / "docs"
 IMAGES = DOCS / "images"
 MODEL = DOCS / "data" / "model.json"
+# Booked/picked house: reservation.json (house id, dates, status, reservation details).
+# When present, the overview switches to "booked" mode. Delete the file to go back.
+RESERVATION = ROOT / "reservation.json"
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".avif"}
 
 # City -> broader area, so the group sees which houses are near each other
@@ -211,6 +218,27 @@ def build_stay(e, n):
     }
 
 
+# Asset links get ?v=<hash of the assets> so a browser never mixes a cached old pitch.js with
+# a new app.js (GitHub Pages lets browsers cache files for 10 minutes)
+ASSETS = DOCS / "assets"
+VERSIONED = {
+    DOCS / "index.html": [r'(assets/style\.css)(\?v=\w+)?', r'(assets/app\.js)(\?v=\w+)?'],
+    ASSETS / "app.js": [r'(\./pitch\.js)(\?v=\w+)?', r'(\./timeline\.js)(\?v=\w+)?', r'(\./lists\.js)(\?v=\w+)?'],
+}
+
+
+def stamp_assets():
+    strip = lambda text: re.sub(r"\?v=\w+", "", text)
+    files = sorted(ASSETS.glob("*.js")) + sorted(ASSETS.glob("*.css"))
+    version = hashlib.sha1("".join(strip(f.read_text()) for f in files).encode()).hexdigest()[:8]
+    for path, patterns in VERSIONED.items():
+        text = path.read_text()
+        for pattern in patterns:
+            text = re.sub(pattern, rf"\g<1>?v={version}", text)
+        path.write_text(text)
+    return version
+
+
 def main():
     stays, listings, requested = load_data()
     notes = load_notes()
@@ -226,6 +254,8 @@ def main():
             "title": TRIP_TITLE,
             "guests": guests,
             "recommended": RECOMMENDED_DATES,
+            "lists_url": LISTS_URL or None,
+            "confirmed": json.loads(RESERVATION.read_text()) if RESERVATION.exists() else None,
             "updated": max((s["checked_at"] for d in model_stays.values() for s in d.values()), default=None),
         },
         "dates": [{
@@ -239,6 +269,7 @@ def main():
 
     MODEL.parent.mkdir(parents=True, exist_ok=True)
     MODEL.write_text(json.dumps(model, indent=1, ensure_ascii=False))
+    print(f"assets stamped ?v={stamp_assets()}")
     print(f"{MODEL.relative_to(ROOT)}: {len(ids)} houses, "
           f"{sum(map(len, model_stays.values()))} priced stays across {len(model_stays)} date ranges")
 
