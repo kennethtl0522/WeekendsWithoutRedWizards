@@ -82,7 +82,100 @@
      "detail": "This reservation is non-refundable."
     }
    ],
-   "cancellation_note": "Times are based on the listing's location."
+   "cancellation_note": "Times are based on the listing's location.",
+   "drive_times": {
+    "source": "Google Maps typical traffic, departure Sat Nov 14 9:00 AM / Sun Nov 15 6:00 PM (checked 2026-11-03)",
+    "routes": [
+     {
+      "from": "Rowland Heights",
+      "from_query": "Rowland Heights, CA",
+      "to": "住宿",
+      "to_query": "1358 Strand Way, Oceano, CA 93445",
+      "depart": "Sat 9:00 AM",
+      "min": 200,
+      "max": 280,
+      "miles": 201,
+      "via": "US-101 N"
+     },
+     {
+      "from": "Downtown LA",
+      "from_query": "Downtown Los Angeles, CA",
+      "to": "住宿",
+      "to_query": "1358 Strand Way, Oceano, CA 93445",
+      "depart": "Sat 9:00 AM",
+      "min": 170,
+      "max": 220,
+      "miles": 178,
+      "via": "US-101 N"
+     },
+     {
+      "from": "Rowland Heights",
+      "from_query": "Rowland Heights, CA",
+      "to": "Solvang",
+      "to_query": "Solvang, CA",
+      "depart": "Sat 9:00 AM",
+      "min": 150,
+      "max": 220,
+      "miles": 151,
+      "via": "US-101 N"
+     },
+     {
+      "from": "Downtown LA",
+      "from_query": "Downtown Los Angeles, CA",
+      "to": "Solvang",
+      "to_query": "Solvang, CA",
+      "depart": "Sat 9:00 AM",
+      "min": 120,
+      "max": 170,
+      "miles": 128,
+      "via": "US-101 N"
+     },
+     {
+      "from": "Solvang",
+      "from_query": "Solvang, CA",
+      "to": "住宿",
+      "to_query": "1358 Strand Way, Oceano, CA 93445",
+      "depart": "Sat 9:00 AM",
+      "min": 55,
+      "max": 65,
+      "miles": 55.5,
+      "via": "US-101 N"
+     },
+     {
+      "from": "住宿",
+      "from_query": "1358 Strand Way, Oceano, CA 93445",
+      "to": "Solvang",
+      "to_query": "Solvang, CA",
+      "depart": "Sat 9:00 AM",
+      "min": 55,
+      "max": 70,
+      "miles": 53.1,
+      "via": "US-101 S"
+     },
+     {
+      "from": "住宿",
+      "from_query": "1358 Strand Way, Oceano, CA 93445",
+      "to": "Rowland Heights",
+      "to_query": "Rowland Heights, CA",
+      "depart": "Sun 6:00 PM",
+      "min": 190,
+      "max": 240,
+      "miles": 200,
+      "via": "US-101 S"
+     },
+     {
+      "from": "住宿",
+      "from_query": "1358 Strand Way, Oceano, CA 93445",
+      "to": "Downtown LA",
+      "to_query": "Downtown Los Angeles, CA",
+      "depart": "Sun 6:00 PM",
+      "min": 170,
+      "max": 220,
+      "miles": 175,
+      "via": "US-101 S"
+     }
+    ]
+   }
   },
   "updated": "2026-11-01T18:35:47"
  },
@@ -208,6 +301,181 @@
     "Early check-out (10:00 AM)"
    ],
    "description": "*You're right on the sand!*\nYour DREAM Central Coast getaway awaits you at Strandcastle Beach House. This oceanfront home is directly on the sand! The home boasts magnificent views of the white sand, Oceano Dunes, and gorgeous blue Pacific Ocean from the floor-to-ceiling windows. The Strand is a special strip of homes right on the beach ~ the ONLY strip of homes on the beach where you can walk out the door onto the sand on the Central Coast. PLUS convenient Tesla L2 EV pay-per-use charging.\n\nThe space\nThe Strand is a very special strip of homes right on the beach and it is the ONLY strip of homes on the beach where you can walk out the door onto the sand on the entire Central Coast. Sunset bonfires are permitted on the beach (time for S'mores!) and you only have to walk out the door onto the sand to find your special spot. You will have the entire beach as your backyard playground. It's so stunning, it's ridiculous!\n\nThere is plenty of room for your families to sprawl out with 2 living rooms, multiple indoor/outdoor dining areas, a fabulous rooftop terrace, a gourmet kitchen, a wet bar, 4 bedrooms, and 3.5 baths. Every bed features luxurious new Purple Mattresses, and the Cal King is Tempurpedic. But that's not it, this home is also thoughtfully equipped with a Tesla charger! \n*Tesla L2 EV charging is available for $20 per vehicle, per night of use.*\n\nDiscover the laid-back allure of the Central Coast with a seamless blend of coastal delights. Wander along the shoreline to reach Pismo Beach, explore the scenic Oceano Dunes and nearby hiking trails, or simply soak up the beauty of the Central Coast. Whether you're renting recreational vehicles or bringing your own, the spirit of adventure awaits. Enjoy renowned dining, explore charming shops, and delve into local museums. A short drive opens up a world of experiences—from Avila Beach, Arroyo Grande Village, and the SLO Farmer's Market to the grandeur of Hearst Castle, vibrant car shows, lively festivals, wine tastings, Cal Poly, Morro Bay, Lopez Lake, and so much more! We extend a warm invitation to bask in the magic of our dreamy beach house and set the stage for what promises to be your BEST vacation ever!\n\nMAIN FLOOR\n - 1 Queen bedroom w/ Purple Mattress and private en suite full bathroom\n - Powder Bathroom\n - Gourmet Kitchen\n - A living room that walks out to a beachfront patio PLUS separate living space with kids games, books, and more to keep the little ones occupied when you aren't at the beach!\n - Dining room adjoins Gourmet Kitchen and Living Room\n - Eat-in kitchen counter with seating\n - Laundry Room\n\nSECOND FLOOR/ROOFTOP TERRACE\n - Private Primary Suite features a Cal King bed with Tempurpedic Mattress, 5-piece en suite bath and private balcony\n - Queen Bedroom with Purple Mattress\n - Queen Bedroom plus XL Twin Bunk Bed with Purple Mattresses\n - Spacious 2nd living room with wet bar, beach-facing balcony, and AMAZING views of the ocean\n - Rooftop Terrace offers 3 separate gathering/dining areas with a cozy fire table and breathtaking 360 views!\n- Panoramic ocean views from the entire west side of the home and rooftop terrace ~ you really can't avoid seeing the beach!\n\nGuest access\nGuests have exclusive access to the entire property, including the beachfront patio, rooftop terrace, and attached 2-car garage with a pay-per-use Tesla L2 EV charger! Enjoy two living rooms, a gourmet kitchen, a laundry room, and Smart TVs. The home is equipped with top-of-the-line Purple Mattresses, a Tempurpedic Cal King bed, and Wi-Fi. No pets are allowed due to allergies.\n\nOther things to note\nStrandcastle Beach House 2.0, amidst the popular Oceano Dunes, offers a unique driving beach experience with easy access to 5 1/2 miles of shoreline. Enjoy a driving beach, off-roading in Oceano Dunes, surfing, walking/running, tons of outdoor activities, and proximity to dining, shopping, and medical facilities.\n\n***DUE TO ALLERGIES, THIS HOME CANNOT HOST PETS***\n\nFor your safety and enjoyment, there is a contained Solo Stove with seating for 'easy clean-up' beach fires. Please note that a fine of $1,000 will be imposed for open bonfires within 60 feet of the home.\n\nSOLO STOVE for your outdoor fire pit:\n* The Solo Stove demands minimal maintenance, yet it is crucial for guests to adhere strictly to usage instructions.\n* Please refrain from using water or metal utensils in the Solo Stove at any point.\n* Allow the fire to naturally burn out until it transforms into ashes, ensuring easy disposal. \n*If it starts to rain or you think it may rain, please ensure Solo Stove is covered.:)\n\nIndoor furniture, such as kitchen chairs, should not be moved outdoors; they are meant to remain inside the house.\n\nFor additional outdoor seating, please use the designated beach chairs conveniently located in the garage. *Please do not take the chairs down to the beach.*\n\nQUIET HOURS:\nWe kindly request adherence to quiet hours from 9pm to 8am.\n\nAvoid washing vehicles of any kind on the property or neighboring properties. Your cooperation is appreciated.\n\nRegistration Details\nSTR6011266",
+   "amenities": [
+    {
+     "group": "Scenic views",
+     "items": [
+      "Beach view",
+      "Ocean view",
+      "Sea view"
+     ]
+    },
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Cleaning products",
+      "Shampoo",
+      "Conditioner",
+      "Body soap",
+      "Outdoor shower",
+      "Hot water",
+      "Shower gel"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Free washer – In unit",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Iron",
+      "Clothing storage: walk-in closet and closet"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV",
+      "Books and reading material"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Pack ’n play/Travel crib",
+      "Children’s books and toys for ages 2-5 years old and 5-10 years old",
+      "High chair",
+      "Board games"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Central air conditioning",
+      "Indoor fireplace",
+      "Ceiling fan",
+      "Central heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Exterior security cameras on property",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Gas stove",
+      "Stainless steel oven",
+      "Coffee maker",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Blender",
+      "Barbecue utensils",
+      "Dining table"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Waterfront",
+      "Shared beach access"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Private patio or balcony",
+      "Backyard",
+      "Fire pit",
+      "Outdoor furniture",
+      "Outdoor dining area",
+      "BBQ grill",
+      "Sun loungers"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking garage on premises – 3 spaces",
+      "EV charger - level 2, tesla only"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Long term stays allowed",
+      "Self check-in",
+      "Smart lock"
+     ]
+    }
+   ],
+   "not_included": [
+    "Private entrance"
+   ],
+   "category_ratings": {
+    "cleanliness": 5.0,
+    "accuracy": 5.0,
+    "check_in": 5.0,
+    "communication": 5.0,
+    "location": 5.0,
+    "value": 4.8
+   },
+   "safety": [
+    "Exterior security cameras on property",
+    "Nearby lake, river, other body of water",
+    "Carbon monoxide alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Mauri",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.96,
+    "reviews": 296,
+    "years": 7,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "My work: Real Estate Broker",
+     "Fun fact: 3 of my 4 children are Realtors, too!:)"
+    ],
+    "about": "Hello from the sunny Central Coast of California! I'm a  longtime real estate broker, licensed in Colorado and California for over 22 years. My world is my 4 adult children, an unwavering love for the beach, and a passion for travel. Real estate is my obsession, especially when it comes to vacation homes. I love creating beautiful, comfortable spaces that ensure every guest has a memorable stay. I look forward to hosting you in one of my carefully curated properties!",
+    "cohosts": []
+   },
+   "lat": 35.1046,
+   "lng": -120.6301,
+   "photo_captions": [
+    "Living room 1 image 1",
+    "Dining area image 1",
+    "Bedroom 1 image 1",
+    "Rooftop image 1",
+    "Exterior image 1"
+   ],
    "note": "SSSSSR 包哥首推",
    "photos": [
     "01.jpg",
@@ -259,6 +527,166 @@
     "Early check-out (10:00 AM)"
    ],
    "description": "Your DREAM Central Coast getaway awaits you at Strandcastle Beach House. This oceanfront home is directly on the sand! The home boasts magnificent views of the white sand, Oceano dunes, and gorgeous blue Pacific Ocean from the floor-to-ceiling windows. The Strand is a special strip of homes right on the beach and it is the ONLY strip of homes on the beach where you can walk out the door onto the sand on the Central Coast.\n\nThe space\nThis sprawling oceanfront home is right on the sand, don't settle for less! The Strandcastle boasts magnificent views of the white sand, Oceano dunes, and gorgeous blue Pacific Ocean from the floor-to-ceiling windows throughout. The Strand is a very special strip of homes right on the beach and it is the ONLY strip of homes on the beach where you can walk out the door onto the sand on the entire Central Coast. \n\nThere is plenty of room for your families to sprawl out in this 3,120 square foot home with 2 large living rooms, multiple indoor/outdoor dining areas, a gourmet kitchen, a wet bar, 4 large bedrooms, and 3 baths. Discover the laid-back allure of the Central Coast with a seamless blend of coastal delights. Wander along the shoreline to reach Pismo Beach, explore the scenic Oceano Dunes or hit nearby hiking trails. Whether you're renting recreational vehicles or bringing your own, the spirit of adventure awaits. Enjoy renowned dining, explore charming shops, and delve into local museums. A short drive opens up a world of experiences—from Avila Beach, Arroyo Grande Village, and the SLO Farmer's Market to the grandeur of Hearst Castle, vibrant car shows, lively festivals, wine tastings, Cal Poly, Morro Bay, Lopez Lake, and so much more! We extend a warm invitation to bask in the magic of our dreamy beach house and set the stage for what promises to be your BEST vacation ever!\n\nSunset bonfires are permitted on the beach (time for S'mores!) and you only have to walk out the door onto the sand to find your special spot. You will have the entire beach as your own backyard playground. It's so stunning, it's ridiculous!\n\nMAIN FLOOR\n- 2 bedrooms ~ one with 2 bunk beds (3 twins, one full) and one Queen bedroom\n- Bathroom\n- Gourmet Kitchen with all you will need to make fabulous meals for your beachside dining ~ no reservations needed!\n- Large living room that walks out to a beachfront patio ~ cable television, games, books, and more to keep the little ones occupied when you aren't at the beach!\n- Breakfast nook dining table\n- Eat-in island with seating\n- Full dining room that walks out to an outdoor dining space with BBQ grill and beach toys! Don't forget to have the kiddos build a Strandcastle and send us pics!\n\nSECOND FLOOR\n- Private Primary Suite with a Cal King bed and 5-piece en suite bath\n- Queen Bedroom with private en suite full bath and private balcony\n- Spacious 2nd living room with wet bar and AMAZING views of the ocean\n\nOther Amenities\n- Panoramic ocean views from 2 balconies and 2 patios\n- The entire west side of the home has floor-to-ceiling windows ~ you really can't avoid seeing the beach!\n- Recently upgraded and thoughtfully decorated with a Cali beach vibe throughout\n- High chair\n- Pack N Play\n- Plush towels and bath amenities\n- 2 car spaces (max) in covered parking garage\n\nGuest access\nEmbrace the entire beach as your playground at Strandcastle Beach House. This spacious home features 4 bedrooms, 3 bathrooms, and beachfront access. Both levels boast endless ocean views from the kitchen, 2 living rooms, bedrooms, and dining areas.\n\nOther things to note\nStrandcastle Beach House, amidst the popular Oceano Dunes, offers a unique driving beach experience with easy access to 5 1/2 miles of shoreline. This area is among the most popular and unique of California State Parks. The 5 1/2 miles of beach open for vehicle use and the dunes available for off-highway motor vehicle recreation are attractions for visitors from throughout the United States. Oceano Dunes is the only California State Park where vehicles may be driven on the beach. Four-wheel drive / all-wheel drive vehicles are recommended for driving on the beach. Beach wheelchairs are available for loan at the Pier and Grand Avenue entrance to the beach. Surfing, swimming, surf fishing, and bird watching are popular activities. Just a few miles up the coast you'll find more activities like kayaking, cycling, wakeboarding, board walking, wine tasting and so much more! Also close to restaurants, shopping, and medical attention.\n\n***DUE TO ALLERGIES THIS HOME CANNOT HOST PETS ***\n\n***Parking and Firewood*** \n\nWe can only accommodate 2 cars parked in the garage. We will be fined for any violations and the HOA is super strict about it, so please adhere to this parking rule. BUT, there are options for additional cars if needed.:) There is street parking on the side streets, and an option to pay $20 a night for the dirt lot right across the street. \n\nThe owner of the dirt lot also sells firewood at any time. It's super convenient! Firewood is also sold in almost all of the stores in the area as well.\n\nQUIET HOURS:\nWe kindly request adherence to quiet hours from 9pm to 8am.\n\nAvoid washing vehicles of any kind on the property or neighboring properties. Your cooperation is appreciated.\n\nRegistration Details\nSTR6008585",
+   "amenities": [
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Cleaning products",
+      "Shampoo",
+      "Conditioner",
+      "Body soap",
+      "Hot water"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Free washer – In unit",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Iron",
+      "Clothing storage: closet"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV",
+      "Books and reading material"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Pack ’n play/Travel crib",
+      "High chair",
+      "Board games"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Air conditioning",
+      "Ceiling fan",
+      "Central heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Exterior security cameras on property",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Stove",
+      "Oven",
+      "Hot water kettle",
+      "Coffee maker",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Barbecue utensils",
+      "Dining table"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Waterfront",
+      "Beach access",
+      "Private entrance"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Patio or balcony",
+      "Private backyard – Not fully fenced",
+      "Outdoor furniture",
+      "Outdoor dining area",
+      "BBQ grill"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Long term stays allowed",
+      "Self check-in",
+      "Smart lock"
+     ]
+    }
+   ],
+   "not_included": [],
+   "category_ratings": {
+    "cleanliness": 5.0,
+    "accuracy": 4.9,
+    "check_in": 5.0,
+    "communication": 5.0,
+    "location": 4.9,
+    "value": 4.8
+   },
+   "safety": [
+    "Exterior security cameras on property",
+    "Nearby lake, river, other body of water",
+    "Carbon monoxide alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Mauri",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.96,
+    "reviews": 296,
+    "years": 7,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "Born in the 70s",
+     "My work: Real Estate Broker"
+    ],
+    "about": "Hello from the sunny Central Coast of California! I'm a  longtime real estate broker, licensed in Colorado and California for over 22 years. My world is my 4 adult children, an unwavering love for the beach, and a passion for travel. Real estate is my obsession, especially when it comes to vacation homes. I love creating beautiful, comfortable spaces that ensure every guest has a memorable stay. I look forward to hosting you in one of my carefully curated properties!",
+    "cohosts": []
+   },
+   "lat": 35.1051,
+   "lng": -120.6302,
+   "photo_captions": [
+    "Shaded ocean-view balcony just steps from the sandy beach",
+    "Bright oceanfront bedroom with private balcony and sweeping beach views",
+    "Bright oceanview living room with balcony access and cozy coastal style",
+    "Beachfront escape with ocean views, balconies, and direct beach access",
+    "Exterior"
+   ],
    "note": null,
    "photos": [
     "01.jpg",
@@ -307,6 +735,157 @@
     "Early check-out (10:00 AM)"
    ],
    "description": "Nestled in the heart of Summerland, this polished yet cozy Paradise Retreats home is the perfect place to relax, soak up the sun, and enjoy the ocean air. Just a stone's throw from the artisanal and quaint downtown, this spot has all the amenities you could need at your fingertips, yet remains a truly peaceful escape. Enjoy morning coffee and a homemade pastry or nutritious lunch at the beautiful Field and Fort Gourmet Market and Cafe, or grab a freshly made take-out sandwich and bring it down\n\nOther things to note\n4 BEDROOMS | 4 BATHROOMS | 8 GUESTS\nAs soon as you step into this spacious retreat, the abundance of nature welcomes you home. Ample light pours in from large windows throughout, showcasing mountain, ocean, and Channel Island views. Four large Bedrooms feature clean cozy carpeting and the Primary Suite even includes a private balcony to welcome the day or catch the sunset. Complete with four Bathrooms and a large outdoor dining and lounging area, this oasis is the perfect place to retreat. Whip up a delicious dinner in the designer Kitchen, which comes complete with plenty of cabinet space, a comforting fireplace, and sleek marble and granite countertops. A tranquil garden surrounding the space, the smell of sea air, and the sound of waves crashing make this home the dream destination for those looking to embrace the beauty of seaside life. \n\nHIGHLIGHTS:\n- 2 Separate Units\n- Ocean Views!\n- Primary Suite with Private Balcony\n- Large Patio\n- Short Stroll to Town and Beach\n- In-Kitchen Fireplace\n\nPLEASE NOTE: \n* Abode (upstairs house): Does have central A/C and Heat.  \n* Abode (upstairs house): Stairs are not required to access the entry although there are stairs inside the home and around the property.\n* Bungalow (downstairs): Does not have A/C or central Heat - ONLY Space Heaters. \n* Bungalow (downstairs): Stairs are required to access the entry.\n* Bungalow (downstairs): Living Room has a Sleeper Sofa.\n\n*PET POLICY: Pets are welcome in this home with prior owner approval only, a signed Pet Addendum, and a non-refundable pet fee. Please reach out to us as soon as possible if you plan to bring your pets. 1 Pet $600 plus tax | 2 Pets $900 plus tax*\n\n* GUEST AGREES TO ELECTRONICALLY SIGN OUR RESERVATION AGREEMENT w/in 2 days of booking (emailed to Guest upon booking).\n\n*The property has security camera(s) in parking area(s) and/or front entrance(s) to the property.*",
+   "amenities": [
+    {
+     "group": "Scenic views",
+     "items": [
+      "Mountain view",
+      "Ocean view"
+     ]
+    },
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Shampoo",
+      "Body soap",
+      "Hot water"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Free washer – In unit",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Iron",
+      "Clothing storage"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Pack ’n play/Travel crib",
+      "High chair"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Air conditioning",
+      "Indoor fireplace",
+      "Heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Exterior security cameras on property",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Freezer",
+      "Dishwasher",
+      "Stove",
+      "Oven",
+      "Coffee maker",
+      "Toaster",
+      "Dining table"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Private entrance"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Patio or balcony",
+      "Outdoor furniture"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises",
+      "Free street parking"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Pets allowed",
+      "Self check-in",
+      "Smart lock"
+     ]
+    }
+   ],
+   "not_included": [],
+   "category_ratings": {
+    "cleanliness": 4.9,
+    "accuracy": 4.8,
+    "check_in": 4.9,
+    "communication": 4.9,
+    "location": 4.8,
+    "value": 4.8
+   },
+   "safety": [
+    "Exterior security cameras on property",
+    "Carbon monoxide alarm",
+    "Smoke alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Paradise Retreats",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.82,
+    "reviews": 1985,
+    "years": 9,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "Lives in Santa Barbara, California"
+    ],
+    "about": "Paradise Retreats - World Class Vacation Rentals\n\nParadise Retreats offers unsurpassed service to Guests and Owners of the vacation homes we represent.  Our properties are beautiful and well-maintained, and have all the amenities you would expect in a luxury home.\n\nWe specialize in satisfying the needs of the discerning customer, who expects the best in service and quality.  Each of our properties offers a unique and special experience.\n\nPlease contact us with any questions or inquiries.",
+    "cohosts": []
+   },
+   "lat": 34.4203,
+   "lng": -119.59301,
+   "photo_captions": [
+    "Banner B-7",
+    "Banner B-5",
+    "Banner B-6",
+    "Banner B-10",
+    "Banner B-9"
+   ],
    "note": null,
    "photos": [
     "01.jpg",
@@ -375,6 +954,174 @@
     "Only 2 baths for 7 guests"
    ],
    "description": "Escape to our stylish Lompoc home, boasting hilltop views perfect for rocket launch viewing or reconnecting with your favorite people. Get your game on with a pool table, retro cocktail arcade game, PS5, 75\" TV, darts, and table games, or unwind by the backyard fire pit. Walk to the nearby Bodger Trail trailhead, or enjoy a playground and open space across the street. Our newly remodeled home offers modern amenities, comfortable furnishings, and a warm, inviting ambiance. \nPet-friendly: $50/pet\n\nThe space\nWelcome to Fir Avenue: Game‑On Getaway, a newly remodeled four-bedroom, two-bath retreat tucked against the quiet hillside on Lompoc’s charming southwest side. Designed for comfort, play, and relaxation, this home is ideal for families, couples, or friends looking for a stylish place to unwind, and provides a clean and safe space for pets.\n\nInside, you’ll find a beautifully updated kitchen with a high-end stove, dishwasher, breakfast bar, and all the essentials to cook and gather with ease. The open living room features cozy new sofas and a smart TV with streaming subscriptions to Netflix, Disney+, and Paramount+, making it the perfect place to settle in for a movie night.\n\nThe converted garage offers even more entertainment with a dedicated game room. A large TV and preloaded PS5, pool table, and dart board make it a go-to spot for fun, while an extra refrigerator keeps your beverages cold. The home also includes a full laundry area with washer and dryer and exercise equipment for when you're feeling productive!\n\nStep outside to enjoy a peaceful backyard setting complete with a firepit table and barbecue grill—propane is provided. There’s outdoor dining space for up to eight guests, making it easy to enjoy sunny afternoons or cool coastal evenings under the stars. In the front, a blooming rose garden welcomes you home.\n\nThe home offers driveway parking for two vehicles and additional free street parking. Located across the street from a neighborhood park and playground, and just a few blocks from the Lookout Point Trailhead, this getaway offers easy access to outdoor adventure while remaining close to all that Lompoc has to offer.\n\nBook your stay and experience why Fir Avenue is more than just a place to sleep—it’s your personal getaway on California’s Central Coast.\n\nHosted by Space Coast Escapes! Pet fee due at booking applies per pet to ensure our home stays a safe and clean space for all guests. Optional services, such as early check-in and late check-out, may be purchased at any time through your guest portal, and paid for via the Airbnb Resolution Center.\n\nGuest access\nGuests have private access to the entire home, front and back yards, and garage with washer, dryer and game room. There's driveway parking for two cars and free street parking. Self-check-in via smart lock. The home is stocked with essentials to help you settle in and enjoy your stay. Landscaping service comes on Saturday or Sunday for an hour, hosts take the trash in and out from the back gate on Wednesdays and Thursdays.\n\nOther things to note\nLompoc is the best vantage point on the West Coast for viewing the stellar rocket launches by NASA and SpaceX from Vandenberg Space Force Base. Missile launch days and times are released several days in advance and are subject to change based on weather conditions and/or mechanical challenges. Once booked, we'll provide you with all the details you need in your guest portal for checking launch schedules!\n\nNo RV parking in driveway or on the road.",
+   "amenities": [
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Cleaning products",
+      "Shampoo",
+      "Conditioner",
+      "Body soap",
+      "Hot water",
+      "Shower gel"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Free washer – In unit",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Room-darkening shades",
+      "Iron",
+      "Clothing storage"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "Ethernet connection",
+      "HDTV with Amazon Prime Video, Disney+, Netflix",
+      "Game console: PS5",
+      "Exercise equipment",
+      "Pool table",
+      "Books and reading material"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Crib",
+      "Pack ’n play/Travel crib - always at the listing",
+      "Children’s books and toys for ages 0-2 years old, 2-5 years old, 5-10 years old, and 10+ years old",
+      "Standalone high chair - always at the listing",
+      "Children’s dinnerware",
+      "Board games"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Ceiling fan",
+      "Central heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Fast wifi – 297 Mbps",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Electric stove",
+      "Oven",
+      "Hot water kettle",
+      "Coffee maker: drip coffee maker, Keurig coffee machine",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Blender",
+      "Barbecue utensils",
+      "Dining table",
+      "Coffee"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Private backyard – Fully fenced",
+      "Fire pit",
+      "Outdoor furniture",
+      "Outdoor dining area",
+      "BBQ grill"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises",
+      "Free street parking",
+      "EV charger - level 2",
+      "Single level home"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Pets allowed",
+      "Self check-in",
+      "Smart lock"
+     ]
+    }
+   ],
+   "not_included": [
+    "Air conditioning",
+    "Private entrance"
+   ],
+   "category_ratings": {
+    "cleanliness": 4.8,
+    "accuracy": 4.9,
+    "check_in": 5.0,
+    "communication": 4.9,
+    "location": 4.9,
+    "value": 4.8
+   },
+   "safety": [
+    "Carbon monoxide alarm",
+    "Smoke alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Jeremy",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.8,
+    "reviews": 2513,
+    "years": 9,
+    "response_rate": 97,
+    "response_time": "within an hour",
+    "highlights": [
+     "Born in the 80s",
+     "My work: Dare 2 Dream Farms"
+    ],
+    "about": "We are a family of six from California, US. We operate a small family farm for chickens and vegetables, and host three Airbnb sites on our property. We like to travel in the US and abroad with our kids in tow. We are also WWOOF-USA hosts and like to travel to visit our past WWOOF guests.",
+    "cohosts": [
+     "Megan"
+    ]
+   },
+   "lat": 34.6322,
+   "lng": -120.4749,
+   "photo_captions": [
+    "Living room image 1",
+    "Full kitchen image 1",
+    "Dining area image 1",
+    "Bedroom 1 image 1",
+    "Bedroom 2 image 1"
+   ],
    "note": null,
    "photos": [
     "01.jpg",
@@ -442,6 +1189,156 @@
     "6 beds for 7 guests: some will share"
    ],
    "description": "Your Family’s Perfect Beach Getaway!\nWelcome to your home away from home! This spacious 4-bedroom, 3-bath beach house is designed with families in mind—featuring a fully equipped kitchen, cozy living spaces, and all the beach essentials you’ll need for fun in the sun. Wake up to stunning ocean views, relax on the deck with your morning coffee, and spend your days just steps from the sand. With room for everyone and plenty of amenities, it's the ideal spot to make lasting memories by the sea.\n\nThe space\nThis stunning home offers two separate family living areas — one downstairs and another upstairs — providing plenty of space and flexibility for relaxed family living or entertaining guests. Upstairs, you'll find three separate balconies, each capturing breathtaking ocean views.\n\nStep outside to experience true indoor-outdoor living. The expansive outdoor deck seamlessly connects to the interior through large frameless sliding glass doors, blending the spaces beautifully. Surrounding the home is lush, landscaped greenery that enhances the coastal ambiance.\n\nEnjoy evenings by one of the two outdoor fire pits, each with plenty of comfortable seating — the perfect setting for entertaining or unwinding under the stars.\n\nGuest access\nGuests have full access to the entire home, with the exception of the owner's closet upsatirs and down stairs and the cabinet doors in the garage, which will remain locked for storage.\n\nOther things to note\nGrover Beach STR Permit #STR0250",
+   "amenities": [
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Cleaning products",
+      "Shampoo",
+      "Conditioner",
+      "Body soap",
+      "Outdoor shower",
+      "Hot water",
+      "Shower gel"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Washer",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Room-darkening shades",
+      "Iron",
+      "Clothing storage"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV",
+      "Sound system"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Noise decibel monitors on property",
+      "Exterior security cameras on property",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Stove",
+      "Oven",
+      "Coffee maker",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Blender",
+      "Barbecue utensils",
+      "Dining table",
+      "Coffee"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Waterfront",
+      "Beach access"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Private patio or balcony",
+      "Fire pit",
+      "Outdoor dining area",
+      "BBQ grill"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Pets allowed"
+     ]
+    }
+   ],
+   "not_included": [
+    "Air conditioning"
+   ],
+   "category_ratings": {
+    "cleanliness": 5.0,
+    "accuracy": 5.0,
+    "check_in": 5.0,
+    "communication": 4.8,
+    "location": 4.7,
+    "value": 4.9
+   },
+   "safety": [
+    "Exterior security cameras on property",
+    "Carbon monoxide alarm",
+    "Smoke alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Kevin",
+    "superhost": false,
+    "verified": true,
+    "rating": 4.89,
+    "reviews": 9,
+    "years": 1,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [],
+    "about": "",
+    "cohosts": []
+   },
+   "lat": 35.12945541066363,
+   "lng": -120.62688171919682,
+   "photo_captions": [
+    "Living room image 1",
+    "Full kitchen image 1",
+    "Full kitchen image 2",
+    "Dining area image 1",
+    "Exterior image 1"
+   ],
    "note": null,
    "photos": [
     "01.jpg",
@@ -510,6 +1407,188 @@
     "Fits 8 max"
    ],
    "description": "This 3 bedroom, 3 bathroom PLUS casita home is nestled in 1/2 acre of beautiful garden with California Oaks,  Pepper trees and Palms. Each window looks out to a beautiful garden setting. The back garden with its sunny southern exposure, is a lovely place to sit and admire the scenic views to the lower lawn and beyond to an open meadow. The private beach is a 10 to 15 minute walk from the house. The house is located near endless paths for walking on the More Mesa preserve.\n\nThe space\nThe house is situated in a cul-de-sac on a quiet street. 3 bedrooms, and 3 bathrooms, plus a Casita with a double bed. One bedroom, the Studio, has a separate entrance with bathroom on suite. There is a hot tub outside the master bedroom as well as an outside hot and cold shower. There are two living rooms, one is more of a TV viewing room while the other looks out to the terrace and garden below, and a full kitchen with everything you'll need for cooking and dining. There is an outside gas b-bque on the terrace. And a cozy sitting area for outside relaxing. The property has a lot of  beautiful little nooks for relaxing in the garden. We take great care in making everything fresh and clean between each booking. We regularly update and upgrade the different spaces when guests give input of things they would like.\n\nGuest access\nGuests will have the whole house and garden. Hosts stay in the annex next to the house . The driveway is a shared space.\n\nOther things to note\nWe have awesome neighbors. We  ask that you would respect our house and neighborhood as if it was yours. There is parking for 3 cars . Parking is not allowed on the street. No parties or events. We ask that the house and beach access only be used for rental guests.",
+   "amenities": [
+    {
+     "group": "Scenic views",
+     "items": [
+      "Garden view",
+      "Mountain view"
+     ]
+    },
+    {
+     "group": "Bathroom",
+     "items": [
+      "Hair dryer",
+      "Cleaning products",
+      "Shampoo",
+      "Pantene conditioner",
+      "Body soap",
+      "Outdoor shower",
+      "Hot water",
+      "Shower gel"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Free washer – In building",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Room-darkening shades",
+      "Iron",
+      "Clothing storage: closet"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV",
+      "Books and reading material"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Pack ’n play/Travel crib",
+      "Children’s books and toys",
+      "Clamp on table seat high chair",
+      "Fireplace guards",
+      "Board games"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Indoor fireplace: gas",
+      "Ceiling fan",
+      "Portable fans",
+      "Heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Mini fridge",
+      "Freezer",
+      "Dishwasher",
+      "Samsung stainless steel gas stove",
+      "Oven",
+      "Hot water kettle",
+      "Coffee maker",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Blender",
+      "Barbecue utensils",
+      "Dining table",
+      "Coffee"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Beach access",
+      "Private entrance"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Private patio or balcony",
+      "Private backyard – Fully fenced",
+      "Fire pit",
+      "Outdoor furniture",
+      "Hammock",
+      "Outdoor dining area",
+      "BBQ grill",
+      "Beach essentials",
+      "Bikes",
+      "Sun loungers"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises",
+      "Private hot tub",
+      "Single level home"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Long term stays allowed",
+      "Self check-in",
+      "Keypad"
+     ]
+    }
+   ],
+   "not_included": [
+    "Air conditioning"
+   ],
+   "category_ratings": {
+    "cleanliness": 4.9,
+    "accuracy": 4.9,
+    "check_in": 5.0,
+    "communication": 5.0,
+    "location": 4.9,
+    "value": 4.9
+   },
+   "safety": [
+    "Carbon monoxide alarm",
+    "Smoke alarm",
+    "Some spaces are shared"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Carey",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.89,
+    "reviews": 827,
+    "years": 13,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "My work: Massage Therapist and Egoscue Certified Posture Alignment Specialist",
+     "Speaks English, Portuguese, and Spanish"
+    ],
+    "about": "We met in Santa Barbara in college married, had our daughter and then spent 22 years in Europe had two sons there, lived mostly in Portugal. We moved back to Santa Barbara in 2010. We love surfing gardening and having adventures with our grown kids and 5 grandkids.",
+    "cohosts": []
+   },
+   "lat": 34.42331,
+   "lng": -119.8064,
+   "photo_captions": [
+    "Living room facing the backyard .",
+    "Eating area with bench seat",
+    "Hot tub and outdoor shower.",
+    "Looking at house from back garden.",
+    "Beach stairs 10min walk through neighborhood"
+   ],
    "note": null,
    "photos": [
     "01.jpg",
@@ -579,6 +1658,146 @@
     "Only 2 reviews so far"
    ],
    "description": "Wake up to the sound of the waves at this spacious oceanfront retreat located directly on the sand in beautiful Oceano, California. Perfect for families, friend getaways, and extended stays, this 4-bedroom, 2.5-bath beachfront home comfortably accommodates up to 12 guests and offers the ultimate California coast experience.\n\nThe space\nStep outside and sink your toes into the sand — the beach is literally your backyard. Spend your mornings enjoying coffee on the oceanfront deck, afternoons exploring the famous Oceano Dunes, and evenings gathered around the firepit watching the sunset over the Pacific.\n\nInside, you’ll find a bright and inviting living space designed for comfort and connection. The large living room is perfect for movie nights after a day at the beach, while the updated fully equipped kitchen makes it easy to prepare meals for the whole group. Enjoy indoor dining, fire up the propane BBQ on the deck, or explore the many nearby restaurants, wineries, and coastal attractions.\n\nSleeping accommodations include:\n• 3 spacious bedrooms with luxury king beds\n• 1 bedroom with twin trundle beds\n• Queen sleeper sofa in the living room\n\nThe oversized primary suite features a relaxing soaking tub, walk-in shower, and plenty of room to unwind after a beach day.\n\nOne of the most unique features of this area is the famous Oceano Dunes State Recreation Area — the only California State Park where vehicles are permitted directly on the beach. Enjoy ATV riding, horseback riding, surfing, fishing, bird watching, and miles of scenic coastline right outside your door. Nearby attractions also include kayaking, wine tasting, cycling, shopping, dining, and more along the Central Coast.\n\nProperty Highlights:\n• True beachfront location with direct beach access\n• Oceanfront deck with stunning views\n• Firepit & propane BBQ\n• Fully equipped kitchen\n• Washer & dryer\n• Central heating\n• Garage + driveway parking for up to 4 vehicles\n• Pet friendly (up to 2 pets with fee)\n• Free WiFi\n• Sleeps up to 12 guests\n\nPlease Note:\n• This is a driving beach — 4WD/AWD vehicles are recommended for beach driving\n• No smoking\n• No air conditioning\n\nWhether you’re planning a relaxing coastal escape, a family vacation, or an unforgettable beach adventure, this Oceano beachfront home offers the perfect place to make lasting memories on California’s Central Coast.\n\nGuest access\nGuests have sole access to entire property during their stay.",
+   "amenities": [
+    {
+     "group": "Bathroom",
+     "items": [
+      "Hair dryer",
+      "Hot water"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Washer",
+      "Dryer",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Iron",
+      "Clothing storage"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Ceiling fan",
+      "Heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Stove",
+      "Oven",
+      "Coffee maker",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Blender",
+      "Barbecue utensils",
+      "Dining table"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Waterfront",
+      "Beach access",
+      "Laundromat nearby"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Patio or balcony",
+      "Fire pit",
+      "Outdoor furniture",
+      "Outdoor dining area",
+      "Outdoor kitchen",
+      "BBQ grill",
+      "Beach essentials"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free street parking",
+      "Hot tub"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Pets allowed",
+      "Self check-in",
+      "Smart lock"
+     ]
+    }
+   ],
+   "not_included": [
+    "Air conditioning",
+    "Essentials",
+    "Shampoo",
+    "Private entrance"
+   ],
+   "category_ratings": {},
+   "safety": [
+    "Carbon monoxide alarm",
+    "Smoke alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Beach Bum Holiday Rentals",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.68,
+    "reviews": 4161,
+    "years": 7,
+    "response_rate": 98,
+    "response_time": "within an hour",
+    "highlights": [
+     "Lives in Pismo Beach, California"
+    ],
+    "about": "",
+    "cohosts": []
+   },
+   "lat": 35.1026,
+   "lng": -120.6299,
+   "photo_captions": [
+    "Full kitchen image 1",
+    "Full kitchen image 2",
+    "Dining area image 1",
+    "Balcony image 1",
+    "Exterior image 1"
+   ],
    "note": "Beach view 夯",
    "photos": [
     "01.jpg",
@@ -646,6 +1865,151 @@
     "5 beds for 7 guests: some will share"
    ],
    "description": "A” must book now” SPECTACULAR, modern, 5-bedroom 6-bathroom Tuscan style home on five acres! This spacious and elegant estate is the perfect place to unwind from the fast-paced day to day with its quiet picturesque setting and tranquil spa-like vibes. Book your dream vacation in the country and while you are here, treat yourself to a round of golf on one of the nearby popular courses.\n\nThe space\nAt the end of the day, enjoy opening a bottle of wine from one of our local award-winning wineries and sit outside for a romantic star-gazing evening. Special The large kitchen is perfect for a summer style BBQ or entertaining a family gathering type spread with plenty of room because of its spacious kitchen. First class all the way, this home is breathtaking! You will enjoy a: Gated entry, open floor plan, two primary gorgeous suites, large stylish kitchen with working pantry, large 1,412 SF 4 car garage with one of the 2 cars bays 36 feet deep, private back yard, flat usable 5 acres for party games like portable horseshoes, corn hole, bocci ball etc.\n\n\nConveniently located near award-winning local wineries and minutes away from the Monarch Butterflies Sanctuary, you can have a little picnic near one of Pismo’s main attractions. Enjoy an adventurous vehicle or four wheel/all-wheel drive on the Ocean Dunes, the only California State Park that permits vehicle admission. Take a beautiful drive on the coast to watch some of the most famous sunsets this country has to offer.  Surfing, swimming, surf fishing, horseback riding and bird watching are popular activities and a few miles up the coast you will find more activities like kayaking, cycling, wake boarding, board walking, more wine tasting and delicious dining. The link below will guide you to golf courses, dunes and the butterflies!\n\nGated entry, open floor plan, two primary suites, large kitchen with working pantry, large 1,412 SF 4 car garage with one of the 2 cars bays 36 feet deep, private back yard, flat usable 5 acres.\n\nWide doorways and walk in showers, home could be easily converted for ADA accessibility.\n\nThis home can also host events (such as weddings) for an extra $1,500 event fee. Guests must obtain event license from the city before event.\n\nNo pets are allowed due to the owner's pet allergies. \n\n\nAmenities Include:\n- Accommodates: 10\n- Bed Size 1st/Master: King\n- Bed Size 2nd/Master: King\n- Bed Size 3rd Rm: King\n- Bed Size 4th Rm: Queen\n- Kitchen Accessories: For 12\n- Kitchen Dinnerware: For 12\n- Kitchen Blender/Mixer: Yes/No\n- Micro/Dishwasher/Disp.: Yes/Yes/Yes\n- Stove/Oven Elec/Gas: Yes/Gas\n- Refrigerator And Ice Maker: Yes/Yes\n- BBQ Grill: Yes\n- Iron w/Board: Yes/Yes\n- Washer/Dryer: Yes/Yes\n- View: Of Forest\n- Yard: Large Yard\n- Cars allowed Premise: 4 Car Garage\n- Parking: 4 Car Garage\n- Air Conditioning: NO Air Conditioning\n- Smoking: NO SMOKING\n- Kitchen Oven/Range: Yes/Yes\n- Kitchen Fridge: Yes\n- Square Footage, Est.: 4,400\n\nGuest access\nGuests have sole access to entire home during their stay.",
+   "amenities": [
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Hot water"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Washer",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Iron",
+      "Clothing storage"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV with standard cable"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Indoor fireplace",
+      "Heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Stove",
+      "Oven",
+      "Coffee maker",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Blender",
+      "Barbecue utensils",
+      "Dining table"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Private entrance"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Patio or balcony",
+      "Outdoor furniture",
+      "Outdoor dining area",
+      "Private outdoor kitchen",
+      "BBQ grill"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking garage on premises – 4 spaces",
+      "Free street parking",
+      "Single level home"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Self check-in",
+      "Smart lock"
+     ]
+    }
+   ],
+   "not_included": [
+    "Exterior security cameras on property",
+    "Air conditioning",
+    "Shampoo"
+   ],
+   "category_ratings": {
+    "cleanliness": 4.9,
+    "accuracy": 4.9,
+    "check_in": 4.7,
+    "communication": 4.8,
+    "location": 4.9,
+    "value": 4.6
+   },
+   "safety": [
+    "Carbon monoxide alarm",
+    "Smoke alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Beach Bum Holiday Rentals",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.68,
+    "reviews": 4161,
+    "years": 7,
+    "response_rate": 98,
+    "response_time": "within an hour",
+    "highlights": [
+     "Lives in Pismo Beach, California"
+    ],
+    "about": "",
+    "cohosts": []
+   },
+   "lat": 35.06776,
+   "lng": -120.55452,
+   "photo_captions": [
+    "Full kitchen image 1",
+    "Dining area image 1",
+    "Dining area image 2",
+    "Exterior image 1",
+    "Exterior image 2"
+   ],
    "note": null,
    "photos": [
     "01.jpg",
@@ -719,6 +2083,175 @@
     "Only 2 baths for 7 guests"
    ],
    "description": "Beautifully renovated and professionally designed four bedroom villa in Santa Barbara! The house is located only two houses from the beach and just a short walk from the Mesa Lane Steps beach access. Take a stroll in acres and acres of lush grounds right in your backyard with the Douglas Nature Preserve, BBQ burgers, chill at the hot tub or play ping pong- there's plenty for everyone. The 4 bedroom, 2 bathroom house sleeps up to 11 and comes well equipped for a relaxing beach vacation.\n\nThe space\n4 bedroom and 2 bathrooms with showers. Master bedroom has 1 king bed and an en-suite bathroom. One of the bedrooms have 2 twin beds, one has 2 double beds and one bedroom has 1 queen bed. House is about 1750 sq ft not including sunroom in the back with ping ping table. Garage fits 5 cars. Property is the 2nd house to Cliffs overlooking Ocean. There is Ocean access walking down steps, a 5 minute walk away from the house. A door in the backyard leads to the Douglas Nature Preserve, tens of acres of trails to hike with lush vegetation. Backyard also has hot tub, BBQ, outdoor furniture. New central heat pump with heating and cooling.\n\nGuest access\nGarage fits 3 cars inside and 3 on the outside. Street parking also available. Quiet residential neighborhood. No parties or loud events please. Please do not disturb neighbors. About 10 minutes to famous State Street and a couple of minutes to Cliff Street. Access to house is via digital keypad.",
+   "amenities": [
+    {
+     "group": "Scenic views",
+     "items": [
+      "Mountain view",
+      "Park view"
+     ]
+    },
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Cleaning products",
+      "Shampoo",
+      "Conditioner",
+      "Body soap",
+      "Hot water",
+      "Shower gel"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Free washer – In unit",
+      "Free dryer – In unit",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Extra pillows and blankets",
+      "Iron",
+      "Safe",
+      "Clothing storage: closet"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "Ethernet connection",
+      "HDTV",
+      "Record player",
+      "Ping pong table",
+      "Books and reading material"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Board games"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Central air conditioning",
+      "Indoor fireplace: wood-burning",
+      "Central heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Exterior security cameras on property",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Fast wifi – 81 Mbps",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Stainless steel electric stove",
+      "Stainless steel oven",
+      "Coffee maker: drip coffee maker",
+      "Baking sheet",
+      "Barbecue utensils",
+      "Dining table"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Beach access",
+      "Private entrance",
+      "Laundromat nearby"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Private patio or balcony",
+      "Private backyard – Fully fenced",
+      "Outdoor furniture",
+      "Outdoor dining area",
+      "BBQ grill",
+      "Beach essentials"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises",
+      "Free street parking",
+      "Private hot tub",
+      "Single level home"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Long term stays allowed"
+     ]
+    }
+   ],
+   "not_included": [],
+   "category_ratings": {
+    "cleanliness": 4.8,
+    "accuracy": 4.8,
+    "check_in": 4.9,
+    "communication": 4.9,
+    "location": 4.9,
+    "value": 4.6
+   },
+   "safety": [
+    "Exterior security cameras on property",
+    "Pool/hot tub without a gate or lock",
+    "Nearby lake, river, other body of water"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Seppi",
+    "superhost": false,
+    "verified": true,
+    "rating": 4.79,
+    "reviews": 1570,
+    "years": 8,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "Lives in Los Angeles, California"
+    ],
+    "about": "",
+    "cohosts": [
+     "Diana"
+    ]
+   },
+   "lat": 34.40092,
+   "lng": -119.73501,
+   "photo_captions": [
+    "Living room image 1",
+    "Exterior image 1",
+    "Exterior image 2",
+    "Exterior image 3",
+    "Exterior image 4"
+   ],
    "note": "小夯",
    "photos": [
     "01.jpg",
@@ -786,6 +2319,138 @@
     "Must climb stairs"
    ],
    "description": "Enjoy a peaceful couples getaway, or spend the weekend with the whole family at our house. The property is enclosed by trees for complete privacy, and features a large patio and a second story balcony. There is also a second driveway with room for an r.v. or two and a grill for a relaxing evening bbq.\n\nThere is also a 2000 square foot barn, tables, and chairs available for larger gatherings. Pricing based on size of the gathering and time of year.\n\nThe space\nThe master bedroom features a Cal-King bed, a large t.v. a large shower, and a jetted bathtub. Two of the bedrooms have their own bathrooms/showers and two bedrooms share a jack & Jill bathroom with a tub and shower. Upstairs there are 2 Cal-King beds, and 4 full sized beds, with an extra Queen air mattress available for larger groups. All 8 beds available have sheets blankets and comforters and all but one of the bedrooms have walk-in closets available. We have cable in addition to standard dvd/blue ray players, and of course Wi-fi is included.\n\nWe are located only 3.5 miles from the village of Arroyo Grande with lots of fun shops, restaurants, and wine-tasting rooms. Don't forget the Arroyo Grande Farmer's Market every Saturday from 12:00 noon to 2:30.\nWe are located 7 miles from 7 world-class wineries: Talley, Laetitia, Wolff, Tangent, Edna Valley, Chamisal, Tolosa, etc. \nWe are located only 6 miles from Lopez Lake and 6 miles from Pismo Beach. Lopez Lake has water slides for the kids and fishing and of course boating.\n\nOther things to note\nWe set check in at 3pm and checkout at 11am. We do our best to accommodate early check in and late checkout requests however. Landscapers tend to the yard on Thursdays, please do not ask them to leave the premises.",
+   "amenities": [
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Hair dryer",
+      "Shampoo",
+      "Hot water"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Washer",
+      "Dryer",
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Iron"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV with standard cable"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Indoor fireplace",
+      "Heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Dishwasher",
+      "Stove",
+      "Oven",
+      "Coffee maker"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Patio or balcony",
+      "Backyard",
+      "BBQ grill"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises",
+      "Free street parking"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Pets allowed",
+      "Luggage dropoff allowed",
+      "Long term stays allowed",
+      "Self check-in",
+      "Lockbox"
+     ]
+    }
+   ],
+   "not_included": [
+    "Air conditioning"
+   ],
+   "category_ratings": {
+    "cleanliness": 4.8,
+    "accuracy": 4.9,
+    "check_in": 4.9,
+    "communication": 4.8,
+    "location": 4.9,
+    "value": 4.8
+   },
+   "safety": [
+    "Carbon monoxide alarm",
+    "Smoke alarm",
+    "Must climb stairs"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Happy House Ventures",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.85,
+    "reviews": 278,
+    "years": 14,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "Born in the 60s",
+     "My work: Property Management"
+    ],
+    "about": "Hmm five things I can't live without? it's tough to choose just five but I guess I'd have to narrow it down to flying, the ocean, music, traveling, and of course my family and friends. I'm from southern Calfornia so I visit there quite a bit, but some other places I enjoy visiting include Texas, Wisconsin, Massachusetts, Costa Rica, and Oklahoma. I particularly enjoy a wide variety of classic rock but have also gotten into some more modern electronic music. I can't remember the last movie I watched but I did just finish the excellent breaking bad series. I also enjoy running, hiking, and sailing on lake mission viejo.  If there is anything I have learned in life, it's that it has a funny way of showing us things.",
+    "cohosts": []
+   },
+   "lat": 35.08393,
+   "lng": -120.57347,
+   "photo_captions": [
+    "Listing image 1",
+    "Listing image 2",
+    "Listing image 3",
+    "Listing image 4",
+    "Listing image 5"
+   ],
    "note": null,
    "photos": [
     "01.jpg",
@@ -833,6 +2498,153 @@
     "Early check-out (10:00 AM)"
    ],
    "description": "Hiking, swimming, golfing, and endless California adventure awaits upon booking this 4-bedroom, 2.5-bathroom vacation rental. Centrally located just minutes to downtown and less than a mile away from the beautiful Grover Beach, this idyllic home is the perfect place to kick off your upcoming trip to the Golden State! Spend your days walking along the nearby white-sand beaches, exploring the surrounding preserves and trailheads, or lounging on the private rooftop terrace at this lovely getaway.\n\nThe space\nGrover Beach STR Permit STR0186 | Outdoor Entertainment Space | Pet Friendly w/ Fee\r\n\r\nBedroom 1: Queen Bed | Bedroom 2: Queen Bed | Bedroom 3: Queen Bed | Bedroom 4: Twin/Full Bunk Bed \r\n\r\nOUTDOOR LIVING: Rooftop terrace, dining space, seating area, gas grill, bartop seating\r\nKITCHEN: Fridge, stove, oven, dishwasher, microwave, cooking basics, toaster, blender, coffee maker, island w/ seating, dishware/flatware, paper towels/trash bags\r\nINDOOR LIVING: Smart TV, dining table, fireplace, beachy decor, open floor plan, game table (pool table/ping pong)\r\nGENERAL: Free WiFi, linens, towels, washer & dryer, ceiling fans, iron/board\r\nFAQ: 1 step required to enter, stairs required to access main living areas, Ring doorbell security camera (facing out), pet fee (paid pre-trip), quiet hours (10:00 PM-7:00 AM), no A/C\r\nPARKING: Garage (2 vehicles), parking spot (1 vehicle), free street parking\n\nGuest access\nGuests will have access to the entire property via lockbox\n\nOther things to note\n- No smoking \n- Pet friendly w/ $100 fee (+ fees & taxes)\n- No events, parties, or large gatherings \n- No underage drinking allowed\n- Additional fees and taxes may apply\n- Photo ID may be required upon check-in\n- NOTE: This property requires stairs to access the kitchen and main living area\n- NOTE: Please observe quiet hours from 10:00 PM to 7:00 AM\n- NOTE: The property has ceiling fans but does not offer air conditioning\n- NOTE: The property can't guarantee that the grill has propane. Guests may have to exchange empty propane tank for a full one at a local store\n- NOTE: Guests must abide by the Good Neighbor Brochure, which will be linked to the pre-stay once booked\n- NOTE: Your safety matters. This property features a Ring doorbell device with an exterior security camera facing the front outdoor entry. The camera does not look into any interior spaces. The camera actively records video when motion is detected by the device or when the video doorbell button is pressed",
+   "amenities": [
+    {
+     "group": "Bathroom",
+     "items": [
+      "Bathtub",
+      "Shampoo",
+      "Outdoor shower",
+      "Hot water"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Essentials",
+      "Hangers",
+      "Bed linens",
+      "Iron",
+      "Clothing storage"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV",
+      "Ping pong table",
+      "Pool table"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Board games"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Ceiling fan",
+      "Central heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Exterior security cameras on property",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Dishwasher",
+      "Oven",
+      "Coffee maker",
+      "Toaster",
+      "Blender"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Private entrance"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Patio or balcony",
+      "Fire pit",
+      "Outdoor furniture",
+      "BBQ grill: gas"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free residential garage on premises"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Pets allowed",
+      "Long term stays allowed",
+      "Self check-in",
+      "Lockbox"
+     ]
+    }
+   ],
+   "not_included": [
+    "Washer",
+    "Air conditioning",
+    "Hair dryer"
+   ],
+   "category_ratings": {
+    "cleanliness": 4.6,
+    "accuracy": 4.8,
+    "check_in": 4.9,
+    "communication": 4.8,
+    "location": 4.9,
+    "value": 4.6
+   },
+   "safety": [
+    "Exterior security cameras on property",
+    "Carbon monoxide alarm",
+    "Smoke alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Evolve",
+    "superhost": false,
+    "verified": true,
+    "rating": 4.68,
+    "reviews": 38482,
+    "years": 9,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "My work: Evolve",
+     "Speaks English, French, and Spanish"
+    ],
+    "about": "Hi! We’re Evolve, the hospitality team that helps you rest easy when you rent a private, professionally cleaned home from us.\n\nWe promise your rental will be clean, safe, and true to what you saw on Airbnb or we'll make it right. Check-ins are always smooth, and we're here 24/7 to answer any questions or help you find the perfect property.",
+    "cohosts": []
+   },
+   "lat": 35.1269,
+   "lng": -120.6276,
+   "photo_captions": [
+    "Grover Beach Vacation Rental | 4BR | 2.5BA | 1,900 Sq Ft | Stairs Required",
+    "Living Room | Free WiFi | Pet Friendly w/ Fee",
+    "Dining Area | Dishware & Flatware Provided | ~ 3 Mi to Pismo Preserve",
+    "Entryway | Dining Table/Game Table",
+    "Listing image 5"
+   ],
    "note": "SSSSR 包哥次推",
    "photos": [
     "01.jpg",
@@ -901,6 +2713,181 @@
     "Title says 5 bedrooms, listing shows 4"
    ],
    "description": "Welcome to The Narrows! A big, easygoing 5-bedroom Summerland beach house with a private jacuzzi, game room, two living rooms, and a separate bottom-floor studio — sleeping 8+, close to the sand. The Narrows solves the problem every group trip has: togetherness without the pile-up. Two full living rooms, a dedicated game room, outdoor spaces in every direction — and now the ace up its sleeve: a private studio on the bottom floor with its own kitchenette, bathroom, and laundry.\n\nThe space\nQuick facts: 5 bedrooms (4 in the main house plus 1 lower-level studio), 5 beds, 3 bathrooms, sleeps 10, private hot tub (jacuzzi), game room, 2 living rooms, fully fenced backyard, BBQ area, washer and dryer in the studio, pets allowed, Located in Summerland, California, minutes from the beach, Montecito, and downtown Santa Barbara.\r\n\r\nThe top two levels hold four bedrooms and three bathrooms around a full kitchen, dining area, and two living rooms. Early risers, nappers, and the game-night crowd each get their own territory, then reconvene for dinner. Downstairs, the fifth bedroom is a private studio with a full kitchenette, its own bathroom, and a washer/dryer. It is a suite within the house that multi-generation trips fight over (politely). The fully fenced backyard wraps it all up, with the jacuzzi in the corner for the end-of-day debrief.\r\n\r\nTHE LOCATION. Summerland’s relaxed beach community, minutes from the sand, village cafés, Montecito, and downtown Santa Barbara.\r\n\r\nGOOD TO KNOW. This home is part of Chosen’s Beach Collection: older, well-loved coastal homes with character, charm, and a few quirks that come with age and salt air. What they trade in modern polish they return in location, views, and value. The home has three living rooms, one on the first floor and two on the second. None of them can accommodate all guests individually. The home has a narrow layout and design, hence our name. The screen doors do not stay on but are available for guest use.\r\n\r\nDISCLOSURES\r\n\r\n* The fifth bedroom is a lower-level studio with its own private entrance and designated outdoor space. It has no shared interior living space with the main floors.\r\n* This home has a charming beach shack feel and reflects the character of an older coastal property. While it is clean and well maintained, it does have a few quirks.\r\n* The newer screen doors can occasionally come off their tracks if opened forcefully. Please use them gently.\r\n* Some of the original window panes are older and may not operate as smoothly as newer windows.\r\n* The large mature tree in the backyard naturally drops leaves and debris throughout the year despite regular maintenance.\r\n* As an older coastal home, the exterior shell and certain finishes show their age, adding to the authentic charm and character of the property.\r\n* For homes that allow pets, all pets must be added to the reservation with applicable fees paid during the reservation checkout process. If pets weren't added for any reason prior to checkout, pets must be approved and paid for prior to entry. This does not apply to service animals.\n\nGuest access\nEnter code and turn deadbolt away from door!\r\n\r\n*Please be aware this home may not be suitable for elderly.\n\nOther things to note\nTHE CHOSEN DIFFERENCE — WELLNESS BUILT INTO EVERY STAY\r\n\r\n​​​​​​​Chosen is Santa Barbara's wellness vacation rental company, and every stay begins before you unpack. You'll be welcomed with a curated arrival gift of wellness essentials and local favorites, wrapped in a custom Chosen tote that's yours to take home. Every home is prepared with high thread-count linens, premium bath products, and non-toxic cleaning protocols.\r\n\r\nBeyond the home, you'll enjoy exclusive discounts and complimentary access to Chosen's local wellness partners — hand-picked spa, massage, fitness, sauna, and recovery experiences across Santa Barbara, Summerland, and Montecito that other rentals simply can't offer. Want to go deeper? Personalize your stay with add-on services including in-home massage, facials, personal training, and private chef experiences, all seamlessly arranged by our concierge.\r\n\r\nA stay like this isn't just booked — it's Chosen. \r\n\r\nCert # - 1082",
+   "amenities": [
+    {
+     "group": "Scenic views",
+     "items": [
+      "Beach view",
+      "Mountain view"
+     ]
+    },
+    {
+     "group": "Bathroom",
+     "items": [
+      "Hair dryer",
+      "Cleaning products",
+      "Shampoo",
+      "Conditioner",
+      "Body soap",
+      "Hot water",
+      "Shower gel"
+     ]
+    },
+    {
+     "group": "Bedroom and laundry",
+     "items": [
+      "Free washer – In unit",
+      "Free dryer – In unit",
+      "Hangers",
+      "Extra pillows and blankets",
+      "Room-darkening shades",
+      "Iron",
+      "Clothing storage: closet"
+     ]
+    },
+    {
+     "group": "Entertainment",
+     "items": [
+      "TV",
+      "Books and reading material"
+     ]
+    },
+    {
+     "group": "Family",
+     "items": [
+      "Pack ’n play/Travel crib",
+      "Board games",
+      "Babysitter recommendations"
+     ]
+    },
+    {
+     "group": "Heating and cooling",
+     "items": [
+      "Portable fans",
+      "Central heating"
+     ]
+    },
+    {
+     "group": "Home safety",
+     "items": [
+      "Exterior security cameras on property",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Fire extinguisher",
+      "First aid kit"
+     ]
+    },
+    {
+     "group": "Internet and office",
+     "items": [
+      "Wifi",
+      "Dedicated workspace"
+     ]
+    },
+    {
+     "group": "Kitchen and dining",
+     "items": [
+      "Kitchen",
+      "Refrigerator",
+      "Microwave",
+      "Cooking basics",
+      "Dishes and silverware",
+      "Freezer",
+      "Dishwasher",
+      "Stove",
+      "Oven",
+      "Hot water kettle",
+      "Coffee maker",
+      "Wine glasses",
+      "Toaster",
+      "Baking sheet",
+      "Blender",
+      "Trash compactor",
+      "Barbecue utensils",
+      "Dining table",
+      "Coffee"
+     ]
+    },
+    {
+     "group": "Location features",
+     "items": [
+      "Private entrance"
+     ]
+    },
+    {
+     "group": "Outdoor",
+     "items": [
+      "Private patio or balcony",
+      "Private backyard – Fully fenced",
+      "Outdoor furniture",
+      "Outdoor dining area",
+      "BBQ grill",
+      "Beach essentials"
+     ]
+    },
+    {
+     "group": "Parking and facilities",
+     "items": [
+      "Free parking on premises",
+      "Free street parking",
+      "Private hot tub",
+      "Shared gym nearby"
+     ]
+    },
+    {
+     "group": "Services",
+     "items": [
+      "Pets allowed",
+      "Luggage dropoff allowed",
+      "Long term stays allowed",
+      "Self check-in",
+      "Smart lock"
+     ]
+    }
+   ],
+   "not_included": [
+    "Air conditioning",
+    "Essentials"
+   ],
+   "category_ratings": {
+    "cleanliness": 4.5,
+    "accuracy": 4.6,
+    "check_in": 4.9,
+    "communication": 5.0,
+    "location": 5.0,
+    "value": 4.6
+   },
+   "safety": [
+    "Exterior security cameras on property",
+    "Carbon monoxide alarm",
+    "Smoke alarm"
+   ],
+   "additional_rules": "",
+   "host": {
+    "name": "Chosen",
+    "superhost": true,
+    "verified": true,
+    "rating": 4.78,
+    "reviews": 1140,
+    "years": 4,
+    "response_rate": 100,
+    "response_time": "within an hour",
+    "highlights": [
+     "Born in the 90s",
+     "My work: Real Estate"
+    ],
+    "about": "Welcome to the Chosen Collection, my name is Aidan! \n\nBorn in Santa Barbara, my passion lies in community, hospitality and wellness. My wife and I own a spin studio and hospitality management company and we love every second of it.\n\nI created Chosen to bring everything I love from traveling and hospitality into one. Expect wellness incorporated into your stay from start to finish, and explore our amazing partnerships in Santa Barbara & Montecito during your stay. \n\nExplore more @ staychosen_",
+    "cohosts": []
+   },
+   "lat": 34.42103,
+   "lng": -119.59694,
+   "photo_captions": [
+    "Living room image 1",
+    "Backyard image 1",
+    "Balcony image 1",
+    "Exterior image 1",
+    "Exterior image 2"
+   ],
    "note": null,
    "photos": [
     "01.jpg",

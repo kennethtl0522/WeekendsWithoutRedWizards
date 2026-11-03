@@ -83,7 +83,65 @@ function photo(l, i, label, cls = "") {
 
 const fact = (label, value) => `<div class="fact"><span>${label}</span><b>${value}</b></div>`;
 
-export function pitchHTML(model, id, key) {
+// Full amenity list grouped as on Airbnb; open on the house page, collapsed in compact blocks
+function amenitiesHTML(l, open) {
+  const total = l.amenities?.reduce((n, g) => n + g.items.length, 0) || 0;
+  if (!total) return "";
+  const groups = l.amenities.map((g) => `<div class="am-group">
+      <h4>${esc(g.group)}</h4>
+      <ul>${g.items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+    </div>`).join("");
+  const missing = l.not_included?.length
+    ? `<div class="am-group missing"><h4>Not included</h4><ul>${l.not_included.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`
+    : "";
+  return `<details class="amenities"${open ? " open" : ""}>
+    <summary><h3>全部设施 · Amenities <span class="muted">(${total})</span></h3></summary>
+    <div class="am-grid">${groups}${missing}</div>
+  </details>`;
+}
+
+const RATING_NAMES = { cleanliness: "Cleanliness", accuracy: "Accuracy", check_in: "Check-in", communication: "Communication", location: "Location", value: "Value" };
+
+// The rest of what the API returns, only on the full house page
+function moreHTML(l) {
+  const parts = [];
+  const cats = Object.entries(l.category_ratings || {});
+  if (cats.length) {
+    parts.push(`<section><h3>评分 · Ratings <span class="muted">★ ${l.rating ?? "–"} · ${plural(l.reviews, "review")}</span></h3>
+      <div class="ratings">${cats.map(([k, v]) => `<div class="rt"><span>${esc(RATING_NAMES[k] || k)}</span>
+        <i style="--v:${(Number(v) / 5) * 100}%"></i><b>${Number(v).toFixed(1)}</b></div>`).join("")}</div>
+    </section>`);
+  }
+  const h = l.host;
+  if (h?.name) {
+    const facts = [
+      h.superhost && "Superhost", h.verified && "Verified",
+      h.years && `${h.years} yrs hosting`, h.rating && `★ ${h.rating}`, h.reviews && plural(h.reviews, "review"),
+      h.response_rate != null && `Responds ${h.response_rate}%`, h.response_time && esc(h.response_time),
+    ].filter(Boolean);
+    parts.push(`<section><h3>房东 · Host</h3>
+      <p class="host-name"><b>${esc(h.name)}</b>${h.cohosts?.length ? ` <span class="muted">· co-hosts: ${esc(h.cohosts.join(", "))}</span>` : ""}</p>
+      <ul class="chips">${facts.map((f) => `<li>${f}</li>`).join("")}</ul>
+      ${h.highlights?.length ? `<ul class="plain small">${h.highlights.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+      ${h.about ? `<details><summary>About the host</summary><p>${esc(h.about)}</p></details>` : ""}
+    </section>`);
+  }
+  if (l.safety?.length || l.rules?.length || l.additional_rules) {
+    parts.push(`<div class="pitch-cols">
+      ${l.rules?.length ? `<section><h3>房屋规则 · House rules</h3><ul class="plain small">${l.rules.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>
+        ${l.additional_rules ? `<details><summary>Additional rules</summary><p>${esc(l.additional_rules)}</p></details>` : ""}</section>` : ""}
+      ${l.safety?.length ? `<section><h3>安全 · Safety &amp; property</h3><ul class="plain small">${l.safety.map((r) => `<li>${esc(r)}</li>`).join("")}</ul></section>` : ""}
+    </div>`);
+  }
+  if (l.lat && l.lng) {
+    parts.push(`<section><h3>位置 · Location</h3>
+      <p>${esc(l.location || l.city)} · <a href="https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}" target="_blank" rel="noopener">Open in Maps ↗</a></p>
+    </section>`);
+  }
+  return parts.join("");
+}
+
+export function pitchHTML(model, id, key, { full = false } = {}) {
   const l = model.listings[id];
   const s = model.stays[key]?.[id];
   const d = model.dates.find((x) => x.key === key);
@@ -158,6 +216,9 @@ export function pitchHTML(model, id, key) {
       ${summary}
     </section>
 
+    ${amenitiesHTML(l, full)}
+    ${full ? moreHTML(l) : ""}
+
     <footer class="pitch-foot">
       <div class="other-dates">
         <span class="muted">Other dates</span>
@@ -177,7 +238,7 @@ export async function mountPitches(root = document) {
   try {
     const model = await loadModel();
     for (const el of els) {
-      el.innerHTML = pitchHTML(model, el.dataset.pitch, el.dataset.dates);
+      el.innerHTML = pitchHTML(model, el.dataset.pitch, el.dataset.dates, { full: "full" in el.dataset });
       el.dataset.mounted = "";
     }
   } catch (err) {

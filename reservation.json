@@ -6,8 +6,14 @@
   "guests": 8,
   "amount_paid": 2481.75,
   "receipt_url": "https://www.airbnb.com/receipt-on-demand?bill_token=81aYXO9lnuFjZxp0bXli1z80WHG&bill_version_token=81aYXO9zZyA0uF8F80xs0CF1m8m&tender_token=81aYXO9zma74N01fOAMGFYz5m8m&product_id=1811156780890662738&user_id=227526192",
-  "check_in": { "day": "Sat, Nov 14", "time": "4:00 PM" },
-  "check_out": { "day": "Mon, Nov 16", "time": "10:00 AM" },
+  "check_in": {
+    "day": "Sat, Nov 14",
+    "time": "4:00 PM"
+  },
+  "check_out": {
+    "day": "Mon, Nov 16",
+    "time": "10:00 AM"
+  },
   "check_in_method": "Smart lock. Please reach out to the host for check-in instructions.",
   "address": "1358 Strand Way, Oceano, CA 93445",
   "directions": [
@@ -38,7 +44,11 @@
     }
   ],
   "directions_note": "The Strand is a specific strip of homes along the beach, offering a unique experience with direct access to the Pacific Ocean.",
-  "quiet_hours": { "label": "9:00 PM – 8:00 AM", "from": 21, "to": 8 },
+  "quiet_hours": {
+    "label": "9:00 PM – 8:00 AM",
+    "from": 21,
+    "to": 8
+  },
   "house_rules": [
     "Up to 10 overnight guests",
     "No pets",
@@ -50,9 +60,114 @@
     "Occupancy is limited to the number of guests on the reservation"
   ],
   "cancellation": [
-    { "when": "Within 24 hours of booking", "result": "Full refund", "detail": "Get back 100% of what you paid." },
-    { "when": "Before Nov 7, 4:00 PM", "result": "Partial refund", "detail": "Get back 50% of every night. No refund of the service fee." },
-    { "when": "After Nov 7, 4:00 PM", "result": "No refund", "detail": "This reservation is non-refundable." }
+    {
+      "when": "Within 24 hours of booking",
+      "result": "Full refund",
+      "detail": "Get back 100% of what you paid."
+    },
+    {
+      "when": "Before Nov 7, 4:00 PM",
+      "result": "Partial refund",
+      "detail": "Get back 50% of every night. No refund of the service fee."
+    },
+    {
+      "when": "After Nov 7, 4:00 PM",
+      "result": "No refund",
+      "detail": "This reservation is non-refundable."
+    }
   ],
-  "cancellation_note": "Times are based on the listing's location."
+  "cancellation_note": "Times are based on the listing's location.",
+  "drive_times": {
+    "source": "Google Maps typical traffic, departure Sat Nov 14 9:00 AM / Sun Nov 15 6:00 PM (checked 2026-11-03)",
+    "routes": [
+      {
+        "from": "Rowland Heights",
+        "from_query": "Rowland Heights, CA",
+        "to": "住宿",
+        "to_query": "1358 Strand Way, Oceano, CA 93445",
+        "depart": "Sat 9:00 AM",
+        "min": 200,
+        "max": 280,
+        "miles": 201,
+        "via": "US-101 N"
+      },
+      {
+        "from": "Downtown LA",
+        "from_query": "Downtown Los Angeles, CA",
+        "to": "住宿",
+        "to_query": "1358 Strand Way, Oceano, CA 93445",
+        "depart": "Sat 9:00 AM",
+        "min": 170,
+        "max": 220,
+        "miles": 178,
+        "via": "US-101 N"
+      },
+      {
+        "from": "Rowland Heights",
+        "from_query": "Rowland Heights, CA",
+        "to": "Solvang",
+        "to_query": "Solvang, CA",
+        "depart": "Sat 9:00 AM",
+        "min": 150,
+        "max": 220,
+        "miles": 151,
+        "via": "US-101 N"
+      },
+      {
+        "from": "Downtown LA",
+        "from_query": "Downtown Los Angeles, CA",
+        "to": "Solvang",
+        "to_query": "Solvang, CA",
+        "depart": "Sat 9:00 AM",
+        "min": 120,
+        "max": 170,
+        "miles": 128,
+        "via": "US-101 N"
+      },
+      {
+        "from": "Solvang",
+        "from_query": "Solvang, CA",
+        "to": "住宿",
+        "to_query": "1358 Strand Way, Oceano, CA 93445",
+        "depart": "Sat 9:00 AM",
+        "min": 55,
+        "max": 65,
+        "miles": 55.5,
+        "via": "US-101 N"
+      },
+      {
+        "from": "住宿",
+        "from_query": "1358 Strand Way, Oceano, CA 93445",
+        "to": "Solvang",
+        "to_query": "Solvang, CA",
+        "depart": "Sat 9:00 AM",
+        "min": 55,
+        "max": 70,
+        "miles": 53.1,
+        "via": "US-101 S"
+      },
+      {
+        "from": "住宿",
+        "from_query": "1358 Strand Way, Oceano, CA 93445",
+        "to": "Rowland Heights",
+        "to_query": "Rowland Heights, CA",
+        "depart": "Sun 6:00 PM",
+        "min": 190,
+        "max": 240,
+        "miles": 200,
+        "via": "US-101 S"
+      },
+      {
+        "from": "住宿",
+        "from_query": "1358 Strand Way, Oceano, CA 93445",
+        "to": "Downtown LA",
+        "to_query": "Downtown Los Angeles, CA",
+        "depart": "Sun 6:00 PM",
+        "min": 170,
+        "max": 220,
+        "miles": 175,
+        "via": "US-101 S"
+      }
+    ]
+  }
 }

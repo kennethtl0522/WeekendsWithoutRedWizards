@@ -6,7 +6,7 @@
 // Both plans are saved per browser; "Copy link" encodes them in ?plans= to share.
 
 // Bump the version when DEFAULT_PLANS changes so browsers pick up the new defaults
-const STORE = "airbnb-pitch:plans:v4";
+const STORE = "airbnb-pitch:plans:v5";
 const SNAP = 0.25; // hours
 const LANES = 2;
 const KEYS = ["A", "B"];
@@ -42,41 +42,36 @@ const TO_HOURS = [48, 52, 58, 60, 64];
 
 const toBlocks = (rows) => rows.map(([type, start, dur, lane, label]) => ({ type, start, dur, lane, ...(label && { label }) }));
 const DEFAULT_PLANS = {
-  from: 10,
+  from: 8,
   to: 58,
   plans: {
     // Solvang on the way up on day 1, full 跑团 on day 2, some head home Sunday night.
     // Things that happen at the same time sit side by side (column 0 | column 1).
     A: toBlocks([
-      ["drive", 10.5, 3, 0, "集合出发、前往 Solvang"],
-      ["solvang", 13.5, 1.25, 0, "丹麦小镇：午餐、观光"],
-      ["shop", 14.75, 1.25, 0, "Costco / 超市采购、前往住宿"],
-      ["prep", 16, 2, 0], ["checkin", 16, 2, 1, "Check-in、卸行李"],
-      ["bbq", 18, 6, 0], ["drinks", 18, 6, 1],
-      ["sleep", 25, 10, 0],
-      ["wake", 35, 2, 0, "起床、早餐"],
-      ["trpg", 37, 6, 0, "完整跑团"],
-      ["meal", 43, 1, 0, "整理、晚餐"],
-      ["travel", 44, 2, 0, "马尔基诺返程"], ["stay", 44, 14, 1, "其余可选择住至周一"],
+      ["drive", 8.5, 4, 0, "集合出发、前往 Solvang"],
+      ["solvang", 12.5, 2, 0, "丹麦小镇：午餐、观光"],
+      ["shop", 14.5, 1.5, 0, "Costco / 超市采购、前往住宿"],
+      ["checkin", 16, 2, 0, "Check-in、卸行李"], ["prep", 16, 2, 1],
+      ["bbq", 18, 6, 0], ["drinks", 21, 5, 1],
+      ["sleep", 24, 11, 0],
+      ["wake", 35, 2, 0, "起床、早餐"], ["trpg", 36, 6, 1, "完整跑团"],
+      ["meal", 42, 1.5, 0, "整理、晚餐"],
+      ["travel", 43.5, 2, 0, "马尔基诺返程"],
+      ["stay", 45.5, 12.5, 0, "其余可选择住至周一"],
     ]),
-    // Shop and drive up on day 1, 跑团 alongside dinner + drinks that night; beach + Solvang on day 2
+    // Drive straight up and hit the beach on day 1, 跑团 alongside dinner; Solvang on day 2
     B: toBlocks([
-      ["shop", 12, 0.5, 0, "Costco / 超市采购完成、集合"],
-      ["drive", 12.5, 3, 0, "出发、前往住宿"],
-      ["free", 15.5, 0.5, 0, "到达附近、休息、等待入住"],
+      ["drive", 10.5, 3, 0, "出发、前往住宿"],
+      ["beach", 13.5, 2.5, 0, "沙滩"], ["shop", 14.5, 1.5, 1],
       ["prep", 16, 2, 0], ["checkin", 16, 2, 1, "Check-in、卸行李"],
-      ["bbq", 18, 3, 0, "烧烤、晚餐"], ["drinks", 21, 3.5, 0],
-      ["trpg", 18.5, 6, 1, "完整跑团"],
-      ["free", 24.5, 1.5, 0, "自由娱乐"],
-      ["sleep", 26, 8, 0],
+      ["bbq", 18, 3, 0, "烧烤、晚餐"], ["drinks", 21, 3, 0], ["trpg", 18, 6, 1],
+      ["sleep", 24, 10, 0],
       ["wake", 34, 1.5, 0, "起床、早餐"],
-      ["beach", 35.5, 2.5, 0, "沙滩"],
-      ["meal", 38, 1, 0, "简餐"],
-      ["drive", 39, 1, 0, "前往 Solvang"],
-      ["solvang", 40, 2.5, 0, "Solvang 丹麦小镇：观光、甜点"],
-      ["drive", 42.5, 1, 0, "返回住宿"],
-      ["dinner", 43.5, 1.5, 0, "晚餐或休息"],
-      ["travel", 45, 2, 0, "返程"], ["stay", 45, 13, 1, "其余可选择住至周一"],
+      ["drive", 35.5, 1.75, 0, "前往 Solvang"],
+      ["solvang", 37.25, 3.25, 0, "Solvang 丹麦小镇：观光、甜点"],
+      ["dinner", 40.5, 1.5, 0, "晚餐或休息"],
+      ["travel", 42, 2, 0, "返程"],
+      ["stay", 45, 13, 0, "其余可选择住至周一"],
     ]),
   },
 };
@@ -202,12 +197,17 @@ export function mountPlans(root, { dayNames, quiet }) {
     grid.style.setProperty("--hours", to - from);
     grid.style.setProperty("--lanes", LANES);
 
+    const marks = { [CHECK_IN]: "入住", [CHECK_OUT]: "退房" };
     const ticks = [`<span class="pl-day" style="top:0%">${day(from)}</span>`];
     for (let h = Math.ceil(from / 2) * 2; h < to; h += 2) {
-      if (h === from) continue;
+      if (h === from || marks[h]) continue;
       ticks.push(h % 24 === 0
         ? `<span class="pl-day" style="top:${pct(h)}%">${day(h)}</span>`
         : `<span class="pl-tick" style="top:${pct(h)}%">${clock(h)}</span>`);
+    }
+    // Check-in / check-out sit on the axis (not over the blocks), with a dashed line across both plans
+    for (const [h, label] of Object.entries(marks).map(([h, l]) => [Number(h), l])) {
+      if (h > from && h <= to) ticks.push(`<span class="pl-tick mark" style="top:${pct(h)}%">${clock(h)}<b>${label}</b></span>`);
     }
     axis.innerHTML = ticks.join("");
 
@@ -225,7 +225,7 @@ export function mountPlans(root, { dayNames, quiet }) {
       }
     }
     for (const [h, label] of [[CHECK_IN, "Check-in"], [CHECK_OUT, "Check-out"]]) {
-      if (h >= from && h <= to) backdrop.push(`<div class="pl-mark" style="top:${pct(h)}%"><span>${label} ${clock(h)}</span></div>`);
+      if (h >= from && h <= to) backdrop.push(`<div class="pl-mark" style="top:${pct(h)}%" title="${label} ${clock(h)}"></div>`);
     }
 
     for (const key of KEYS) {
@@ -274,7 +274,7 @@ export function mountPlans(root, { dayNames, quiet }) {
   // Move / resize blocks
   grid.addEventListener("pointerdown", (e) => {
     const el = e.target.closest(".blk");
-    if (!el || e.target.closest(".blk-del") || e.button > 0) return;
+    if (!el || el.classList.contains("editing") || e.target.closest(".blk-del") || e.button > 0) return;
     e.preventDefault();
     const key = el.dataset.plan;
     lastKey = key;
@@ -307,6 +307,9 @@ export function mountPlans(root, { dayNames, quiet }) {
       el.removeEventListener("pointermove", move);
       el.removeEventListener("pointerup", end);
       el.removeEventListener("pointercancel", end);
+      el.classList.remove("dragging");
+      // A plain click (nothing moved) keeps the same element, so a double-click can follow
+      if (b.start === orig.start && b.dur === orig.dur && b.lane === orig.lane) return;
       focus = { key, i: Number(el.dataset.i) };
       commit();
     };
@@ -323,20 +326,42 @@ export function mountPlans(root, { dayNames, quiet }) {
     commit();
   });
 
-  // Double-click (or Enter) a block to give it its own name
+  // Double-click (or Enter) a block to rename it in place: Enter saves, Esc cancels,
+  // an empty name goes back to the activity's default name
   function rename(el) {
     const key = el.dataset.plan, i = Number(el.dataset.i);
     const b = state.plans[key][i];
-    const name = prompt("Block name", b.label || TYPES[b.type].zh);
-    if (name === null) return;
-    if (name.trim() && name.trim() !== TYPES[b.type].zh) b.label = name.trim();
-    else delete b.label;
-    focus = { key, i };
-    commit();
+    const nameEl = el.querySelector(".blk-zh");
+    const input = document.createElement("input");
+    input.className = "blk-edit";
+    input.value = b.label || TYPES[b.type].zh;
+    input.setAttribute("aria-label", "Block name");
+    nameEl.replaceWith(input);
+    el.classList.add("editing");
+    input.focus();
+    input.select();
+    let done = false;
+    const finish = (save) => {
+      if (done) return;
+      done = true;
+      const name = input.value.trim();
+      if (save) {
+        if (name && name !== TYPES[b.type].zh) b.label = name;
+        else delete b.label;
+      }
+      focus = { key, i };
+      commit();
+    };
+    input.addEventListener("keydown", (e) => {
+      e.stopPropagation();
+      if (e.key === "Enter") { e.preventDefault(); finish(true); }
+      if (e.key === "Escape") { e.preventDefault(); finish(false); }
+    });
+    input.addEventListener("blur", () => finish(true));
   }
   grid.addEventListener("dblclick", (e) => {
     const el = e.target.closest(".blk");
-    if (el && !e.target.closest(".blk-del")) rename(el);
+    if (el && !el.classList.contains("editing") && !e.target.closest(".blk-del")) rename(el);
   });
 
   grid.addEventListener("keydown", (e) => {

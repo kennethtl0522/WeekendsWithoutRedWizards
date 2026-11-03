@@ -1,7 +1,8 @@
 // 采购清单: the group's shared shopping list on the overview page.
 // Items live in a Google Sheet behind an Apps Script web app (apps-script/Code.gs).
 // Without an endpoint configured, the list still works but only in this browser.
-// Each item: name, quantity, category, estimated price, bought. Anyone can add items, edit
+// Each item: name, quantity, category, 自带 (someone brings it from home, so it costs nothing),
+// estimated price, bought. Anyone can add items, edit
 // them in place, tick them off, and see the estimated total and per-person share.
 
 const LIST = "采购";
@@ -80,6 +81,7 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
     <input name="name" placeholder="添加物品，如 牛小排" required autocomplete="off">
     <input name="qty" placeholder="数量" autocomplete="off">
     <select name="category">${opts(CATEGORIES, "肉类")}</select>
+    <label class="own"><input type="checkbox" name="own"> 自带</label>
     <input name="price" type="number" min="0" step="0.01" placeholder="$ 预估">
     <button type="submit" class="btn">添加</button>
   </form>
@@ -98,14 +100,19 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
   const filterEl = root.querySelector(".shop-filter");
   const syncEl = root.querySelector(".shop-sync");
 
-  const price = (x) => Number(x.price) || 0;
+  const price = (x) => (x.own ? 0 : Number(x.price) || 0);
 
   function rowHTML(x) {
-    return `<li class="shop-item${x.bought ? " bought" : ""}" data-id="${esc(x.id)}">
-      <input type="checkbox" data-f="bought" aria-label="已买"${x.bought ? " checked" : ""}>
-      <input class="si-name" data-f="name" value="${esc(x.name)}" aria-label="物品">
+    // Same columns as the add form above: name | qty | category | 自带 | price | ×
+    return `<li class="shop-item${x.bought ? " bought" : ""}${x.own ? " own" : ""}" data-id="${esc(x.id)}">
+      <span class="si-main">
+        <input type="checkbox" data-f="bought" aria-label="已买"${x.bought ? " checked" : ""}>
+        <input class="si-name" data-f="name" value="${esc(x.name)}" aria-label="物品">
+      </span>
       <input class="si-qty" data-f="qty" value="${esc(x.qty || "")}" placeholder="数量" aria-label="数量">
-      <input class="si-price" data-f="price" type="number" min="0" step="0.01" value="${x.price === "" || x.price == null ? "" : esc(x.price)}" placeholder="$" aria-label="价格">
+      <select class="si-cat" data-f="category" aria-label="分类">${opts(CATEGORIES, CATEGORIES.includes(x.category) ? x.category : "其他")}</select>
+      <label class="own"><input type="checkbox" data-f="own"${x.own ? " checked" : ""}> 自带</label>
+      <input class="si-price" data-f="price" type="number" min="0" step="0.01" value="${x.price === "" || x.price == null ? "" : esc(x.price)}" placeholder="${x.own ? "—" : "$"}" aria-label="价格"${x.own ? " disabled" : ""}>
       <button type="button" class="si-del" aria-label="删除 ${esc(x.name)}">×</button>
     </li>`;
   }
@@ -117,9 +124,10 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
     const shown = items.filter((x) => filter === "all" || !x.bought);
     const total = items.reduce((sum, x) => sum + price(x), 0);
     const done = items.filter((x) => x.bought).length;
+    const own = items.filter((x) => x.own).length;
     summaryEl.innerHTML = items.length
-      ? `<b>${done}/${items.length}</b> 已买 · 预计 <b>${cents(total)}</b> · 每人 <b>${cents(total / getPeople())}</b>
-         <span class="muted">（${getPeople()} 人平摊${items.some((x) => !price(x)) ? "，未填价格的不计" : ""}）</span>`
+      ? `<b>${done}/${items.length}</b> 已买${own ? ` · 自带 <b>${own}</b>` : ""} · 预计 <b>${cents(total)}</b> · 每人 <b>${cents(total / getPeople())}</b>
+         <span class="muted">（${getPeople()} 人平摊${items.some((x) => !x.own && !price(x)) ? "，未填价格的不计" : ""}）</span>`
       : "";
 
     if (!items.length) {
@@ -174,11 +182,12 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
     e.preventDefault();
     const f = Object.fromEntries(new FormData(form));
     const item = {
-      id: newId(), name: f.name.trim(), qty: f.qty.trim(), category: f.category,
+      id: newId(), name: f.name.trim(), qty: f.qty.trim(), category: f.category, own: f.own === "on",
       price: f.price === "" ? "" : Number(f.price), bought: false,
     };
     if (!item.name) return;
     form.name.value = form.qty.value = form.price.value = "";
+    form.own.checked = false;
     form.name.focus();
     send({ action: "add", items: [item] });
   });
@@ -202,7 +211,7 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
       return;
     }
     if (e.target.closest('[data-act="seed"]')) {
-      const starter = STARTER.map(([name, qty, category]) => ({ id: newId(), name, qty, category, price: "", bought: false }));
+      const starter = STARTER.map(([name, qty, category]) => ({ id: newId(), name, qty, category, own: false, price: "", bought: false }));
       send({ action: "add", items: starter });
     }
   });

@@ -17,7 +17,7 @@
  */
 
 const LISTS = ["采购", "分工"];
-const COLUMNS = ["id", "name", "qty", "category", "price", "bought", "updated"];
+const COLUMNS = ["id", "name", "qty", "category", "own", "price", "bought", "updated"];
 
 function doGet(e) {
   return json(readItems(listName(e && e.parameter && e.parameter.list)));
@@ -106,6 +106,7 @@ function toItem(header, row) {
   item.id = String(item.id);
   item.qty = String(item.qty);
   item.bought = item.bought === true || item.bought === "TRUE";
+  item.own = item.own === true || item.own === "TRUE";
   return item;
 }
 

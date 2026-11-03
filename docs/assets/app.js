@@ -1,8 +1,8 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=7e3ad667";
-import { mountShopping } from "./lists.js?v=7e3ad667";
-import { mountPlans } from "./timeline.js?v=7e3ad667";
+import { SITE, cents, counterHTML, esc, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=663a20f9";
+import { mountShopping } from "./lists.js?v=663a20f9";
+import { mountPlans } from "./timeline.js?v=663a20f9";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -79,6 +79,36 @@ function bookingCard(c) {
   </section>`;
 }
 
+const dur = (min) => {
+  const h = Math.floor(min / 60), m = Math.round(min % 60);
+  return h ? `${h} h${m ? ` ${m} min` : ""}` : `${m} min`;
+};
+
+// Typical drive times (Google Maps, typical traffic for the given departure); average = middle of the range
+function driveTimes(c) {
+  const routes = c.drive_times?.routes || [];
+  if (!routes.length) return "";
+  const rows = routes.map((r) => {
+    const maps = `https://www.google.com/maps/dir/?${new URLSearchParams({ api: 1, origin: r.from_query, destination: r.to_query, travelmode: "driving" })}`;
+    return `<tr>
+      <th scope="row">${esc(r.from)} <span class="arrow">→</span> ${esc(r.to)}</th>
+      <td class="muted">${esc(r.depart)}</td>
+      <td class="avg">${dur((r.min + r.max) / 2)}</td>
+      <td class="muted">${dur(r.min)} – ${dur(r.max)}</td>
+      <td class="muted">${r.miles} mi</td>
+      <td><a href="${esc(maps)}" target="_blank" rel="noopener">Maps ↗</a></td>
+    </tr>`;
+  }).join("");
+  return `<section>
+    <h2>车程 · Drive times</h2>
+    <div class="table-wrap"><table class="drive">
+      <thead><tr><th>路线</th><th>出发</th><th>平均</th><th>通常</th><th>里程</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    ${c.drive_times.source ? `<p class="muted small">${esc(c.drive_times.source)}</p>` : ""}
+  </section>`;
+}
+
 // Getting there, checking in, house rules, cancellation policy
 function reservationDetails(c) {
   const cards = [];
@@ -91,7 +121,7 @@ function reservationDetails(c) {
       <h3>Getting there</h3>
       <p class="addr"><b>${esc(c.address)}</b> <a href="${esc(mapsURL(c.address))}" target="_blank" rel="noopener">Open in Maps ↗</a></p>
       ${routes ? `<details class="directions">
-        <summary>Directions <span class="muted">${esc((c.directions || []).map((r) => r.from.toLowerCase()).join(" / "))}</span></summary>
+        <summary>Directions for senior to read</summary>
         <div class="routes">${routes}</div>
         ${c.directions_note ? `<p class="muted small">${esc(c.directions_note)}</p>` : ""}
       </details>` : ""}
@@ -174,6 +204,7 @@ function overview() {
     <h2>Confirm our plan</h2>
     <div id="plans"></div>
   </section>
+  ${driveTimes(c)}
   <section>
     <h2>采购清单</h2>
     <div id="shopping"></div>
@@ -282,7 +313,7 @@ function pitchPage(key, id) {
   if (!d || !l) return notFound();
   document.title = `${l.name} · ${d.label}`;
   app.innerHTML = `${topbar([`<a href="${pageLink({ dates: key })}">${esc(d.label)}</a>`, esc(l.name)])}
-<main class="single"><div data-pitch="${id}" data-dates="${key}"></div></main>`;
+<main class="single"><div data-pitch="${id}" data-dates="${key}" data-full></div></main>`;
 }
 
 function notFound() {

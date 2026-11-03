@@ -196,6 +196,31 @@ def build_listing(d, guests, note):
         "rules": rules(d),
         "watch": watch_outs(d, guests),
         "description": (d.get("description") or "").strip(),
+        # Everything else the API gives, for the full house page
+        "amenities": [
+            {"group": g.get("group", ""), "items": [i["title"] for i in g.get("items", []) if i.get("is_available")]}
+            for g in d.get("amenities") or [] if any(i.get("is_available") for i in g.get("items", []))
+        ],
+        "not_included": [i["title"] for g in d.get("amenities") or [] for i in g.get("items", []) if not i.get("is_available")],
+        "category_ratings": d.get("category_ratings") or {},
+        "safety": d.get("safety_and_property") or [],
+        "additional_rules": (d.get("additional_house_rules") or "").strip(),
+        "host": {
+            "name": host.get("name"),
+            "superhost": bool(host.get("is_superhost")),
+            "verified": bool(host.get("is_verified")),
+            "rating": host.get("rating"),
+            "reviews": host.get("reviews_count"),
+            "years": host.get("years_hosting"),
+            "response_rate": host.get("response_rate"),
+            "response_time": host.get("response_time"),
+            "highlights": host.get("highlights") or [],
+            "about": (host.get("about") or "").strip(),
+            "cohosts": [c.get("name") for c in host.get("cohosts") or [] if c.get("name")],
+        },
+        "lat": (d.get("location") or {}).get("latitude"),
+        "lng": (d.get("location") or {}).get("longitude"),
+        "photo_captions": [i.get("caption") or "" for i in d.get("images") or []],
         "note": note,
         "photos": photos(d["id"]),
     }
