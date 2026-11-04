@@ -780,3 +780,11 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .pl-head { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 8px; padding: 6px 4px; }
 .pl-head .pl-name { white-space: nowrap; }
 .pl-head .rec-badge { position: static; padding: 1px 8px; font-size: 11px; letter-spacing: .04em; white-space: nowrap; }
+
+/* External-link arrow (SVG, sized to the text) */
+svg.ext { width: .85em; height: .85em; margin-left: .3em; vertical-align: -.06em; }
+.btn:has(svg.ext) { display: inline-flex; align-items: center; justify-content: center; }
+
+/* Touch: blocks and palette chips let the page (and palette) scroll; a long press picks them up */
+.blk, .tl-chip { touch-action: manipulation; -webkit-touch-callout: none; }
+.blk.held, .tl-chip.held { box-shadow: 0 0 0 2px var(--accent), 0 6px 18px rgb(0 0 0 / .25); }

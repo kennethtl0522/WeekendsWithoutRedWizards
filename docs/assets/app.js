@@ -1,10 +1,10 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=4417fb00";
-import { mountShopping } from "./lists.js?v=4417fb00";
-import { mountPlans } from "./timeline.js?v=4417fb00";
-import { mountCarpool } from "./carpool.js?v=4417fb00";
-import { mountWeather } from "./weather.js?v=4417fb00";
+import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=3cbc17d8";
+import { mountShopping } from "./lists.js?v=3cbc17d8";
+import { mountPlans } from "./timeline.js?v=3cbc17d8";
+import { mountCarpool } from "./carpool.js?v=3cbc17d8";
+import { mountWeather } from "./weather.js?v=3cbc17d8";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -76,12 +76,13 @@ const mapsURL = (address) => `https://www.google.com/maps/search/?api=1&query=${
 const appleMapsURL = (address) => `https://maps.apple.com/?q=${encodeURIComponent(address)}`;
 
 // Address with a copy button; map buttons open Apple Maps or Google Maps (the app on phones, the web otherwise)
+const ARROW_ICON = `<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>`;
 const COPY_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>`;
 const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
 const copyBtn = (text) => `<button type="button" class="copy-btn" data-copy="${esc(text)}" title="复制地址" aria-label="复制地址">${COPY_ICON}</button>`;
 const mapButtons = (address) => `<div class="map-btns">
-    <a class="btn ghost" href="${esc(appleMapsURL(address))}" target="_blank" rel="noopener">Apple 地图 ↗</a>
-    <a class="btn ghost" href="${esc(mapsURL(address))}" target="_blank" rel="noopener">Google 地图 ↗</a>
+    <a class="btn ghost" href="${esc(appleMapsURL(address))}" target="_blank" rel="noopener">Apple 地图${ARROW_ICON}</a>
+    <a class="btn ghost" href="${esc(mapsURL(address))}" target="_blank" rel="noopener">Google 地图${ARROW_ICON}</a>
   </div>`;
 document.addEventListener("click", async (e) => {
   const b = e.target.closest("[data-copy]");
@@ -130,7 +131,7 @@ function bookingCard(c) {
       </div>
       <div class="booking-actions">
         <a class="btn" href="${details}">House details</a>
-        ${c.receipt_url ? `<a class="btn ghost" href="${esc(c.receipt_url)}" target="_blank" rel="noopener">Receipt ↗</a>` : ""}
+        ${c.receipt_url ? `<a class="btn ghost" href="${esc(c.receipt_url)}" target="_blank" rel="noopener">Receipt${ARROW_ICON}</a>` : ""}
       </div>
       ${c.address ? mapButtons(c.address) : ""}
     </div>
@@ -185,7 +186,7 @@ function driveTimes(c) {
       <td class="avg">${dur(avg(r))}</td>
       <td class="muted">${dur(r.min)} – ${dur(r.max)}</td>
       <td class="muted">${r.miles} mi</td>
-      <td><a href="${esc(mapsURL(r))}" target="_blank" rel="noopener">Maps ↗</a></td>
+      <td><a href="${esc(mapsURL(r))}" target="_blank" rel="noopener">Maps${ARROW_ICON}</a></td>
     </tr>`).join("");
 
   return `<section>

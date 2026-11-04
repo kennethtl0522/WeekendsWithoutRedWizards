@@ -271,11 +271,20 @@ export function mountPlans(root, { dayNames, quiet }) {
     return { start: state.from, lane: LANES - 1 };
   }
 
-  // Move / resize blocks
+  // Move / resize blocks. Mouse and pen grab right away. On touch a swipe just scrolls the page;
+  // holding a block still for a moment (long press) picks it up, and a quick tap selects it (shows ×).
   grid.addEventListener("pointerdown", (e) => {
     const el = e.target.closest(".blk");
     if (!el || el.classList.contains("editing") || e.target.closest(".blk-del") || e.button > 0) return;
+    if (e.pointerType === "touch") {
+      holdThen(e, el, () => grab(e, el), () => el.focus({ preventScroll: true }));
+      return;
+    }
     e.preventDefault();
+    grab(e, el);
+  });
+
+  function grab(e, el) {
     const key = el.dataset.plan;
     lastKey = key;
     const b = state.plans[key][el.dataset.i];
@@ -285,9 +294,10 @@ export function mountPlans(root, { dayNames, quiet }) {
     const pxPerHour = rect.height / (state.to - state.from);
     const laneWidth = rect.width / LANES;
     const sx = e.clientX, sy = e.clientY;
-    el.setPointerCapture(e.pointerId);
+    try { el.setPointerCapture(e.pointerId); } catch {}
     el.classList.add("dragging");
     el.focus({ preventScroll: true });
+    const unlock = e.pointerType === "touch" ? lockScroll() : () => {};
 
     const move = (ev) => {
       const dh = snap((ev.clientY - sy) / pxPerHour);
@@ -308,6 +318,7 @@ export function mountPlans(root, { dayNames, quiet }) {
       el.removeEventListener("pointerup", end);
       el.removeEventListener("pointercancel", end);
       el.classList.remove("dragging");
+      unlock();
       // A plain click (nothing moved) keeps the same element, so a double-click can follow
       if (b.start === orig.start && b.dur === orig.dur && b.lane === orig.lane) return;
       focus = { key, i: Number(el.dataset.i) };
@@ -316,7 +327,34 @@ export function mountPlans(root, { dayNames, quiet }) {
     el.addEventListener("pointermove", move);
     el.addEventListener("pointerup", end);
     el.addEventListener("pointercancel", end);
-  });
+  }
+
+  // Touch helpers: wait for a still press before treating the touch as a drag
+  const HOLD_MS = 350, SLOP = 8;
+  function holdThen(e, el, onHold, onTap) {
+    const sx = e.clientX, sy = e.clientY;
+    const timer = setTimeout(() => { cleanup(); el.classList.add("held"); navigator.vibrate?.(8); onHold(); }, HOLD_MS);
+    const moved = (ev) => { if (Math.hypot(ev.clientX - sx, ev.clientY - sy) > SLOP) cleanup(); };
+    const up = () => { cleanup(); onTap?.(); };
+    const cleanup = () => {
+      clearTimeout(timer);
+      el.removeEventListener("pointermove", moved);
+      el.removeEventListener("pointerup", up);
+      el.removeEventListener("pointercancel", cleanup);
+    };
+    el.addEventListener("pointermove", moved);
+    el.addEventListener("pointerup", up);
+    el.addEventListener("pointercancel", cleanup);
+  }
+  // While a touch drag is on, the page must not scroll under the finger
+  function lockScroll() {
+    const stop = (ev) => ev.preventDefault();
+    document.addEventListener("touchmove", stop, { passive: false });
+    return () => {
+      document.removeEventListener("touchmove", stop);
+      root.querySelectorAll(".held").forEach((x) => x.classList.remove("held"));
+    };
+  }
 
   grid.addEventListener("click", (e) => {
     const del = e.target.closest(".blk-del");
@@ -395,14 +433,32 @@ export function mountPlans(root, { dayNames, quiet }) {
   root.querySelector(".tl-palette").addEventListener("pointerdown", (e) => {
     const chip = e.target.closest("[data-add]");
     if (!chip || e.button > 0) return;
+    if (e.pointerType === "touch") {
+      // Swiping the palette scrolls it; a tap adds; a long press then drag places it
+      holdThen(e, chip, () => paletteDrag(e, chip, true), () => paletteAdd(chip.dataset.add));
+      return;
+    }
     e.preventDefault();
+    paletteDrag(e, chip, false);
+  });
+
+  function paletteAdd(type) {
+    const dur = TYPES[type].dur;
+    const blocks = state.plans[lastKey];
+    blocks.push({ type, dur, ...freeSlot(blocks, dur) });
+    focus = { key: lastKey, i: blocks.length - 1 };
+    commit();
+  }
+
+  function paletteDrag(e, chip, touch) {
     const type = chip.dataset.add;
     const dur = TYPES[type].dur;
     const sx = e.clientX, sy = e.clientY;
     let ghost = null;
+    const unlock = touch ? lockScroll() : () => {};
 
     const move = (ev) => {
-      if (!ghost && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 6) return;
+      if (!ghost && !touch && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 6) return;
       if (!ghost) {
         ghost = chip.cloneNode(true);
         ghost.classList.add("tl-ghost");
@@ -415,12 +471,8 @@ export function mountPlans(root, { dayNames, quiet }) {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerup", up);
       window.removeEventListener("pointercancel", up);
-      if (!ghost) {
-        const blocks = state.plans[lastKey];
-        blocks.push({ type, dur, ...freeSlot(blocks, dur) });
-        focus = { key: lastKey, i: blocks.length - 1 };
-        return commit();
-      }
+      unlock();
+      if (!ghost) return ev.type === "pointercancel" || touch ? undefined : paletteAdd(type);
       ghost.remove();
       if (ev.type === "pointercancel") return;
       const track = document.elementFromPoint(ev.clientX, ev.clientY)?.closest(".pl-track");
@@ -441,7 +493,7 @@ export function mountPlans(root, { dayNames, quiet }) {
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", up);
     window.addEventListener("pointercancel", up);
-  });
+  }
 
   fromSel.addEventListener("change", () => { state.from = Number(fromSel.value); commit(); });
   toSel.addEventListener("change", () => { state.to = Number(toSel.value); commit(); });
