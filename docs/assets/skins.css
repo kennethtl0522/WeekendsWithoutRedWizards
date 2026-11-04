@@ -357,3 +357,5 @@
 [data-skin="p3"] .pm.lead { border-left-color: var(--p3-cyan); background: linear-gradient(90deg, color-mix(in srgb, var(--sk-main) 45%, var(--surface)), var(--surface)); }
 [data-skin="p3"] .pm.lead i { background: var(--p3-cyan); color: var(--p3-navy); }
 [data-skin="p3"] .pm.lead .pm-role { color: var(--accent); }
+[data-skin="p5"] .pick.rain { background: var(--sk-block); color: var(--sk-block-ink); }
+[data-skin="p3"] .pick.rain { background: var(--sk-main); color: #fff; }

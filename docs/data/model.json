@@ -617,7 +617,8 @@
          "max": 10,
          "miles": 3.1,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "AJ Spurs Saloon & Dining Hall",
@@ -634,7 +635,8 @@
          "max": 10,
          "miles": 3.4,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Blue Moon Over Avila",
@@ -702,7 +704,8 @@
          "max": 11,
          "miles": 3.2,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Giuseppe's Cucina Italiana",
@@ -719,7 +722,8 @@
          "max": 11,
          "miles": 3.3,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Vista Steak and Seafood",
@@ -804,7 +808,8 @@
          "max": 10,
          "miles": 3.1,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Beachin' Biscuits",
@@ -891,7 +896,8 @@
          "miles": 8.9
         },
         "tag": "农场市集",
-        "host": true
+        "host": true,
+        "rain": true
        },
        {
         "name": "Dinosaur Caves Park",
@@ -1023,7 +1029,8 @@
          "max": 5,
          "miles": 1.3,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Pismo Beach Golf Course",
@@ -1057,7 +1064,8 @@
          "max": 10,
          "miles": 3.1,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Avila Beach Pier",
@@ -1091,7 +1099,8 @@
          "max": 22,
          "miles": 9.4,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Avila Hot Springs",
@@ -1108,7 +1117,8 @@
          "max": 21,
          "miles": 8.7,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "The Avila (Avila Beach Golf Resort)",
@@ -1159,7 +1169,8 @@
          "max": 27,
          "miles": 11.4,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Swinging Bridge",
@@ -1210,7 +1221,8 @@
          "max": 34,
          "miles": 16.6,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Mission San Luis Obispo de Tolosa",
@@ -1227,7 +1239,8 @@
          "max": 33,
          "miles": 16.2,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "San Luis Obispo Railroad Museum",
@@ -1244,7 +1257,8 @@
          "max": 35,
          "miles": 13.8,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Morro Bay State Park",
@@ -1312,7 +1326,8 @@
          "max": 10,
          "miles": 3.0,
          "est": true
-        }
+        },
+        "rain": true
        }
       ]
      },
@@ -1538,7 +1553,8 @@
          "max": 21,
          "miles": 7.0,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "Sextant Wines",
@@ -1555,7 +1571,8 @@
          "max": 21,
          "miles": 8.2,
          "est": true
-        }
+        },
+        "rain": true
        },
        {
         "name": "LXV Wine & Pairings Tasting Room",
@@ -1591,48 +1608,6 @@
          "est": true
         }
        }
-      ]
-     }
-    ]
-   },
-   "rain_plan": {
-    "groups": [
-     {
-      "title": "室内玩",
-      "names": [
-       "Pismo Bowl",
-       "HotShots Billiards",
-       "The Great American Melodrama & Vaudeville",
-       "Central Coast Aquarium",
-       "San Luis Obispo Railroad Museum",
-       "Mission San Luis Obispo de Tolosa",
-       "Fremont Theater"
-      ]
-     },
-     {
-      "title": "泡温泉 · 雨天也能泡",
-      "names": [
-       "Sycamore Mineral Springs Resort & Spa",
-       "Avila Hot Springs"
-      ]
-     },
-     {
-      "title": "品酒 · 逛逛",
-      "names": [
-       "Peacock Cellars Tasting Room & Farmstead",
-       "Sextant Wines",
-       "Avila Valley Barn",
-       "Old West Cinnamon Rolls"
-      ]
-     },
-     {
-      "title": "不烤了，出去吃",
-      "names": [
-       "Mo's SmokeHouse BBQ",
-       "AJ Spurs Saloon & Dining Hall",
-       "Oyster Loft",
-       "Giuseppe's Cucina Italiana",
-       "De Bu of Pismo Beach"
       ]
      }
     ]

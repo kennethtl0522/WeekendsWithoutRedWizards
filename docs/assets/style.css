@@ -757,3 +757,4 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .party-head .pm-rename { width: 8em; font-size: 15px; }
 .party-count.full { color: var(--accent); font-weight: 700; }
 .party-count.over { color: var(--warn); }
+.pick.rain { color: var(--accent); background: var(--accent-soft); }

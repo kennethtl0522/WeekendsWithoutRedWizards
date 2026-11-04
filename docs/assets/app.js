@@ -1,10 +1,10 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=0b744280";
-import { mountShopping } from "./lists.js?v=0b744280";
-import { mountPlans } from "./timeline.js?v=0b744280";
-import { mountCarpool } from "./carpool.js?v=0b744280";
-import { mountWeather } from "./weather.js?v=0b744280";
+import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=7368983b";
+import { mountShopping } from "./lists.js?v=7368983b";
+import { mountPlans } from "./timeline.js?v=7368983b";
+import { mountCarpool } from "./carpool.js?v=7368983b";
+import { mountWeather } from "./weather.js?v=7368983b";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -199,7 +199,7 @@ function placeCards(groups, home) {
       p.rating ? `<span class="near-star">★ ${Number(p.rating).toFixed(1)}</span> <span class="muted">(${p.reviews.toLocaleString("en-US")})</span>` : "",
       p.tag ? `<span class="muted">${esc(p.tag)}</span>` : "",
       `<span class="muted">${esc(p.city)}</span>`,
-    ].filter(Boolean).join(" · ") + (p.host ? ` <span class="pick">房东推荐</span>` : "");
+    ].filter(Boolean).join(" · ") + (p.rain ? ` <span class="pick rain">雨天可去</span>` : "") + (p.host ? ` <span class="pick">房东推荐</span>` : "");
     return `<li>
       <div class="near-top"><a href="${esc(maps)}" target="_blank" rel="noopener"><b>${esc(p.name)}</b></a>${dist}</div>
       <div class="near-meta">${meta}</div>
@@ -236,21 +236,6 @@ function carpool(c) {
   return `<section id="carpool">
     <div class="ttl-row">${ttl("拼车", "Carpool")}${cp.status ? `<span class="pool-status">${esc(cp.status)}</span>` : ""}</div>
     <div id="pool"></div>
-  </section>`;
-}
-
-// 雨天备案: indoor and rain-proof picks from the nearby guide, same rows and drive times
-function rainPlan(c) {
-  const home = listings[c.id];
-  const all = [...(c.nearby?.groups || []), ...(c.nearby?.shops || [])].flatMap((g) => g.items);
-  const byName = new Map(all.map((p) => [p.name, p]));
-  const groups = (c.rain_plan?.groups || [])
-    .map((g) => ({ title: g.title, items: g.names.map((n) => byName.get(n)).filter(Boolean) }))
-    .filter((g) => g.items.length);
-  if (!groups.length || !home?.lat) return "";
-  return `<section id="rain">
-    ${ttl("雨天备案", "Rain plan")}
-    <div class="near-grid">${placeCards(groups, home)}</div>
   </section>`;
 }
 
@@ -392,8 +377,7 @@ function overview() {
     ${ttl("采购清单", "Shopping")}
     <div id="shopping"></div>
   </section>
-  ${rainPlan(c)}
-  ${nearby(c, "groups", `距离住所 ${esc(c.nearby?.around || "")} 周边`, "Around")}
+  ${nearby(c, "groups", "海边小屋周边", "Around")}
 </main>`;
     const home = listings[c.id], stay = dateOf(c.dates);
     mountWeather(document.getElementById("weather"), { lat: home.lat, lng: home.lng, start: stay.check_in, end: stay.check_out, esc });
