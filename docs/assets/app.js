@@ -1,8 +1,8 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=663a20f9";
-import { mountShopping } from "./lists.js?v=663a20f9";
-import { mountPlans } from "./timeline.js?v=663a20f9";
+import { SITE, cents, counterHTML, esc, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=a7058c5e";
+import { mountShopping } from "./lists.js?v=a7058c5e";
+import { mountPlans } from "./timeline.js?v=a7058c5e";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -24,12 +24,31 @@ const split = (s) => s.total / getPeople();
 const minTotal = (id) => Math.min(...priced.filter((d) => stays[d.key][id]).map((d) => stays[d.key][id].total));
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
-function topbar(crumbs = []) {
-  const parts = [`<a href="${SITE}">${esc(trip.title)}</a>`, ...crumbs];
-  return `<nav class="topbar">${parts.join(" <span>/</span> ")}</nav>`;
+// Every sub-page gets a single way back to the overview
+function topbar() {
+  return `<nav class="topbar"><a class="back" href="${SITE}">← Back to main page</a></nav>`;
 }
 
 // ---------- overview ----------
+
+// "WeekendsWithoutRedWizards" → WEEKENDS WITHOUT RED WIZARDS, each word its own span, RED in red
+function heroTitle() {
+  const words = trip.title.replace(/([a-z])([A-Z])/g, "$1 $2").split(/\s+/);
+  return `<h1 class="hero-title" aria-label="${esc(trip.title)}">${words
+    .map((w) => `<span${/^red$/i.test(w) ? ' class="red"' : ""}>${esc(w)}</span>`).join("")}</h1>`;
+}
+
+// Countdown to check-in (days are counted in the trip's own calendar dates)
+function countdown(d) {
+  const today = new Date();
+  const day = (iso) => Date.UTC(...iso.split("-").map((n, i) => Number(n) - (i === 1 ? 1 : 0)));
+  const now = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+  const left = Math.round((day(d.check_in) - now) / 864e5);
+  if (left > 1) return `${left} days remaining`;
+  if (left === 1) return "1 day remaining";
+  if (left === 0) return "Check-in today";
+  return now < day(d.check_out) ? "On the trip" : now === day(d.check_out) ? "Check-out today" : "Trip complete";
+}
 
 // Weekday names from a date onward, e.g. ["Sat", "Sun", "Mon", "Tue"]
 function weekdaysFrom(iso) {
@@ -65,15 +84,20 @@ function bookingCard(c) {
         <span class="io-arrow" aria-hidden="true">→</span>
         ${inOut("Checkout", c.check_out, { day: d.long_label.split(" – ")[1], time: l.check_out_time ?? "" })}
       </div>
-      <div class="booking-price">
-        <span class="pp" data-split="${paid}" data-cents>${cents(paid / getPeople())}</span><span class="per">/ person</span>
-        <span class="split-by">Split between ${counterHTML()} people</span>
+      <div class="paid">
+        <div class="paid-head">
+          <span class="paid-badge">✓ Paid in full</span>
+          ${c.guests ? `<span class="paid-guests">${c.guests} guests</span>` : ""}
+        </div>
+        <div class="paid-total">${cents(paid)}</div>
+        <div class="paid-split">
+          <span><b data-split="${paid}" data-cents>${cents(paid / getPeople())}</b> / person</span>
+          <span class="split-by">split between ${counterHTML()} people</span>
+        </div>
       </div>
-      <p class="booking-total">Amount paid <b>${cents(paid)}</b>${c.guests ? ` · ${c.guests} guests` : ""}</p>
       <div class="booking-actions">
         <a class="btn" href="${details}">House details</a>
         ${c.receipt_url ? `<a class="btn ghost" href="${esc(c.receipt_url)}" target="_blank" rel="noopener">Receipt ↗</a>` : ""}
-        ${c.address ? `<a class="btn ghost" href="${esc(mapsURL(c.address))}" target="_blank" rel="noopener">Open in Maps ↗</a>` : ""}
       </div>
     </div>
   </section>`;
@@ -84,28 +108,107 @@ const dur = (min) => {
   return h ? `${h} h${m ? ` ${m} min` : ""}` : `${m} min`;
 };
 
-// Typical drive times (Google Maps, typical traffic for the given departure); average = middle of the range
+// Typical drive times (Google Maps typical traffic for the given departure); average = middle of the range.
+// Shown as one card per trip (stops joined by legs, both LA starting points side by side),
+// with the full table of ranges and Maps links folded underneath.
 function driveTimes(c) {
   const routes = c.drive_times?.routes || [];
   if (!routes.length) return "";
-  const rows = routes.map((r) => {
-    const maps = `https://www.google.com/maps/dir/?${new URLSearchParams({ api: 1, origin: r.from_query, destination: r.to_query, travelmode: "driving" })}`;
-    return `<tr>
+  const find = (from, to) => routes.find((r) => r.from === from && r.to === to);
+  const avg = (r) => (r.min + r.max) / 2;
+  const origins = [...new Set(routes.filter((r) => r.to === "住宿" && r.from !== "Solvang").map((r) => r.from))];
+  const short = (o) => (o === "Downtown LA" ? "DTLA" : o.replace(" Heights", ""));
+  const mapsURL = (r) => `https://www.google.com/maps/dir/?${new URLSearchParams({ api: 1, origin: r.from_query, destination: r.to_query, travelmode: "driving" })}`;
+
+  const stop = (name, cls = "") => `<div class="stop${cls ? ` ${cls}` : ""}"><b>${esc(name)}</b></div>`;
+  // One leg; from LA it lists every starting point, otherwise a single time
+  const leg = (to, from = null) => {
+    const legs = from ? [find(from, to)].filter(Boolean) : origins.map((o) => find(o, to)).filter(Boolean);
+    if (!legs.length) return "";
+    return `<div class="leg">
+      <div class="leg-times">${legs.map((r) => `<span title="通常 ${dur(r.min)} – ${dur(r.max)} · ${r.miles} mi">
+        ${from ? "" : `<em>${esc(short(r.from === "住宿" ? r.to : r.from))}</em>`}<b>${dur(avg(r))}</b></span>`).join("")}</div>
+      <div class="leg-line" aria-hidden="true"></div>
+      <div class="leg-mi">${legs.map((r) => `${r.miles} mi`).join(" / ")}</div>
+    </div>`;
+  };
+
+  const cards = [
+    `<article class="trip-card">
+      <h3>Plan A 去程 <span class="muted">· 周六 9:00 出发</span></h3>
+      <div class="trip">${stop("LA")}${leg("Solvang")}${stop("Solvang")}${leg("住宿", "Solvang")}${stop("住宿", "home")}</div>
+    </article>`,
+    `<article class="trip-card">
+      <h3>Plan B 去程 <span class="muted">· 周六 9:00 出发</span></h3>
+      <div class="trip">${stop("LA")}${leg("住宿")}${stop("住宿", "home")}</div>
+    </article>`,
+    `<article class="trip-card">
+      <h3>回程 <span class="muted">· 周日 18:00 出发</span></h3>
+      <div class="trip">${stop("住宿", "home")}<div class="leg">
+        <div class="leg-times">${origins.map((o) => find("住宿", o)).filter(Boolean).map((r) => `<span title="通常 ${dur(r.min)} – ${dur(r.max)} · ${r.miles} mi">
+          <em>${esc(short(r.to))}</em><b>${dur(avg(r))}</b></span>`).join("")}</div>
+        <div class="leg-line" aria-hidden="true"></div>
+        <div class="leg-mi">${origins.map((o) => find("住宿", o)).filter(Boolean).map((r) => `${r.miles} mi`).join(" / ")}</div>
+      </div>${stop("LA")}</div>
+    </article>`,
+  ];
+
+  const rows = routes.map((r) => `<tr>
       <th scope="row">${esc(r.from)} <span class="arrow">→</span> ${esc(r.to)}</th>
       <td class="muted">${esc(r.depart)}</td>
-      <td class="avg">${dur((r.min + r.max) / 2)}</td>
+      <td class="avg">${dur(avg(r))}</td>
       <td class="muted">${dur(r.min)} – ${dur(r.max)}</td>
       <td class="muted">${r.miles} mi</td>
-      <td><a href="${esc(maps)}" target="_blank" rel="noopener">Maps ↗</a></td>
-    </tr>`;
-  }).join("");
+      <td><a href="${esc(mapsURL(r))}" target="_blank" rel="noopener">Maps ↗</a></td>
+    </tr>`).join("");
+
   return `<section>
     <h2>车程 · Drive times</h2>
-    <div class="table-wrap"><table class="drive">
-      <thead><tr><th>路线</th><th>出发</th><th>平均</th><th>通常</th><th>里程</th><th></th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>
-    ${c.drive_times.source ? `<p class="muted small">${esc(c.drive_times.source)}</p>` : ""}
+    <div class="trip-grid">${cards.join("")}</div>
+    <details class="drive-all">
+      <summary>全部路线明细 · 时间范围与地图</summary>
+      <div class="table-wrap"><table class="drive">
+        <thead><tr><th>路线</th><th>出发</th><th>平均</th><th>通常</th><th>里程</th><th></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </details>
+  </section>`;
+}
+
+// Straight-line miles between two points
+function miles(lat1, lng1, lat2, lng2) {
+  const rad = (d) => (d * Math.PI) / 180;
+  const a = Math.sin(rad(lat2 - lat1) / 2) ** 2 + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(rad(lng2 - lng1) / 2) ** 2;
+  return 3958.8 * 2 * Math.asin(Math.sqrt(a));
+}
+
+// Places around the house by kind, shortest drive first. Each row: name, rating · city, and on the
+// right the average drive time · road miles from the house.
+function nearby(c) {
+  const groups = c.nearby?.groups || [];
+  const home = listings[c.id];
+  if (!groups.length || !home?.lat) return "";
+  const mins = (p) => (p.walk ? 0 : p.drive ? (p.drive.min + p.drive.max) / 2 : 999);
+  const cards = groups.map((g) => {
+    const items = [...g.items].sort((a, b) => mins(a) - mins(b));
+    return `<article class="near-card">
+      <h3>${esc(g.title)}</h3>
+      <ul>${items.map((p) => {
+        const maps = `https://www.google.com/maps/search/?${new URLSearchParams({ api: 1, query: `${p.name}, ${p.address}, ${p.city}, CA` })}`;
+        const dist = p.walk ? `<span class="near-time walk">步行可到</span>`
+          : p.drive ? `<span class="near-time">${Math.round(mins(p))} min <span>· ${p.drive.miles} mi</span></span>`
+          : `<span class="near-time"><span>≈ ${miles(home.lat, home.lng, p.lat, p.lng).toFixed(1)} mi</span></span>`;
+        return `<li>
+          <div class="near-top"><a href="${esc(maps)}" target="_blank" rel="noopener"><b>${esc(p.name)}</b></a>${dist}</div>
+          <div class="near-meta">${p.rating ? `<span class="near-star">★ ${Number(p.rating).toFixed(1)}</span> <span class="muted">(${p.reviews.toLocaleString("en-US")})</span> · ` : ""}<span class="muted">${esc(p.city)}</span></div>
+          ${p.note ? `<p>${esc(p.note)}</p>` : ""}
+        </li>`;
+      }).join("")}</ul>
+    </article>`;
+  }).join("");
+  return `<section>
+    <h2>距离住所 ${esc(c.nearby.around || "")} 周边</h2>
+    <div class="near-grid">${cards}</div>
   </section>`;
 }
 
@@ -119,7 +222,7 @@ function reservationDetails(c) {
     </div>`).join("");
     cards.push(`<article class="info-card wide">
       <h3>Getting there</h3>
-      <p class="addr"><b>${esc(c.address)}</b> <a href="${esc(mapsURL(c.address))}" target="_blank" rel="noopener">Open in Maps ↗</a></p>
+      <div class="addr"><b>${esc(c.address)}</b> <a class="btn maps-btn" href="${esc(mapsURL(c.address))}" target="_blank" rel="noopener">Open in Maps ↗</a></div>
       ${routes ? `<details class="directions">
         <summary>Directions for senior to read</summary>
         <div class="routes">${routes}</div>
@@ -128,8 +231,10 @@ function reservationDetails(c) {
     </article>`);
   }
   if (c.check_in_method) {
+    const io = (label, x) => x ? `<div class="ci-time"><span>${label}</span><b>${esc(x.day)}</b><em>${esc(x.time)}</em></div>` : "";
     cards.push(`<article class="info-card">
       <h3>Checking in</h3>
+      <div class="ci-times">${io("Check-in", c.check_in)}${io("Checkout", c.check_out)}</div>
       <p>${esc(c.check_in_method)}</p>
       ${c.confirmation_code ? `<p class="code">Confirmation code <b>${esc(c.confirmation_code)}</b></p>` : ""}
     </article>`);
@@ -184,27 +289,27 @@ function priceTable(markKey, markLabel) {
 
 function overview() {
   const c = trip.confirmed && listings[trip.confirmed.id] && stays[trip.confirmed.dates]?.[trip.confirmed.id] ? trip.confirmed : null;
-  const checkedAt = `<p class="muted foot">Prices checked ${esc((trip.updated || "").replace("T", " ").slice(0, 16))}.</p>`;
   document.title = trip.title;
 
   if (c) {
     app.innerHTML = `
 <header class="hero-head">
   <p class="eyebrow">Trip plan</p>
-  <h1>${esc(trip.title)}</h1>
+  ${heroTitle()}
   <div class="status">
     <span class="status-ok">✓ ${esc(c.status || "Booked")}</span>
-    ${c.confirmation_code ? `<span class="status-code">Confirmation ${esc(c.confirmation_code)}</span>` : ""}
+    <span class="status-code">${esc(countdown(dateOf(c.dates)))}</span>
   </div>
 </header>
 <main class="overview">
   ${bookingCard(c)}
   ${reservationDetails(c)}
+  ${driveTimes(c)}
   <section>
     <h2>Confirm our plan</h2>
     <div id="plans"></div>
   </section>
-  ${driveTimes(c)}
+  ${nearby(c)}
   <section>
     <h2>采购清单</h2>
     <div id="shopping"></div>
@@ -213,7 +318,6 @@ function overview() {
     <summary>All houses we compared</summary>
     ${priceTable(c.dates, c.status || "Booked")}
   </details>
-  ${checkedAt}
 </main>`;
     mountPlans(document.getElementById("plans"), { dayNames: weekdaysFrom(dateOf(c.dates).check_in), quiet: c.quiet_hours });
     mountShopping(document.getElementById("shopping"), { endpoint: trip.lists_url, getPeople, cents, esc });
@@ -223,7 +327,7 @@ function overview() {
   app.innerHTML = `
 <header class="hero-head">
   <p class="eyebrow">Trip plan</p>
-  <h1>${esc(trip.title)}</h1>
+  ${heroTitle()}
   <p class="split-line">Per-person prices split between ${counterHTML()} people</p>
 </header>
 <main class="overview">
@@ -235,7 +339,6 @@ function overview() {
     <h2>Houses &amp; prices</h2>
     ${priceTable(trip.recommended, "Recommended")}
   </section>
-  ${checkedAt}
 </main>`;
   mountPlans(document.getElementById("plans"), { dayNames: ["Fri", "Sat", "Sun", "Mon"] });
 }

@@ -1,9 +1,10 @@
 // 采购清单: the group's shared shopping list on the overview page.
 // Items live in a Google Sheet behind an Apps Script web app (apps-script/Code.gs).
 // Without an endpoint configured, the list still works but only in this browser.
-// Each item: name, quantity, category, 自带 (someone brings it from home, so it costs nothing),
-// estimated price, bought. Anyone can add items, edit
-// them in place, tick them off, and see the estimated total and per-person share.
+// Two tabs over the same items: 需购买 (to buy: has a price, counts toward the total and
+// per-person share) and 自带 (brought from home: no price at all). The `own` field says which.
+// Anyone can add items to the open tab, edit them in place, tick them off (bought / packed),
+// move them between tabs, or delete them.
 
 const LIST = "采购";
 const CATEGORIES = ["肉类", "蔬果", "主食", "饮料酒水", "零食", "调料", "日用品", "其他"];
@@ -66,76 +67,104 @@ function remoteBackend(url) {
 
 // ---------- view ----------
 
+const TABS = {
+  buy: { label: "需购买", add: "添加要买的，如 牛小排", done: "已买", todo: "未买" },
+  own: { label: "自带", add: "添加自带的，如 盐、烤炉", done: "已带", todo: "未带" },
+};
+
 export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
   const backend = endpoint ? remoteBackend(endpoint) : localBackend();
   let items = [];
+  let tab = "buy"; // buy | own
   let filter = "all"; // all | todo
   let syncedAt = null;
   let error = null;
   let busy = 0;
+  try { tab = localStorage.getItem("airbnb-pitch:list-tab") === "own" ? "own" : "buy"; } catch {}
 
   const opts = (values, selected) => values.map((v) => `<option${v === selected ? " selected" : ""}>${esc(v)}</option>`).join("");
 
   root.innerHTML = `<div class="shop">
+  <div class="shop-head">
+    <div class="shop-tabs" role="tablist"></div>
+    <span class="shop-sync muted"></span>
+    <button type="button" class="tl-btn" data-act="refresh">刷新</button>
+  </div>
   <form class="shop-add">
-    <input name="name" placeholder="添加物品，如 牛小排" required autocomplete="off">
+    <input name="name" required autocomplete="off">
     <input name="qty" placeholder="数量" autocomplete="off">
     <select name="category">${opts(CATEGORIES, "肉类")}</select>
-    <label class="own"><input type="checkbox" name="own"> 自带</label>
     <input name="price" type="number" min="0" step="0.01" placeholder="$ 预估">
     <button type="submit" class="btn">添加</button>
   </form>
   <div class="shop-toolbar">
     <div class="seg shop-filter"></div>
-    <span class="shop-sync muted"></span>
-    <button type="button" class="tl-btn" data-act="refresh">刷新</button>
+    <div class="shop-summary"></div>
   </div>
-  <div class="shop-summary"></div>
   <div class="shop-groups"></div>
 </div>`;
 
+  const shopEl = root.querySelector(".shop");
   const form = root.querySelector(".shop-add");
+  const tabsEl = root.querySelector(".shop-tabs");
   const groupsEl = root.querySelector(".shop-groups");
   const summaryEl = root.querySelector(".shop-summary");
   const filterEl = root.querySelector(".shop-filter");
   const syncEl = root.querySelector(".shop-sync");
 
-  const price = (x) => (x.own ? 0 : Number(x.price) || 0);
+  const isOwn = (x) => Boolean(x.own);
+  const inTab = (x) => isOwn(x) === (tab === "own");
+  const price = (x) => (isOwn(x) ? 0 : Number(x.price) || 0);
 
   function rowHTML(x) {
-    // Same columns as the add form above: name | qty | category | 自带 | price | ×
-    return `<li class="shop-item${x.bought ? " bought" : ""}${x.own ? " own" : ""}" data-id="${esc(x.id)}">
+    // Same columns as the add form above: name | qty | category | [price] | actions
+    const other = tab === "own" ? "购买" : "自带";
+    return `<li class="shop-item${x.bought ? " bought" : ""}" data-id="${esc(x.id)}">
       <span class="si-main">
-        <input type="checkbox" data-f="bought" aria-label="已买"${x.bought ? " checked" : ""}>
+        <input type="checkbox" data-f="bought" aria-label="${TABS[tab].done}"${x.bought ? " checked" : ""}>
         <input class="si-name" data-f="name" value="${esc(x.name)}" aria-label="物品">
       </span>
       <input class="si-qty" data-f="qty" value="${esc(x.qty || "")}" placeholder="数量" aria-label="数量">
       <select class="si-cat" data-f="category" aria-label="分类">${opts(CATEGORIES, CATEGORIES.includes(x.category) ? x.category : "其他")}</select>
-      <label class="own"><input type="checkbox" data-f="own"${x.own ? " checked" : ""}> 自带</label>
-      <input class="si-price" data-f="price" type="number" min="0" step="0.01" value="${x.price === "" || x.price == null ? "" : esc(x.price)}" placeholder="${x.own ? "—" : "$"}" aria-label="价格"${x.own ? " disabled" : ""}>
-      <button type="button" class="si-del" aria-label="删除 ${esc(x.name)}">×</button>
+      ${tab === "buy" ? `<input class="si-price" data-f="price" type="number" min="0" step="0.01" value="${x.price === "" || x.price == null ? "" : esc(x.price)}" placeholder="$" aria-label="价格">` : ""}
+      <span class="si-actions">
+        <button type="button" class="si-move" title="移到${other}">→ ${other}</button>
+        <button type="button" class="si-del" aria-label="删除 ${esc(x.name)}">×</button>
+      </span>
     </li>`;
   }
 
   function render() {
-    filterEl.innerHTML = [["all", "全部"], ["todo", "未买"]]
+    const t = TABS[tab];
+    shopEl.dataset.mode = tab;
+    const count = (own) => items.filter((x) => isOwn(x) === own).length;
+    tabsEl.innerHTML = Object.entries(TABS).map(([key, v]) => `<button type="button" role="tab" data-tab="${key}"
+      aria-selected="${tab === key}">${v.label} <span>${count(key === "own")}</span></button>`).join("");
+    form.name.placeholder = t.add;
+    filterEl.innerHTML = [["all", "全部"], ["todo", t.todo]]
       .map(([v, label]) => `<button type="button" data-filter="${esc(v)}" aria-pressed="${filter === v}">${esc(label)}</button>`).join("");
 
-    const shown = items.filter((x) => filter === "all" || !x.bought);
-    const total = items.reduce((sum, x) => sum + price(x), 0);
-    const done = items.filter((x) => x.bought).length;
-    const own = items.filter((x) => x.own).length;
-    summaryEl.innerHTML = items.length
-      ? `<b>${done}/${items.length}</b> 已买${own ? ` · 自带 <b>${own}</b>` : ""} · 预计 <b>${cents(total)}</b> · 每人 <b>${cents(total / getPeople())}</b>
-         <span class="muted">（${getPeople()} 人平摊${items.some((x) => !x.own && !price(x)) ? "，未填价格的不计" : ""}）</span>`
-      : "";
+    const mine = items.filter(inTab);
+    const done = mine.filter((x) => x.bought).length;
+    if (tab === "buy") {
+      const total = mine.reduce((sum, x) => sum + price(x), 0);
+      summaryEl.innerHTML = mine.length
+        ? `<b>${done}/${mine.length}</b> ${t.done} · 预计 <b>${cents(total)}</b> · 每人 <b>${cents(total / getPeople())}</b>
+           <span class="muted">${getPeople()} 人平摊${mine.some((x) => !price(x)) ? "，未填价格的不计" : ""}</span>`
+        : "";
+    } else {
+      summaryEl.innerHTML = mine.length ? `<b>${done}/${mine.length}</b> ${t.done}` : "";
+    }
 
     if (!items.length) {
       groupsEl.innerHTML = `<div class="shop-empty">
         <p>清单还是空的。</p>
         <button type="button" class="btn" data-act="seed">载入建议清单（${STARTER.length} 项）</button>
       </div>`;
+    } else if (!mine.length) {
+      groupsEl.innerHTML = `<p class="muted shop-none">${tab === "own" ? "还没有自带的物品。在上面添加，或在「需购买」里点「→ 自带」。" : "没有要买的物品。"}</p>`;
     } else {
+      const shown = mine.filter((x) => filter === "all" || !x.bought);
       const byCat = CATEGORIES.map((cat) => [cat, shown.filter((x) => (CATEGORIES.includes(x.category) ? x.category : "其他") === cat)])
         .filter(([, list]) => list.length);
       groupsEl.innerHTML = byCat.map(([cat, list]) => {
@@ -144,7 +173,7 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
           <h4>${esc(cat)} <span class="muted">${list.filter((x) => x.bought).length}/${list.length}</span></h4>
           <ul>${sorted.map(rowHTML).join("")}</ul>
         </section>`;
-      }).join("") || `<p class="muted">没有符合筛选的物品。</p>`;
+      }).join("") || `<p class="muted shop-none">没有符合筛选的物品。</p>`;
     }
 
     const when = syncedAt ? syncedAt.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" }) : "";
@@ -178,16 +207,24 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
 
   const refresh = () => { if (!busy && !root.contains(document.activeElement)) run(backend.list()); };
 
+  tabsEl.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-tab]");
+    if (!b) return;
+    tab = b.dataset.tab;
+    filter = "all";
+    try { localStorage.setItem("airbnb-pitch:list-tab", tab); } catch {}
+    render();
+  });
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const f = Object.fromEntries(new FormData(form));
     const item = {
-      id: newId(), name: f.name.trim(), qty: f.qty.trim(), category: f.category, own: f.own === "on",
-      price: f.price === "" ? "" : Number(f.price), bought: false,
+      id: newId(), name: f.name.trim(), qty: f.qty.trim(), category: f.category, own: tab === "own",
+      price: tab === "own" || f.price === "" ? "" : Number(f.price), bought: false,
     };
     if (!item.name) return;
     form.name.value = form.qty.value = form.price.value = "";
-    form.own.checked = false;
     form.name.focus();
     send({ action: "add", items: [item] });
   });
@@ -203,9 +240,14 @@ export function mountShopping(root, { endpoint, getPeople, cents, esc }) {
   });
 
   groupsEl.addEventListener("click", (e) => {
-    const del = e.target.closest(".si-del");
-    if (del) {
-      const row = del.closest(".shop-item");
+    const row = e.target.closest(".shop-item");
+    if (e.target.closest(".si-move") && row) {
+      // Moving to 自带 drops the price (it no longer costs anything); ticks reset for the new list
+      const toOwn = tab === "buy";
+      send({ action: "update", id: row.dataset.id, fields: { own: toOwn, bought: false, ...(toOwn && { price: "" }) } });
+      return;
+    }
+    if (e.target.closest(".si-del") && row) {
       const name = row.querySelector(".si-name").value;
       if (confirm(`删除「${name}」？`)) send({ action: "delete", id: row.dataset.id });
       return;
