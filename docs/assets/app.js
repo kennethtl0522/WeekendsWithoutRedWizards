@@ -1,10 +1,10 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=18f46c55";
-import { mountShopping } from "./lists.js?v=18f46c55";
-import { mountPlans } from "./timeline.js?v=18f46c55";
-import { mountCarpool } from "./carpool.js?v=18f46c55";
-import { mountWeather } from "./weather.js?v=18f46c55";
+import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=0b744280";
+import { mountShopping } from "./lists.js?v=0b744280";
+import { mountPlans } from "./timeline.js?v=0b744280";
+import { mountCarpool } from "./carpool.js?v=0b744280";
+import { mountWeather } from "./weather.js?v=0b744280";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -392,7 +392,6 @@ function overview() {
     ${ttl("采购清单", "Shopping")}
     <div id="shopping"></div>
   </section>
-  ${nearby(c, "shops", "去哪买", "Stores")}
   ${rainPlan(c)}
   ${nearby(c, "groups", `距离住所 ${esc(c.nearby?.around || "")} 周边`, "Around")}
 </main>`;
