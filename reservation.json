@@ -15,6 +15,32 @@
     "time": "10:00 AM"
   },
   "check_in_method": "Smart lock. Please reach out to the host for check-in instructions.",
+  "host_note": {
+    "host": "Mauri",
+    "note": "房东 Mauri 会在入住前一天发入住说明"
+  },
+  "contacts": [
+    {
+      "role": "本地联络人",
+      "name": "Becky Bergman",
+      "phone": "805-481-2637",
+      "note": ""
+    },
+    {
+      "role": "房东（紧急联系）",
+      "name": "",
+      "phone": "720-371-0101",
+      "note": ""
+    }
+  ],
+  "checkout_steps": [
+    "用过的毛巾放浴室或洗衣房旁",
+    "洗碗机开一轮",
+    "垃圾拿到车道的垃圾桶（备用袋在水槽下）",
+    "关灯、关电器，带走充电器，退出电视上的账号",
+    "锁好所有门窗，包括推拉门",
+    "有钥匙的放回原处"
+  ],
   "address": "1358 Strand Way, Oceano, CA 93445",
   "directions": [
     {
@@ -44,6 +70,28 @@
     }
   ],
   "directions_note": "The Strand is a specific strip of homes along the beach, offering a unique experience with direct access to the Pacific Ocean.",
+  "ev_charging": {
+    "title": "EV 充电",
+    "facts": [
+      "Tesla Level 2",
+      "$20 / 车 / 天",
+      "8:30 PM – 次日 4:30 PM"
+    ],
+    "note": "要用需提前把车的年份、品牌、型号发给房东"
+  },
+  "parking": {
+    "title": "停车",
+    "facts": [
+      "车库 3 个车位",
+      "旁边小街可路边停",
+      "Pier St & Strand Way 土停车场 $20–25 / 晚"
+    ],
+    "note": "土停车场",
+    "contact": {
+      "name": "Kellie Myrick",
+      "phone": "805-904-7163"
+    }
+  },
   "quiet_hours": {
     "label": "9:00 PM – 8:00 AM",
     "from": 21,
@@ -167,13 +215,1126 @@
         "max": 220,
         "miles": 175,
         "via": "US-101 S"
+      },
+      {
+        "from": "Solvang",
+        "from_query": "Solvang, CA",
+        "to": "Rowland Heights",
+        "to_query": "Rowland Heights, CA",
+        "depart": "Sun 6:00 PM",
+        "min": 150,
+        "max": 190,
+        "miles": 153,
+        "via": "US-101 S"
+      },
+      {
+        "from": "Solvang",
+        "from_query": "Solvang, CA",
+        "to": "Downtown LA",
+        "to_query": "Downtown Los Angeles, CA",
+        "depart": "Sun 6:00 PM",
+        "min": 130,
+        "max": 170,
+        "miles": 128,
+        "via": "US-101 S"
       }
     ]
   },
   "nearby": {
     "around": "1358 Strand Way, Oceano",
-    "source": "时间与距离：从住宿开车，周六中午 Google Maps 通常路况的平均值（2026-11-03 查询）。评分来自 Google Maps。",
     "groups": [
+      {
+        "title": "吃",
+        "items": [
+          {
+            "name": "Splash Café",
+            "address": "197 Pomeroy Ave",
+            "city": "Pismo Beach",
+            "rating": 4.5,
+            "reviews": 7671,
+            "lat": 35.1401421,
+            "lng": -120.6424036,
+            "drive": {
+              "min": 8,
+              "max": 14,
+              "miles": 3.1
+            },
+            "tag": "蛤蜊浓汤",
+            "host": true
+          },
+          {
+            "name": "Old Juan's Cantina",
+            "address": "649 Pier Ave",
+            "city": "Oceano",
+            "rating": 4.3,
+            "reviews": 2302,
+            "lat": 35.1073818,
+            "lng": -120.6240834,
+            "tag": "墨西哥风味餐馆",
+            "host": true,
+            "walk": true
+          },
+          {
+            "name": "Slappy's Chowder House",
+            "address": "306 Pier Ave",
+            "city": "Oceano",
+            "rating": 4.3,
+            "reviews": 96,
+            "lat": 35.1054794,
+            "lng": -120.6302529,
+            "tag": "海鲜馆",
+            "host": true,
+            "walk": true
+          },
+          {
+            "name": "Rock & Roll Diner",
+            "address": "1300 Railroad St",
+            "city": "Oceano",
+            "rating": 4.0,
+            "reviews": 1852,
+            "lat": 35.1053973,
+            "lng": -120.6226125,
+            "tag": "餐馆",
+            "host": true,
+            "walk": true
+          },
+          {
+            "name": "Garlands Hamburgers",
+            "address": "701 W Grand Ave",
+            "city": "Grover Beach",
+            "rating": 4.4,
+            "reviews": 660,
+            "lat": 35.1217819,
+            "lng": -120.6225262,
+            "tag": "汉堡店",
+            "host": true,
+            "drive": {
+              "min": 5,
+              "max": 7,
+              "miles": 2.0,
+              "est": true
+            }
+          },
+          {
+            "name": "Sylvester's Burgers",
+            "address": "1875 Front St",
+            "city": "Oceano",
+            "rating": 4.5,
+            "reviews": 1415,
+            "lat": 35.0993204,
+            "lng": -120.6129854,
+            "tag": "汉堡店",
+            "host": true,
+            "drive": {
+              "min": 3,
+              "max": 5,
+              "miles": 1.3,
+              "est": true
+            }
+          },
+          {
+            "name": "Mo's SmokeHouse BBQ",
+            "address": "221 Pomeroy Ave",
+            "city": "Pismo Beach",
+            "rating": 4.3,
+            "reviews": 1157,
+            "lat": 35.1403806,
+            "lng": -120.642075,
+            "tag": "烧烤店",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 10,
+              "miles": 3.1,
+              "est": true
+            }
+          },
+          {
+            "name": "AJ Spurs Saloon & Dining Hall",
+            "address": "1760 El Camino Real",
+            "city": "Grover Beach",
+            "rating": 4.4,
+            "reviews": 1689,
+            "lat": 35.1293797,
+            "lng": -120.6071551,
+            "tag": "牛排馆",
+            "host": true,
+            "drive": {
+              "min": 7,
+              "max": 10,
+              "miles": 3.4,
+              "est": true
+            }
+          },
+          {
+            "name": "Blue Moon Over Avila",
+            "address": "460 Front St",
+            "city": "Avila Beach",
+            "rating": 4.4,
+            "reviews": 663,
+            "lat": 35.1791887,
+            "lng": -120.7344736,
+            "tag": "法国风味餐馆",
+            "host": true,
+            "drive": {
+              "min": 21,
+              "max": 28,
+              "miles": 11.5,
+              "est": true
+            }
+          },
+          {
+            "name": "Cool Cat Cafe",
+            "address": "198 Pomeroy Ave",
+            "city": "Pismo Beach",
+            "rating": 4.5,
+            "reviews": 2805,
+            "lat": 35.1398862,
+            "lng": -120.6422047,
+            "tag": "汉堡店",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 11,
+              "miles": 3.2,
+              "est": true
+            }
+          },
+          {
+            "name": "Ember Restaurant",
+            "address": "1200 E Grand Ave Unit 101",
+            "city": "Arroyo Grande",
+            "rating": 4.7,
+            "reviews": 1228,
+            "lat": 35.1210462,
+            "lng": -120.599669,
+            "tag": "餐馆",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 11,
+              "miles": 3.3,
+              "est": true
+            }
+          },
+          {
+            "name": "Oyster Loft",
+            "address": "175 Pomeroy Ave",
+            "city": "Pismo Beach",
+            "rating": 4.6,
+            "reviews": 1186,
+            "lat": 35.139454,
+            "lng": -120.643195,
+            "tag": "海鲜馆",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 11,
+              "miles": 3.2,
+              "est": true
+            }
+          },
+          {
+            "name": "Giuseppe's Cucina Italiana",
+            "address": "891 Price St",
+            "city": "Pismo Beach",
+            "rating": 4.5,
+            "reviews": 1835,
+            "lat": 35.1425584,
+            "lng": -120.6412465,
+            "tag": "意大利风味餐馆",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 11,
+              "miles": 3.3,
+              "est": true
+            }
+          },
+          {
+            "name": "Vista Steak and Seafood",
+            "address": "1601 Price St",
+            "city": "Pismo Beach",
+            "rating": 4.5,
+            "reviews": 1062,
+            "lat": 35.1449399,
+            "lng": -120.6458264,
+            "tag": "牛排馆",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 12,
+              "miles": 3.5,
+              "est": true
+            }
+          },
+          {
+            "name": "Klondike Pizza",
+            "address": "104 Bridge St",
+            "city": "Arroyo Grande",
+            "rating": 4.5,
+            "reviews": 1047,
+            "lat": 35.1229081,
+            "lng": -120.5792217,
+            "tag": "披萨店",
+            "host": true,
+            "drive": {
+              "min": 11,
+              "max": 15,
+              "miles": 4.5,
+              "est": true
+            }
+          },
+          {
+            "name": "Efren's Mexican Restaurant",
+            "address": "1720 Beach St",
+            "city": "Oceano",
+            "rating": 4.4,
+            "reviews": 899,
+            "lat": 35.0990674,
+            "lng": -120.6119213,
+            "tag": "墨西哥风味餐馆",
+            "host": true,
+            "drive": {
+              "min": 4,
+              "max": 5,
+              "miles": 1.4,
+              "est": true
+            }
+          },
+          {
+            "name": "Luna Red",
+            "address": "1023 Chorro St",
+            "city": "San Luis Obispo",
+            "rating": 4.5,
+            "reviews": 1097,
+            "lat": 35.2802266,
+            "lng": -120.663291,
+            "tag": "餐馆",
+            "host": true,
+            "drive": {
+              "min": 25,
+              "max": 34,
+              "miles": 16.0,
+              "est": true
+            }
+          }
+        ]
+      },
+      {
+        "title": "早餐 · 甜点",
+        "items": [
+          {
+            "name": "Old West Cinnamon Rolls",
+            "address": "861 Dolliver St",
+            "city": "Pismo Beach",
+            "rating": 4.7,
+            "reviews": 4082,
+            "lat": 35.1416473,
+            "lng": -120.6423377,
+            "tag": "糕点店",
+            "host": true,
+            "drive": {
+              "min": 7,
+              "max": 10,
+              "miles": 3.1,
+              "est": true
+            }
+          },
+          {
+            "name": "Beachin' Biscuits",
+            "address": "800 Price St",
+            "city": "Pismo Beach",
+            "rating": 4.6,
+            "reviews": 899,
+            "lat": 35.1425825,
+            "lng": -120.6405718,
+            "tag": "早餐店",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 10,
+              "miles": 3.2,
+              "est": true
+            }
+          },
+          {
+            "name": "Huckleberry's",
+            "address": "300 5 Cities Dr",
+            "city": "Pismo Beach",
+            "rating": 4.3,
+            "reviews": 2068,
+            "lat": 35.1374052,
+            "lng": -120.6296565,
+            "tag": "美式早午餐",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 11,
+              "miles": 3.3,
+              "est": true
+            }
+          },
+          {
+            "name": "Fat Cats Cafe",
+            "address": "3920 Avila Beach Dr",
+            "city": "Avila Beach",
+            "rating": 4.4,
+            "reviews": 1913,
+            "lat": 35.172002,
+            "lng": -120.756635,
+            "tag": "咖啡馆",
+            "host": true,
+            "drive": {
+              "min": 24,
+              "max": 32,
+              "miles": 12.8,
+              "est": true
+            }
+          }
+        ]
+      },
+      {
+        "title": "玩",
+        "items": [
+          {
+            "name": "Guadalupe-Nipomo Dunes Center",
+            "address": "1065 Guadalupe St",
+            "city": "Guadalupe",
+            "rating": 4.4,
+            "reviews": 166,
+            "lat": 34.9725179,
+            "lng": -120.5720731,
+            "drive": {
+              "min": 18,
+              "max": 24,
+              "miles": 13.0
+            },
+            "tag": "沙丘博物馆"
+          },
+          {
+            "name": "Avila Valley Barn",
+            "address": "560 Avila Beach Dr",
+            "city": "San Luis Obispo",
+            "rating": 4.7,
+            "reviews": 4609,
+            "lat": 35.1827722,
+            "lng": -120.7065056,
+            "drive": {
+              "min": 12,
+              "max": 20,
+              "miles": 8.9
+            },
+            "tag": "农场市集",
+            "host": true
+          },
+          {
+            "name": "Dinosaur Caves Park",
+            "address": "2701 Price St",
+            "city": "Pismo Beach",
+            "rating": 4.7,
+            "reviews": 5142,
+            "lat": 35.154178,
+            "lng": -120.665776,
+            "drive": {
+              "min": 10,
+              "max": 16,
+              "miles": 5.9
+            },
+            "tag": "海崖公园",
+            "host": true
+          },
+          {
+            "name": "Pismo Preserve",
+            "address": "80 Mattie Rd",
+            "city": "Pismo Beach",
+            "rating": 4.7,
+            "reviews": 1028,
+            "lat": 35.1513662,
+            "lng": -120.65292,
+            "drive": {
+              "min": 9,
+              "max": 14,
+              "miles": 5.1
+            },
+            "tag": "徒步"
+          },
+          {
+            "name": "Pismo Beach Pier & Boardwalk",
+            "address": "101 Stimson Ave",
+            "city": "Pismo Beach",
+            "rating": 4.8,
+            "reviews": 1197,
+            "lat": 35.1364593,
+            "lng": -120.6405715,
+            "drive": {
+              "min": 7,
+              "max": 12,
+              "miles": 3.0
+            },
+            "tag": "码头",
+            "host": true
+          },
+          {
+            "name": "Monarch Butterfly Grove",
+            "address": "400 S Dolliver St",
+            "city": "Pismo Beach",
+            "rating": 4.6,
+            "reviews": 4908,
+            "lat": 35.1293939,
+            "lng": -120.6325455,
+            "drive": {
+              "min": 4,
+              "max": 7,
+              "miles": 2.0
+            },
+            "tag": "帝王蝶栖息地",
+            "host": true
+          },
+          {
+            "name": "Steve's ATV Rentals",
+            "address": "332 Pier Ave",
+            "city": "Oceano",
+            "rating": 4.5,
+            "reviews": 1515,
+            "lat": 35.1055239,
+            "lng": -120.6293257,
+            "walk": true,
+            "tag": "沙滩车租赁"
+          },
+          {
+            "name": "Oceano Dunes 沙丘海滩",
+            "address": "Pier Ave beach entrance",
+            "city": "Oceano",
+            "rating": null,
+            "reviews": null,
+            "lat": 35.1046,
+            "lng": -120.633,
+            "walk": true,
+            "tag": "沙丘海滩",
+            "host": true
+          },
+          {
+            "name": "Sun Buggie Fun ATV Rentals",
+            "address": "307 Pier Ave",
+            "city": "Oceano",
+            "rating": 4.0,
+            "reviews": 1442,
+            "lat": 35.1058976,
+            "lng": -120.6302747,
+            "tag": "全地形车租赁服务",
+            "host": true,
+            "walk": true
+          },
+          {
+            "name": "Oceano Train Depot",
+            "address": "1650 Front St",
+            "city": "Oceano",
+            "rating": 4.4,
+            "reviews": 71,
+            "lat": 35.1021721,
+            "lng": -120.6174192,
+            "tag": "",
+            "host": true,
+            "drive": {
+              "min": 3,
+              "max": 4,
+              "miles": 1.0,
+              "est": true
+            }
+          },
+          {
+            "name": "The Great American Melodrama & Vaudeville",
+            "address": "1863 Front St",
+            "city": "Oceano",
+            "rating": 4.9,
+            "reviews": 1377,
+            "lat": 35.0995918,
+            "lng": -120.6131393,
+            "tag": "演艺剧场",
+            "host": true,
+            "drive": {
+              "min": 4,
+              "max": 5,
+              "miles": 1.3,
+              "est": true
+            }
+          },
+          {
+            "name": "Pismo Beach Golf Course",
+            "address": "9 Le Sage Dr",
+            "city": "Grover Beach",
+            "rating": 4.4,
+            "reviews": 289,
+            "lat": 35.1238288,
+            "lng": -120.6331801,
+            "tag": "高尔夫球场",
+            "host": true,
+            "drive": {
+              "min": 5,
+              "max": 7,
+              "miles": 1.9,
+              "est": true
+            }
+          },
+          {
+            "name": "Pismo Bowl",
+            "address": "277 Pomeroy Ave",
+            "city": "Pismo Beach",
+            "rating": 4.4,
+            "reviews": 528,
+            "lat": 35.1405991,
+            "lng": -120.6417122,
+            "tag": "保龄球馆",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 10,
+              "miles": 3.1,
+              "est": true
+            }
+          },
+          {
+            "name": "Avila Beach Pier",
+            "address": "",
+            "city": "Avila Beach",
+            "rating": null,
+            "reviews": null,
+            "lat": 35.1763986,
+            "lng": -120.7345328,
+            "tag": "",
+            "host": true,
+            "drive": {
+              "min": 21,
+              "max": 28,
+              "miles": 11.4,
+              "est": true
+            }
+          },
+          {
+            "name": "Sycamore Mineral Springs Resort & Spa",
+            "address": "1215 Avila Beach Dr",
+            "city": "San Luis Obispo",
+            "rating": 4.5,
+            "reviews": 3348,
+            "lat": 35.1859538,
+            "lng": -120.712474,
+            "tag": "",
+            "host": true,
+            "drive": {
+              "min": 16,
+              "max": 22,
+              "miles": 9.4,
+              "est": true
+            }
+          },
+          {
+            "name": "Avila Hot Springs",
+            "address": "250 Avila Beach Dr",
+            "city": "San Luis Obispo",
+            "rating": 4.1,
+            "reviews": 818,
+            "lat": 35.1808333,
+            "lng": -120.7030556,
+            "tag": "公共游泳池",
+            "host": true,
+            "drive": {
+              "min": 15,
+              "max": 21,
+              "miles": 8.7,
+              "est": true
+            }
+          },
+          {
+            "name": "The Avila (Avila Beach Golf Resort)",
+            "address": "6464 Ana Bay Rd",
+            "city": "Avila Beach",
+            "rating": 4.2,
+            "reviews": 1418,
+            "lat": 35.1819446,
+            "lng": -120.7391078,
+            "tag": "高尔夫球场",
+            "host": true,
+            "drive": {
+              "min": 23,
+              "max": 31,
+              "miles": 12.0,
+              "est": true
+            }
+          },
+          {
+            "name": "Point San Luis Lighthouse",
+            "address": "1 Lighthouse Rd",
+            "city": "Avila Beach",
+            "rating": 4.6,
+            "reviews": 296,
+            "lat": 35.1603858,
+            "lng": -120.7608407,
+            "tag": "历史博物馆",
+            "host": true,
+            "drive": {
+              "min": 32,
+              "max": 43,
+              "miles": 14.6,
+              "est": true
+            }
+          },
+          {
+            "name": "Central Coast Aquarium",
+            "address": "50 San Juan St",
+            "city": "Avila Beach",
+            "rating": 4.3,
+            "reviews": 328,
+            "lat": 35.180172,
+            "lng": -120.736134,
+            "tag": "水族馆",
+            "host": true,
+            "drive": {
+              "min": 20,
+              "max": 27,
+              "miles": 11.4,
+              "est": true
+            }
+          },
+          {
+            "name": "Swinging Bridge",
+            "address": "",
+            "city": "Arroyo Grande",
+            "rating": 4.5,
+            "reviews": 49,
+            "lat": 35.1234177,
+            "lng": -120.5771161,
+            "tag": "旅游胜地",
+            "host": true,
+            "drive": {
+              "min": 12,
+              "max": 16,
+              "miles": 4.6,
+              "est": true
+            }
+          },
+          {
+            "name": "Lopez Lake Recreation Area",
+            "address": "6800 Lopez Dr",
+            "city": "Arroyo Grande",
+            "rating": 4.6,
+            "reviews": 130,
+            "lat": 35.1909043,
+            "lng": -120.4574738,
+            "tag": "公园",
+            "host": true,
+            "drive": {
+              "min": 33,
+              "max": 46,
+              "miles": 15.1,
+              "est": true
+            }
+          },
+          {
+            "name": "Fremont Theater",
+            "address": "1035 Monterey St",
+            "city": "San Luis Obispo",
+            "rating": 4.5,
+            "reviews": 777,
+            "lat": 35.281867,
+            "lng": -120.6605319,
+            "tag": "演艺剧场",
+            "host": true,
+            "drive": {
+              "min": 25,
+              "max": 34,
+              "miles": 16.6,
+              "est": true
+            }
+          },
+          {
+            "name": "Mission San Luis Obispo de Tolosa",
+            "address": "751 Palm St",
+            "city": "San Luis Obispo",
+            "rating": 4.6,
+            "reviews": 1272,
+            "lat": 35.2809641,
+            "lng": -120.6647577,
+            "tag": "天主教堂",
+            "host": true,
+            "drive": {
+              "min": 24,
+              "max": 33,
+              "miles": 16.2,
+              "est": true
+            }
+          },
+          {
+            "name": "San Luis Obispo Railroad Museum",
+            "address": "1940 Santa Barbara Ave",
+            "city": "San Luis Obispo",
+            "rating": 4.6,
+            "reviews": 241,
+            "lat": 35.2733026,
+            "lng": -120.6556732,
+            "tag": "博物馆",
+            "host": true,
+            "drive": {
+              "min": 26,
+              "max": 35,
+              "miles": 13.8,
+              "est": true
+            }
+          },
+          {
+            "name": "Morro Bay State Park",
+            "address": "60 State Park Rd",
+            "city": "Morro Bay",
+            "rating": 4.7,
+            "reviews": 1723,
+            "lat": 35.3526935,
+            "lng": -120.8392652,
+            "tag": "州立公园",
+            "host": true,
+            "drive": {
+              "min": 45,
+              "max": 62,
+              "miles": 29.0,
+              "est": true
+            }
+          },
+          {
+            "name": "El Moro Elfin Forest",
+            "address": "16th St",
+            "city": "Los Osos",
+            "rating": 4.7,
+            "reviews": 884,
+            "lat": 35.3336628,
+            "lng": -120.8275598,
+            "tag": "公园",
+            "host": true,
+            "drive": {
+              "min": 40,
+              "max": 55,
+              "miles": 24.7,
+              "est": true
+            }
+          },
+          {
+            "name": "Central Coast Zoo (Charles Paddock Zoo)",
+            "address": "9100 Morro Rd",
+            "city": "Atascadero",
+            "rating": 4.3,
+            "reviews": 1791,
+            "lat": 35.4667708,
+            "lng": -120.6699131,
+            "tag": "动物园",
+            "host": true,
+            "drive": {
+              "min": 47,
+              "max": 64,
+              "miles": 33.2,
+              "est": true
+            }
+          },
+          {
+            "name": "HotShots Billiards",
+            "address": "250 Pomeroy Ave",
+            "city": "Pismo Beach",
+            "rating": 4.4,
+            "reviews": 1114,
+            "lat": 35.1402473,
+            "lng": -120.6413116,
+            "tag": "台球 · 街机",
+            "host": true,
+            "drive": {
+              "min": 7,
+              "max": 10,
+              "miles": 3.0,
+              "est": true
+            }
+          }
+        ]
+      },
+      {
+        "title": "酒吧",
+        "items": [
+          {
+            "name": "Harry's Night Club & Beach Bar",
+            "address": "690 Cypress St",
+            "city": "Pismo Beach",
+            "rating": 4.4,
+            "reviews": 1265,
+            "lat": 35.1400018,
+            "lng": -120.6420312,
+            "tag": "酒吧",
+            "host": true,
+            "drive": {
+              "min": 8,
+              "max": 10,
+              "miles": 3.2,
+              "est": true
+            }
+          },
+          {
+            "name": "Mr. Rick's",
+            "address": "404 Front St",
+            "city": "Avila Beach",
+            "rating": 4.3,
+            "reviews": 700,
+            "lat": 35.1790751,
+            "lng": -120.7340434,
+            "tag": "酒吧",
+            "host": true,
+            "drive": {
+              "min": 21,
+              "max": 28,
+              "miles": 11.4,
+              "est": true
+            }
+          },
+          {
+            "name": "Shell Beach Brew House",
+            "address": "1527 Shell Beach Rd",
+            "city": "Pismo Beach",
+            "rating": 4.4,
+            "reviews": 1324,
+            "lat": 35.1578453,
+            "lng": -120.6731143,
+            "tag": "啤酒吧",
+            "host": true,
+            "drive": {
+              "min": 12,
+              "max": 17,
+              "miles": 5.3,
+              "est": true
+            }
+          },
+          {
+            "name": "Rooster Creek Tavern",
+            "address": "200 E Branch St",
+            "city": "Arroyo Grande",
+            "rating": 4.5,
+            "reviews": 1416,
+            "lat": 35.1238956,
+            "lng": -120.5773482,
+            "tag": "烧烤吧",
+            "host": true,
+            "drive": {
+              "min": 11,
+              "max": 15,
+              "miles": 4.6,
+              "est": true
+            }
+          },
+          {
+            "name": "Mason Bar & Kitchen",
+            "address": "307 E Branch St",
+            "city": "Arroyo Grande",
+            "rating": 4.5,
+            "reviews": 981,
+            "lat": 35.1245455,
+            "lng": -120.5766276,
+            "tag": "餐吧",
+            "host": true,
+            "drive": {
+              "min": 12,
+              "max": 16,
+              "miles": 4.7,
+              "est": true
+            }
+          },
+          {
+            "name": "Bill's Place",
+            "address": "112 E Branch St",
+            "city": "Arroyo Grande",
+            "rating": 4.3,
+            "reviews": 296,
+            "lat": 35.1233554,
+            "lng": -120.5784723,
+            "tag": "酒吧",
+            "host": true,
+            "drive": {
+              "min": 11,
+              "max": 15,
+              "miles": 4.6,
+              "est": true
+            }
+          },
+          {
+            "name": "Black Sheep Bar & Grill",
+            "address": "1117 Chorro St",
+            "city": "San Luis Obispo",
+            "rating": 4.5,
+            "reviews": 917,
+            "lat": 35.279467,
+            "lng": -120.662804,
+            "tag": "烧烤吧",
+            "host": true,
+            "drive": {
+              "min": 24,
+              "max": 33,
+              "miles": 16.0,
+              "est": true
+            }
+          },
+          {
+            "name": "Locals Taproom",
+            "address": "90 San Miguel St",
+            "city": "Avila Beach",
+            "rating": 4.7,
+            "reviews": 63,
+            "lat": 35.1794463,
+            "lng": -120.7333608,
+            "tag": "啤酒吧",
+            "host": true,
+            "drive": {
+              "min": 20,
+              "max": 28,
+              "miles": 11.4,
+              "est": true
+            }
+          },
+          {
+            "name": "McCarthy's Irish Pub",
+            "address": "600 Marsh St",
+            "city": "San Luis Obispo",
+            "rating": 4.3,
+            "reviews": 389,
+            "lat": 35.2777862,
+            "lng": -120.6649771,
+            "tag": "爱尔兰酒吧",
+            "host": true,
+            "drive": {
+              "min": 24,
+              "max": 33,
+              "miles": 15.8,
+              "est": true
+            }
+          },
+          {
+            "name": "Sidecar",
+            "address": "1040 Broad St",
+            "city": "San Luis Obispo",
+            "rating": 4.5,
+            "reviews": 501,
+            "lat": 35.279307,
+            "lng": -120.6647459,
+            "tag": "鸡尾酒酒吧",
+            "host": true,
+            "drive": {
+              "min": 24,
+              "max": 33,
+              "miles": 15.9,
+              "est": true
+            }
+          },
+          {
+            "name": "The Break",
+            "address": "841 Dolliver St",
+            "city": "Pismo Beach",
+            "rating": 4.3,
+            "reviews": 82,
+            "lat": 35.1415698,
+            "lng": -120.6423475,
+            "tag": "烧烤吧",
+            "host": true,
+            "drive": {
+              "min": 7,
+              "max": 10,
+              "miles": 3.1,
+              "est": true
+            }
+          },
+          {
+            "name": "The Mark Bar & Grill",
+            "address": "673 Higuera St",
+            "city": "San Luis Obispo",
+            "rating": 4.2,
+            "reviews": 226,
+            "lat": 35.2784354,
+            "lng": -120.664833,
+            "tag": "烧烤吧",
+            "host": true,
+            "drive": {
+              "min": 25,
+              "max": 33,
+              "miles": 15.9,
+              "est": true
+            }
+          }
+        ]
+      },
+      {
+        "title": "酒庄",
+        "items": [
+          {
+            "name": "Peacock Cellars Tasting Room & Farmstead",
+            "address": "1543 Los Berros Rd",
+            "city": "Arroyo Grande",
+            "rating": 4.7,
+            "reviews": 121,
+            "lat": 35.076631,
+            "lng": -120.53272,
+            "tag": "酒庄",
+            "host": true,
+            "drive": {
+              "min": 15,
+              "max": 21,
+              "miles": 7.0,
+              "est": true
+            }
+          },
+          {
+            "name": "Sextant Wines",
+            "address": "1653 Maxwellton St",
+            "city": "San Luis Obispo",
+            "rating": 4.6,
+            "reviews": 135,
+            "lat": 35.2023031,
+            "lng": -120.6121373,
+            "tag": "酒庄",
+            "host": true,
+            "drive": {
+              "min": 15,
+              "max": 21,
+              "miles": 8.2,
+              "est": true
+            }
+          },
+          {
+            "name": "LXV Wine & Pairings Tasting Room",
+            "address": "1306 Pine St B",
+            "city": "Paso Robles",
+            "rating": 4.9,
+            "reviews": 249,
+            "lat": 35.6282564,
+            "lng": -120.6888006,
+            "tag": "酒庄",
+            "host": true,
+            "drive": {
+              "min": 61,
+              "max": 83,
+              "miles": 44.3,
+              "est": true
+            }
+          },
+          {
+            "name": "Austin Hope & Treana Tasting Cellar",
+            "address": "1585 Live Oak Rd",
+            "city": "Paso Robles",
+            "rating": 4.7,
+            "reviews": 449,
+            "lat": 35.5881466,
+            "lng": -120.7212385,
+            "tag": "酒庄",
+            "host": true,
+            "drive": {
+              "min": 62,
+              "max": 84,
+              "miles": 43.2,
+              "est": true
+            }
+          }
+        ]
+      }
+    ],
+    "shops": [
       {
         "title": "亚洲超市",
         "items": [
@@ -340,6 +1501,23 @@
               "max": 35,
               "miles": 18.8
             }
+          },
+          {
+            "name": "Cattaneo Brothers",
+            "address": "769 Caudill St",
+            "city": "San Luis Obispo",
+            "rating": 4.6,
+            "reviews": 78,
+            "lat": 35.2666605,
+            "lng": -120.653088,
+            "tag": "肉干香肠",
+            "host": true,
+            "drive": {
+              "min": 24,
+              "max": 33,
+              "miles": 13.3,
+              "est": true
+            }
           }
         ]
       },
@@ -422,133 +1600,67 @@
             }
           }
         ]
-      },
+      }
+    ]
+  },
+  "rain_plan": {
+    "groups": [
       {
-        "title": "玩",
-        "items": [
-          {
-            "name": "Oceano Dunes 沙丘海滩",
-            "address": "Pier Ave beach entrance",
-            "city": "Oceano",
-            "rating": null,
-            "reviews": null,
-            "lat": 35.1046,
-            "lng": -120.633,
-            "walk": true
-          },
-          {
-            "name": "Steve's ATV Rentals",
-            "address": "332 Pier Ave",
-            "city": "Oceano",
-            "rating": 4.5,
-            "reviews": 1515,
-            "lat": 35.1055239,
-            "lng": -120.6293257,
-            "walk": true
-          },
-          {
-            "name": "Monarch Butterfly Grove",
-            "address": "400 S Dolliver St",
-            "city": "Pismo Beach",
-            "rating": 4.6,
-            "reviews": 4908,
-            "lat": 35.1293939,
-            "lng": -120.6325455,
-            "drive": {
-              "min": 4,
-              "max": 7,
-              "miles": 2.0
-            }
-          },
-          {
-            "name": "Pismo Beach Pier & Boardwalk",
-            "address": "101 Stimson Ave",
-            "city": "Pismo Beach",
-            "rating": 4.8,
-            "reviews": 1197,
-            "lat": 35.1364593,
-            "lng": -120.6405715,
-            "drive": {
-              "min": 7,
-              "max": 12,
-              "miles": 3.0
-            }
-          },
-          {
-            "name": "Pismo Preserve",
-            "address": "80 Mattie Rd",
-            "city": "Pismo Beach",
-            "rating": 4.7,
-            "reviews": 1028,
-            "lat": 35.1513662,
-            "lng": -120.65292,
-            "drive": {
-              "min": 9,
-              "max": 14,
-              "miles": 5.1
-            }
-          },
-          {
-            "name": "Dinosaur Caves Park",
-            "address": "2701 Price St",
-            "city": "Pismo Beach",
-            "rating": 4.7,
-            "reviews": 5142,
-            "lat": 35.154178,
-            "lng": -120.665776,
-            "drive": {
-              "min": 10,
-              "max": 16,
-              "miles": 5.9
-            }
-          },
-          {
-            "name": "Avila Valley Barn",
-            "address": "560 Avila Beach Dr",
-            "city": "San Luis Obispo",
-            "rating": 4.7,
-            "reviews": 4609,
-            "lat": 35.1827722,
-            "lng": -120.7065056,
-            "drive": {
-              "min": 12,
-              "max": 20,
-              "miles": 8.9
-            }
-          },
-          {
-            "name": "Guadalupe-Nipomo Dunes Center",
-            "address": "1065 Guadalupe St",
-            "city": "Guadalupe",
-            "rating": 4.4,
-            "reviews": 166,
-            "lat": 34.9725179,
-            "lng": -120.5720731,
-            "drive": {
-              "min": 18,
-              "max": 24,
-              "miles": 13.0
-            }
-          }
+        "title": "室内玩",
+        "names": [
+          "Pismo Bowl",
+          "HotShots Billiards",
+          "The Great American Melodrama & Vaudeville",
+          "Central Coast Aquarium",
+          "San Luis Obispo Railroad Museum",
+          "Mission San Luis Obispo de Tolosa",
+          "Fremont Theater"
         ]
       },
       {
-        "title": "吃",
-        "items": [
-          {
-            "name": "Splash Café",
-            "address": "197 Pomeroy Ave",
-            "city": "Pismo Beach",
-            "rating": 4.5,
-            "reviews": 7671,
-            "lat": 35.1401421,
-            "lng": -120.6424036,
-            "drive": {
-              "min": 8,
-              "max": 14,
-              "miles": 3.1
-            }
-          }
+        "title": "泡温泉 · 雨天也能泡",
+        "names": [
+          "Sycamore Mineral Springs Resort & Spa",
+          "Avila Hot Springs"
+        ]
+      },
+      {
+        "title": "品酒 · 逛逛",
+        "names": [
+          "Peacock Cellars Tasting Room & Farmstead",
+          "Sextant Wines",
+          "Avila Valley Barn",
+          "Old West Cinnamon Rolls"
+        ]
+      },
+      {
+        "title": "不烤了，出去吃",
+        "names": [
+          "Mo's SmokeHouse BBQ",
+          "AJ Spurs Saloon & Dining Hall",
+          "Oyster Loft",
+          "Giuseppe's Cucina Italiana",
+          "De Bu of Pismo Beach"
+        ]
+      }
+    ]
+  },
+  "carpool": {
+    "status": "尚未决定",
+    "cars": [
+      {
+        "driver": "艾米",
+        "car": "SUV",
+        "riders": [
+          "Jessie",
+          "乔伊"
+        ]
+      },
+      {
+        "driver": "马尔基诺",
+        "car": "SUV",
+        "riders": [
+          "Nak"
         ]
       }
     ]

@@ -18,7 +18,9 @@ from pathlib import Path
 
 from main import house_rule_times, listing_id
 
-TRIP_TITLE = "WeekendsWithoutRedWizards"
+TRIP_TITLE = "Escape from the Doomvault"
+TRIP_HIGHLIGHT = "Doomvault"        # this word of the title gets the signature color
+TRIP_TAGLINE = "红袍法师禁止入内"     # one line under the title
 # Date range the group recommends; highlighted in the overview table
 RECOMMENDED_DATES = "2026-11-13_2026-11-15"
 # Google Apps Script web app URL for the shared 采购清单 (see apps-script/Code.gs).
@@ -247,8 +249,8 @@ def build_stay(e, n):
 # a new app.js (GitHub Pages lets browsers cache files for 10 minutes)
 ASSETS = DOCS / "assets"
 VERSIONED = {
-    DOCS / "index.html": [r'(assets/style\.css)(\?v=\w+)?', r'(assets/app\.js)(\?v=\w+)?'],
-    ASSETS / "app.js": [r'(\./pitch\.js)(\?v=\w+)?', r'(\./timeline\.js)(\?v=\w+)?', r'(\./lists\.js)(\?v=\w+)?'],
+    DOCS / "index.html": [r'(assets/style\.css)(\?v=\w+)?', r'(assets/skins\.css)(\?v=\w+)?', r'(assets/app\.js)(\?v=\w+)?'],
+    ASSETS / "app.js": [r'(\./pitch\.js)(\?v=\w+)?', r'(\./timeline\.js)(\?v=\w+)?', r'(\./lists\.js)(\?v=\w+)?', r'(\./weather\.js)(\?v=\w+)?', r'(\./carpool\.js)(\?v=\w+)?'],
 }
 
 
@@ -277,6 +279,8 @@ def main():
     model = {
         "trip": {
             "title": TRIP_TITLE,
+            "highlight": TRIP_HIGHLIGHT,
+            "tagline": TRIP_TAGLINE,
             "guests": guests,
             "recommended": RECOMMENDED_DATES,
             "lists_url": LISTS_URL or None,

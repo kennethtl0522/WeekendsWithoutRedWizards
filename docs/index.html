@@ -3,11 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WeekendsWithoutRedWizards</title>
+<title>Escape from the Doomvault</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
-<link rel="stylesheet" href="assets/style.css?v=a7058c5e">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Abril+Fatface&family=Archivo+Black&family=Barlow+Condensed:ital,wght@1,600;1,800&display=swap">
+<script>
+  // Pick the skin before first paint so there's no flash of the wrong theme
+  try { const s = localStorage.getItem("airbnb-pitch:skin"); document.documentElement.dataset.skin = ["p5", "plain", "p3"].includes(s) ? s : "p5"; }
+  catch { document.documentElement.dataset.skin = "p5"; }
+</script>
+<link rel="stylesheet" href="assets/style.css?v=18f46c55">
+<link rel="stylesheet" href="assets/skins.css?v=18f46c55">
 </head>
 <body>
 <!--
@@ -17,6 +23,6 @@
     ./?dates=2026-11-14_2026-11-16&id=… one-page pitch
 -->
 <div id="app"><p class="loading">Loading…</p></div>
-<script type="module" src="assets/app.js?v=a7058c5e"></script>
+<script type="module" src="assets/app.js?v=18f46c55"></script>
 </body>
 </html>

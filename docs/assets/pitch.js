@@ -23,6 +23,33 @@ export function loadModel() {
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ESC[c]);
+// One title format site-wide: Chinese name + small English kicker. Skins style .ttl / .ttl-en.
+export const ttl = (zh, en, tag = "h2") => `<${tag} class="ttl"><span class="ttl-zh">${zh}</span>${en ? `<span class="ttl-en">${en}</span>` : ""}</${tag}>`;
+
+// The site's look ("skin") lives on <html data-skin>; index.html sets it before paint.
+// One slanted bar split red | white | blue. Swatch colors come from the palette in skins.css, so the switch
+// always matches the skins; each segment carries a small icon (star / sun / moon) so it reads as a toggle.
+const ICONS = {
+  star: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.5l2.6 7.9 7.9 2.6-7.9 2.6L12 22.5l-2.6-7.9L1.5 12l7.9-2.6z"/></svg>`,
+  sun: `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.2" fill="currentColor" stroke="none"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`,
+  moon: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 14.6A8.7 8.7 0 0 1 9.4 3.5a8.7 8.7 0 1 0 11.1 11.1z"/></svg>`,
+};
+export const SKINS = [
+  ["p5", "红 · Persona 5", "var(--p5-red)", "#fff", "star"],
+  ["plain", "白 · 简洁", "var(--plain-paper)", "#1a1a1a", "sun"],
+  ["p3", "蓝 · Persona 3", "var(--p3-blue)", "#fff", "moon"],
+];
+export const skinSwitchHTML = () => `<div class="skin-switch" role="group" aria-label="Theme" title="切换主题">${SKINS.map(([k, label, color, ink, icon]) =>
+  `<button type="button" data-skin-pick="${k}" style="--sw:${color};--ic:${ink}" title="${label}" aria-label="${label}" aria-pressed="${document.documentElement.dataset.skin === k}">${ICONS[icon]}</button>`).join("")}</div>`;
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-skin-pick]");
+  if (!b) return;
+  const k = b.dataset.skinPick;
+  document.documentElement.dataset.skin = k;
+  try { localStorage.setItem("airbnb-pitch:skin", k); } catch {}
+  document.querySelectorAll("[data-skin-pick]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.skinPick === k)));
+});
+
 export const money = (n) => "$" + Math.round(n).toLocaleString("en-US");
 // Exact amounts (what was actually paid / owed), e.g. $2,481.75
 export const cents = (n) => "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -92,10 +119,10 @@ function amenitiesHTML(l, open) {
       <ul>${g.items.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
     </div>`).join("");
   const missing = l.not_included?.length
-    ? `<div class="am-group missing"><h4>Not included</h4><ul>${l.not_included.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`
+    ? `<div class="am-group missing"><h4>不包含</h4><ul>${l.not_included.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`
     : "";
   return `<details class="amenities"${open ? " open" : ""}>
-    <summary><h3>全部设施 · Amenities <span class="muted">(${total})</span></h3></summary>
+    <summary><h3>全部设施 <span class="muted">${total}</span></h3></summary>
     <div class="am-grid">${groups}${missing}</div>
   </details>`;
 }
@@ -107,7 +134,7 @@ function moreHTML(l) {
   const parts = [];
   const cats = Object.entries(l.category_ratings || {});
   if (cats.length) {
-    parts.push(`<section><h3>评分 · Ratings <span class="muted">★ ${l.rating ?? "–"} · ${plural(l.reviews, "review")}</span></h3>
+    parts.push(`<section><h3>评分 <span class="muted">★ ${l.rating ?? "–"} · ${plural(l.reviews, "review")}</span></h3>
       <div class="ratings">${cats.map(([k, v]) => `<div class="rt"><span>${esc(RATING_NAMES[k] || k)}</span>
         <i style="--v:${(Number(v) / 5) * 100}%"></i><b>${Number(v).toFixed(1)}</b></div>`).join("")}</div>
     </section>`);
@@ -119,7 +146,7 @@ function moreHTML(l) {
       h.years && `${h.years} yrs hosting`, h.rating && `★ ${h.rating}`, h.reviews && plural(h.reviews, "review"),
       h.response_rate != null && `Responds ${h.response_rate}%`, h.response_time && esc(h.response_time),
     ].filter(Boolean);
-    parts.push(`<section><h3>房东 · Host</h3>
+    parts.push(`<section><h3>房东</h3>
       <p class="host-name"><b>${esc(h.name)}</b>${h.cohosts?.length ? ` <span class="muted">· co-hosts: ${esc(h.cohosts.join(", "))}</span>` : ""}</p>
       <ul class="chips">${facts.map((f) => `<li>${f}</li>`).join("")}</ul>
       ${h.highlights?.length ? `<ul class="plain small">${h.highlights.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
@@ -128,13 +155,13 @@ function moreHTML(l) {
   }
   if (l.safety?.length || l.rules?.length || l.additional_rules) {
     parts.push(`<div class="pitch-cols">
-      ${l.rules?.length ? `<section><h3>房屋规则 · House rules</h3><ul class="plain small">${l.rules.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>
+      ${l.rules?.length ? `<section><h3>房屋规则</h3><ul class="plain small">${l.rules.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>
         ${l.additional_rules ? `<details><summary>Additional rules</summary><p>${esc(l.additional_rules)}</p></details>` : ""}</section>` : ""}
-      ${l.safety?.length ? `<section><h3>安全 · Safety &amp; property</h3><ul class="plain small">${l.safety.map((r) => `<li>${esc(r)}</li>`).join("")}</ul></section>` : ""}
+      ${l.safety?.length ? `<section><h3>安全设施</h3><ul class="plain small">${l.safety.map((r) => `<li>${esc(r)}</li>`).join("")}</ul></section>` : ""}
     </div>`);
   }
   if (l.lat && l.lng) {
-    parts.push(`<section><h3>位置 · Location</h3>
+    parts.push(`<section><h3>位置</h3>
       <p>${esc(l.location || l.city)} · <a href="https://www.google.com/maps/search/?api=1&query=${l.lat},${l.lng}" target="_blank" rel="noopener">Open in Maps ↗</a></p>
     </section>`);
   }
@@ -195,14 +222,14 @@ export function pitchHTML(model, id, key, { full = false } = {}) {
 
     <div class="pitch-cols">
       <section>
-        <h3>The space</h3>
+        <h3>空间</h3>
         <div class="facts">
           ${fact("Beds", l.beds ?? "?")}${fact("Bedrooms", l.bedrooms ?? "?")}${fact("Baths", l.baths ?? "?")}
         </div>
         <ul class="plain beds">${sleeping}</ul>
       </section>
       <section>
-        <h3>Highlights</h3>
+        <h3>亮点</h3>
         <p class="rating"><b>★ ${l.rating ?? "–"}</b> <span class="muted">${plural(l.reviews, "review")}</span></p>
         <ul class="chips">${tags}</ul>
         <div class="facts two">
@@ -212,7 +239,7 @@ export function pitchHTML(model, id, key, { full = false } = {}) {
     </div>
 
     <section>
-      <h3>Summary</h3>
+      <h3>简介</h3>
       ${summary}
     </section>
 

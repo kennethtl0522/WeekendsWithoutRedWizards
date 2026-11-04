@@ -1,0 +1,359 @@
+/* ==========================================================================
+   Skins: the whole site's look, switchable on <html data-skin="p5|p3">.
+   style.css holds layout; this file only restyles colors, shapes and type.
+
+   To recolor a skin, change the PALETTE below. Everything else reads from it.
+   ========================================================================== */
+
+:root {
+  /* ---------- PALETTE: Persona 5 (red / black / white) ---------- */
+  --p5-red: #e5191c;        /* signature red: buttons, slabs, highlights */
+  --p5-red-bright: #ff3b3b; /* the same red on dark backgrounds */
+  --p5-black: #111111;
+  --p5-white: #ffffff;
+  --p5-paper: #f4f1ea;      /* light-mode page */
+  --p5-night: #0d0d0d;      /* dark-mode page */
+
+  /* ---------- PALETTE: Persona 3 (blue / cyan / navy) ---------- */
+  --p3-blue: #1f6bff;       /* signature blue */
+  --p3-cyan: #3fd0ff;       /* second accent: lines, dark-mode links */
+  --p3-navy: #0a1a3f;
+  --p3-deep: #050d24;       /* dark-mode page */
+  --p3-ice: #e9f2ff;        /* light-mode page */
+  --p3-white: #ffffff;
+
+  /* ---------- PALETTE: Plain (white, black type, nothing extra) ---------- */
+  --plain-ink: #1a1a1a;     /* text, buttons and highlights in light mode */
+  --plain-paper: #ffffff;
+  --plain-line: #e6e6e6;
+  --plain-night: #111111;   /* dark-mode page */
+  --plain-snow: #ededed;    /* text in dark mode */
+
+  /* ---------- fonts ---------- */
+  --p5-display: "Anton", Impact, "Arial Narrow", sans-serif;
+  --p5-display-2: "Archivo Black", "Arial Black", sans-serif;
+  --p3-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
+
+/* ==========================================================================
+   Skin tokens. Each skin maps the palette onto the site's base tokens
+   (--bg, --surface, --ink, --accent …) plus a few skin-only ones (--sk-*).
+   ========================================================================== */
+
+/* ---- P5 light ---- */
+:root[data-skin="p5"] {
+  --bg: var(--p5-paper); --surface: var(--p5-white); --ink: var(--p5-black); --muted: #5c5852; --line: #d8d2c6;
+  --accent: var(--p5-red); --accent-ink: var(--p5-white); --accent-soft: #fde3e1;
+  --radius: 0px; --shadow: none;
+  --sk-main: var(--p5-red); --sk-main-ink: var(--p5-white);
+  --sk-block: var(--p5-black); --sk-block-ink: var(--p5-white);
+  --sk-card-border: 1px solid var(--line); --sk-card-shadow: none;
+  --sk-display: var(--p5-display);
+}
+/* ---- P5 dark ---- */
+@media (prefers-color-scheme: dark) {
+  :root[data-skin="p5"]:not([data-theme="light"]) {
+    --bg: var(--p5-night); --surface: #181716; --ink: #f4f1ea; --muted: #a8a299; --line: #34312d;
+    --accent: var(--p5-red-bright); --accent-ink: var(--p5-white); --accent-soft: #3a1515;
+    --sk-main: var(--p5-red-bright); --sk-block: #f4f1ea; --sk-block-ink: var(--p5-black);
+  }
+}
+
+/* ---- P3 light ---- */
+:root[data-skin="p3"] {
+  --bg: var(--p3-ice); --surface: var(--p3-white); --ink: var(--p3-navy); --muted: #4d5f86; --line: #cddbf3;
+  --accent: var(--p3-blue); --accent-ink: var(--p3-white); --accent-soft: #dce8ff;
+  --radius: 2px; --shadow: none;
+  --sk-main: var(--p3-blue); --sk-main-ink: var(--p3-white); --sk-alt: var(--p3-cyan);
+  --sk-block: var(--p3-navy); --sk-block-ink: var(--p3-white);
+  --sk-card-border: 1px solid var(--line); --sk-card-shadow: none;
+  --sk-display: var(--p3-display);
+}
+/* ---- P3 dark ---- */
+@media (prefers-color-scheme: dark) {
+  :root[data-skin="p3"]:not([data-theme="light"]) {
+    --bg: var(--p3-deep); --surface: #0b1a3c; --ink: #e6f1ff; --muted: #8ea3cc; --line: #1c3263;
+    --accent: var(--p3-cyan); --accent-ink: #041330; --accent-soft: #0e2b5a;
+    --sk-main: var(--p3-blue); --sk-block: var(--p3-blue); --sk-block-ink: var(--p3-white);
+  }
+}
+
+/* ---- Plain light ---- */
+:root[data-skin="plain"] {
+  --bg: var(--plain-paper); --surface: var(--plain-paper); --ink: var(--plain-ink); --muted: #6b6b6b; --line: var(--plain-line);
+  --accent: var(--plain-ink); --accent-ink: var(--plain-paper); --accent-soft: #f3f3f3;
+  --radius: 10px; --shadow: none;
+  --sk-main: var(--plain-ink); --sk-main-ink: var(--plain-paper);
+  --sk-block: var(--plain-ink); --sk-block-ink: var(--plain-paper);
+  --sk-card-border: 1px solid var(--line); --sk-card-shadow: none;
+}
+/* ---- Plain dark ---- */
+@media (prefers-color-scheme: dark) {
+  :root[data-skin="plain"]:not([data-theme="light"]) {
+    --bg: var(--plain-night); --surface: #171717; --ink: var(--plain-snow); --muted: #9a9a9a; --line: #2a2a2a;
+    --accent: var(--plain-snow); --accent-ink: var(--plain-night); --accent-soft: #222222;
+    --sk-main: var(--plain-snow); --sk-main-ink: var(--plain-night); --sk-block: var(--plain-snow); --sk-block-ink: var(--plain-night);
+  }
+}
+
+/* ==========================================================================
+   Shared component lists (all skins)
+   ========================================================================== */
+
+/* Cards */
+[data-skin] :is(.info-card, .near-card, .trip-card, .wx-card, .booking, .pitch, .shop, .party, .pl, .compared, .table-wrap, .date-tiles, .slot) {
+  border: var(--sk-card-border); box-shadow: var(--sk-card-shadow);
+}
+[data-skin] .slot .pitch, [data-skin] .compared .table-wrap { border: 0; box-shadow: none; }
+[data-skin] .wx-card.wet { border-color: var(--sk-main); }
+
+/* Small parts follow the skin's corner style */
+[data-skin] :is(.btn, .tl-btn, .date-btn, .paid, .paid-badge, .ci-time, .io, .price, .facts, .stop, .shop-tabs, .shop-tabs button,
+  .shop-tabs button span, .seg, .counter, .counter button, .chips li, .pick, .other-dates a, .si-move, .pl-head, .pl-track,
+  .tl-chip, .sort select, .tl-controls select, .shop input, .shop select, .shop-item, .table-wrap, .compared, .date-tiles,
+  .pool-car, .pool-add input, .pool-add select, .pool-acts select) {
+  border-radius: var(--radius);
+}
+
+/* ==========================================================================
+   Titles, one system:
+     L1  .hero-title         the big trip name
+     L2  .ttl                section titles (Chinese + small English kicker)
+     L3  card headings       h3 inside cards
+   ========================================================================== */
+
+.ttl { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; max-width: 100%; }
+.ttl-en { font-size: .62em; text-transform: uppercase; letter-spacing: .14em; }
+[data-skin] :is(.info-card > h3, .trip-card > h3, .near-card > h3) { justify-self: start; }
+
+/* Topbar + section nav + skin switch, shared shape */
+/* Skin switch: one slanted bar split red | white | blue (Persona-style parallelogram); the picked skin's segment grows to take most of it */
+.skin-switch {
+  display: flex; align-self: center; margin-left: auto; flex: none;
+  width: 120px; height: 24px; border-radius: 3px; overflow: hidden; transform: skewX(-18deg);
+  margin-right: 6px;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 22%, transparent);
+}
+.skin-switch button {
+  flex: 1 1 0; min-width: 0; padding: 0; border: 0; border-radius: 0; cursor: pointer;
+  background: var(--sw); color: var(--ic); transition: flex-grow .28s cubic-bezier(.3, .7, .2, 1), filter .15s;
+  display: grid; place-items: center;
+}
+.skin-switch svg { width: 12px; height: 12px; transform: skewX(18deg); opacity: .6; transition: opacity .2s, transform .28s; }
+.skin-switch button[aria-pressed="true"] svg { opacity: 1; transform: skewX(18deg) scale(1.15); }
+.skin-switch button + button { box-shadow: inset 1px 0 0 rgb(0 0 0 / .12); }
+.skin-switch button:hover { filter: brightness(1.08); }
+.skin-switch button[aria-pressed="true"] { flex-grow: 3.2; }
+.skin-switch button:focus-visible { outline: 2px solid var(--ink); outline-offset: -3px; }
+[data-skin] .topbar { background: var(--sk-block); border-bottom: 0; }
+[data-skin] .topbar .back { color: var(--sk-block-ink); }
+
+/* ==========================================================================
+   P5: cut-out letters, hard black/red slabs, tilted parallelograms
+   ========================================================================== */
+
+[data-skin="p5"] .hero-head { position: relative; isolation: isolate; }
+[data-skin="p5"] .hero-head::before {
+  content: ""; position: absolute; z-index: -1; inset: 18px -40px 8px auto; width: min(62%, 640px);
+  background: repeating-linear-gradient(-58deg, var(--sk-main) 0 22px, transparent 22px 34px);
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%); opacity: .14;
+}
+.hero-head .hero-title { gap: .1em .3em; line-height: 1; font-size: clamp(34px, 9vw, 92px); margin: 8px 0 4px; }
+.hero-title .w { display: inline-flex; gap: .03em; }
+.hero-title .l { display: inline-block; line-height: .95; }
+[data-skin="p5"] .hero-title .l { padding: .02em .08em .04em; font-family: var(--p5-display); color: var(--sk-block); }
+[data-skin="p5"] .hero-title .s0 { background: var(--surface); color: var(--ink); transform: rotate(-4deg); box-shadow: 0 0 0 .04em var(--ink); }
+[data-skin="p5"] .hero-title .s1 { background: var(--sk-block); color: var(--sk-block-ink); transform: rotate(3deg) translateY(.04em); font-family: var(--p5-display-2); font-size: .82em; clip-path: polygon(6% 0, 100% 4%, 94% 100%, 0 96%); }
+[data-skin="p5"] .hero-title .s2 { color: var(--ink); font-family: "Abril Fatface", Georgia, serif; transform: rotate(-2deg) translateY(-.03em); font-size: .92em; }
+[data-skin="p5"] .hero-title .s3 { background: var(--sk-main); color: #fff; transform: rotate(5deg); clip-path: polygon(0 6%, 96% 0, 100% 94%, 4% 100%); }
+[data-skin="p5"] .hero-title .s4 { background: var(--surface); color: var(--sk-main); font-family: var(--p5-display-2); font-size: .86em; transform: rotate(-6deg) translateY(.05em); box-shadow: 0 0 0 .04em var(--ink); }
+[data-skin="p5"] .hero-title .sr { background: var(--sk-main); color: #fff; transform: rotate(-3deg) scale(1.08); clip-path: polygon(4% 0, 100% 3%, 96% 100%, 0 97%); }
+[data-skin="p5"] .hero-title .hl .sr:nth-child(3n+2) { transform: rotate(4deg) scale(1.12) translateY(-.04em); background: #111; color: var(--sk-main); }
+[data-skin="p5"] .hero-title .hl .sr:nth-child(4n) { transform: rotate(-6deg) translateY(.05em); }
+
+[data-skin="p5"] .hero-head .status { gap: 10px; margin-top: 18px; }
+[data-skin="p5"] .hero-head .status span {
+  border-radius: 0; border: 0; padding: 6px 18px; font-size: 15px; font-weight: 900; letter-spacing: .04em;
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+}
+[data-skin="p5"] .hero-head .status-ok { background: var(--sk-main); color: #fff; }
+[data-skin="p5"] .hero-head .status-code { background: var(--sk-block); color: var(--sk-block-ink); transform: rotate(-2deg); }
+
+/* Nav tabs + skin switch */
+[data-skin="p5"] .secnav { gap: 2px; align-items: center; }
+[data-skin="p5"] .secnav a {
+  border: 0; border-radius: 0; padding: 7px 18px; background: var(--sk-block); color: var(--sk-block-ink); box-shadow: none;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); font-weight: 900; letter-spacing: .04em;
+  transition: background .12s, transform .12s;
+}
+[data-skin="p5"] .secnav a:hover, [data-skin="p5"] .secnav a:focus-visible { background: var(--sk-main); color: #fff; transform: translateY(-1px) rotate(-2deg); }
+
+/* L2: black slab, red slab behind, slight tilt; English kicker in red */
+[data-skin="p5"] .ttl {
+  position: relative; isolation: isolate; margin: 4px 0 18px 4px; padding: 6px 22px 7px 16px; transform: rotate(-1.5deg);
+  font-size: 21px; font-weight: 900; letter-spacing: .02em; color: var(--sk-block-ink);
+}
+[data-skin="p5"] .ttl::before, [data-skin="p5"] .ttl::after { content: ""; position: absolute; inset: 0; }
+[data-skin="p5"] .ttl::before { z-index: -1; background: var(--sk-block); clip-path: polygon(0 6%, 100% 0, 97% 100%, 2% 92%); }
+[data-skin="p5"] .ttl::after { z-index: -2; background: var(--sk-main); transform: translate(6px, 5px) rotate(1.5deg); clip-path: polygon(1% 0, 100% 10%, 98% 100%, 0 94%); }
+[data-skin="p5"] .ttl-en { font-family: var(--p5-display); font-weight: 400; color: var(--sk-main); letter-spacing: .1em; font-size: .78em; }
+
+/* L3: flat label — small caps in ink, short red rule in front */
+[data-skin="p5"] :is(.info-card > h3, .trip-card > h3, .near-card > h3, .pool-batch > h3, .pitch h3, .compared > summary, .drive-all > summary) {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;
+  font-size: 13px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--ink);
+}
+[data-skin="p5"] :is(.info-card > h3, .trip-card > h3, .near-card > h3, .pool-batch > h3, .pitch h3, .compared > summary, .drive-all > summary)::before {
+  content: ""; flex: none; width: 14px; height: 3px; background: var(--sk-main); transform: translateY(-3px) skewX(-20deg);
+}
+[data-skin="p5"] :is(.info-card > h3, .trip-card > h3, .near-card > h3, .pitch h3) .muted { color: var(--sk-main); font-weight: 800; letter-spacing: .04em; }
+[data-skin="p5"] .compared > summary { margin: 0; padding: 14px 18px; font-size: 14px; }
+[data-skin="p5"] .compared > summary::-webkit-details-marker { display: none; }
+[data-skin="p5"] .amenities > summary h3::before { content: ""; }
+[data-skin="p5"] :is(.booking h2, .pitch-top h2) { font-family: var(--p5-display-2); font-weight: 400; letter-spacing: 0; }
+
+/* Buttons: red parallelograms, black on hover */
+[data-skin="p5"] .btn {
+  background: var(--sk-main); color: #fff; font-weight: 900; letter-spacing: .04em;
+  clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%); padding-left: 24px; padding-right: 24px;
+}
+[data-skin="p5"] .btn:hover { background: var(--sk-block); color: var(--sk-block-ink); filter: none; }
+[data-skin="p5"] .btn.ghost { background: var(--sk-block); color: var(--sk-block-ink); border: 0; }
+[data-skin="p5"] .btn.ghost:hover { background: var(--sk-main); color: #fff; }
+[data-skin="p5"] :is(.paid-badge, .shop-tabs button[aria-selected="true"] span) { clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%); }
+[data-skin="p5"] .shop-tabs button[aria-selected="true"] { background: var(--sk-block); color: var(--sk-block-ink); box-shadow: none; }
+[data-skin="p5"] .paid { border: 1px solid color-mix(in srgb, var(--sk-main) 30%, transparent); }
+[data-skin="p5"] .pick { background: var(--sk-main); color: #fff; }
+
+/* ==========================================================================
+   P3: cool blues, italic condensed type, clean skewed bars and thin cyan lines
+   ========================================================================== */
+
+[data-skin="p3"] .hero-head { position: relative; isolation: isolate; }
+[data-skin="p3"] .hero-head::before {
+  content: ""; position: absolute; z-index: -1; inset: 0 -40px 0 auto; width: min(64%, 680px);
+  background:
+    repeating-linear-gradient(0deg, rgb(63 208 255 / .18) 0 2px, transparent 2px 14px),
+    linear-gradient(115deg, transparent 18%, rgb(31 107 255 / .22) 18% 62%, transparent 62%);
+}
+[data-skin="p3"] .hero-head .hero-title { gap: .02em .26em; line-height: .9; font-size: clamp(46px, 10vw, 110px); }
+[data-skin="p3"] .hero-title .w { gap: 0; }
+[data-skin="p3"] .hero-title .l {
+  font-family: var(--p3-display); font-style: italic; font-weight: 800; color: var(--ink); letter-spacing: -.01em;
+}
+[data-skin="p3"] .hero-title .hl .l { color: var(--sk-main); }
+[data-skin="p3"] .hero-head .status { gap: 10px; margin-top: 20px; }
+[data-skin="p3"] .hero-head .status span {
+  border: 0; border-radius: 0; padding: 6px 18px; font-family: var(--p3-display); font-style: italic; font-size: 18px; font-weight: 800; letter-spacing: .04em;
+  transform: skewX(-14deg);
+}
+[data-skin="p3"] .hero-head .status-ok { background: var(--sk-main); color: #fff; }
+[data-skin="p3"] .hero-head .status-code { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 2px var(--sk-main); }
+
+[data-skin="p3"] .secnav { gap: 6px; align-items: center; }
+[data-skin="p3"] .secnav a {
+  border: 0; border-radius: 0; padding: 6px 18px; background: var(--sk-block); color: var(--sk-block-ink); box-shadow: none;
+  font-family: var(--p3-display); font-style: italic; font-weight: 800; font-size: 16px; letter-spacing: .06em;
+  transform: skewX(-14deg); transition: background .12s, box-shadow .12s;
+}
+[data-skin="p3"] .secnav a:hover, [data-skin="p3"] .secnav a:focus-visible { background: var(--p3-cyan); color: var(--p3-navy); box-shadow: 4px 4px 0 var(--sk-main); }
+
+/* L2: blue skewed bar with a cyan rule under it; italic condensed */
+[data-skin="p3"] .ttl {
+  position: relative; isolation: isolate; margin: 4px 0 20px 8px; padding: 4px 26px 4px 14px;
+  font-family: var(--p3-display); font-style: italic; font-weight: 800; font-size: 26px; letter-spacing: .02em; color: var(--sk-block-ink);
+}
+[data-skin="p3"] .ttl::before, [data-skin="p3"] .ttl::after { content: ""; position: absolute; transform: skewX(-14deg); }
+[data-skin="p3"] .ttl::before { z-index: -1; inset: 0; background: linear-gradient(100deg, var(--sk-block), color-mix(in srgb, var(--sk-block) 70%, var(--p3-cyan))); }
+[data-skin="p3"] .ttl::after { z-index: -2; left: 14px; right: -18px; bottom: -7px; height: 3px; background: var(--p3-cyan); }
+[data-skin="p3"] .ttl-en { font-weight: 600; color: rgb(255 255 255 / .72); letter-spacing: .18em; }
+
+/* L3: italic caps with a blue bar on the left */
+[data-skin="p3"] :is(.info-card > h3, .trip-card > h3, .near-card > h3, .pool-batch > h3, .pitch h3, .compared > summary, .drive-all > summary) {
+  display: block; padding: 0 0 0 9px; border-left: 3px solid var(--sk-main); margin-bottom: 4px;
+  font-family: var(--p3-display); font-style: italic; font-weight: 800; font-size: 17px; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--ink); line-height: 1.15;
+}
+[data-skin="p3"] :is(.info-card > h3, .trip-card > h3, .near-card > h3, .pitch h3) .muted { color: var(--accent); font-weight: 600; }
+[data-skin="p3"] .compared > summary { margin: 14px 18px; }
+[data-skin="p3"] :is(.booking h2, .pitch-top h2) { font-family: var(--p3-display); font-style: italic; font-weight: 800; font-size: clamp(26px, 3.4vw, 34px); letter-spacing: .01em; }
+
+/* Buttons: skewed blue slabs, italic labels */
+[data-skin="p3"] .btn {
+  background: var(--sk-main); color: #fff; border-radius: 0; transform: skewX(-12deg);
+  font-family: var(--p3-display); font-style: italic; font-weight: 800; font-size: 17px; letter-spacing: .04em;
+}
+[data-skin="p3"] .btn:hover { background: var(--p3-cyan); color: var(--p3-navy); filter: none; }
+[data-skin="p3"] .btn.ghost { background: transparent; color: var(--accent); border: 0; box-shadow: inset 0 0 0 2px var(--accent); }
+[data-skin="p3"] .btn.ghost:hover { background: var(--accent); color: var(--accent-ink); }
+[data-skin="p3"] .shop-tabs button[aria-selected="true"] { background: var(--sk-block); color: var(--sk-block-ink); box-shadow: none; }
+[data-skin="p3"] .pick { background: color-mix(in srgb, var(--p3-cyan) 22%, transparent); color: var(--accent); }
+
+/* Tagline under the title: a "keep out" notice */
+.tagline { margin: 14px 0 0; }
+.tagline span { display: inline-block; font-weight: 900; letter-spacing: .14em; }
+[data-skin="p5"] .tagline span {
+  padding: 6px 18px; font-size: clamp(15px, 2.4vw, 19px); color: var(--ink);
+  border: 2px solid var(--sk-main); transform: rotate(-1.5deg);
+  background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--sk-main) 16%, transparent) 0 8px, transparent 8px 16px);
+}
+[data-skin="p3"] .tagline span {
+  padding: 2px 0 4px; font-size: clamp(16px, 2.6vw, 21px); color: var(--accent); font-style: italic;
+  border-bottom: 2px solid var(--p3-cyan);
+}
+
+/* ==========================================================================
+   Plain: system type, black on white, no decoration — reading first
+   ========================================================================== */
+[data-skin="plain"] .topbar { background: var(--surface); border-bottom: 1px solid var(--line); }
+[data-skin="plain"] .topbar .back { color: var(--ink); }
+[data-skin="plain"] .hero-head .hero-title {
+  font-family: inherit; font-weight: 800; text-transform: none; letter-spacing: -.03em;
+  font-size: clamp(36px, 7vw, 72px); line-height: 1.04; gap: 0 .24em;
+}
+[data-skin="plain"] .hero-title .w { gap: 0; }
+[data-skin="plain"] .hero-title .l { font-family: inherit; color: var(--ink); }
+[data-skin="plain"] .tagline span { font-size: 17px; font-weight: 600; letter-spacing: .04em; color: var(--muted); }
+[data-skin="plain"] .ttl { font-size: 22px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 16px; }
+[data-skin="plain"] .ttl-en { font-size: 11px; font-weight: 700; color: var(--muted); }
+[data-skin="plain"] .wx-card.wet { border-color: var(--line); }
+
+/* The hero's decorative stripes bleed past the right edge on purpose; never let them widen the page */
+#app { overflow-x: clip; }
+
+/* Same header height in every skin, so switching never moves the page: content sits at the bottom of a
+   box tall enough for the tallest skin's title at each width */
+.hero-head {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: clamp(340px, calc(280px + 13vw), 440px);
+}
+
+/* ---------- 拼车 party rosters ---------- */
+/* P5: black plates cut on a slant, leader plate in red, portraits as tilted diamonds */
+[data-skin="p5"] .party-no { color: var(--sk-main); font-family: var(--p5-display); font-weight: 400; font-size: 14px; letter-spacing: .1em; }
+[data-skin="p5"] .party-head b { font-family: var(--p5-display-2); font-weight: 400; }
+[data-skin="p5"] .pm {
+  border-radius: 0; background: var(--sk-block); color: var(--sk-block-ink); padding-left: 10px;
+  clip-path: polygon(0 0, 100% 0, 97% 100%, 0 100%);
+}
+[data-skin="p5"] .pm:nth-child(even) { margin-left: 10px; }
+[data-skin="p5"] .pm i { border-radius: 0; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); background: var(--sk-block-ink); color: var(--sk-block); }
+[data-skin="p5"] .pm-role { color: color-mix(in srgb, var(--sk-block-ink) 60%, transparent); letter-spacing: .06em; }
+[data-skin="p5"] .pm.lead { background: var(--sk-main); color: #fff; }
+[data-skin="p5"] .pm.lead i { background: #fff; color: var(--sk-main); }
+[data-skin="p5"] .pm.lead .pm-role { color: #fff; }
+
+/* P3: slanted blue status bars, cyan accent on the leader */
+[data-skin="p3"] .party-no { color: var(--accent); font-family: var(--p3-display); font-style: italic; font-size: 14px; }
+[data-skin="p3"] .party-head b { font-family: var(--p3-display); font-style: italic; font-weight: 800; font-size: 20px; }
+[data-skin="p3"] .pm {
+  border-radius: 0; transform: skewX(-12deg); margin: 0 6px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--sk-main) 22%, var(--surface)), var(--surface));
+  border-left: 4px solid color-mix(in srgb, var(--sk-main) 60%, transparent);
+}
+[data-skin="p3"] .pm > * { transform: skewX(12deg); }
+[data-skin="p3"] .pm i { border-radius: 2px; background: var(--sk-block); color: var(--sk-block-ink); }
+[data-skin="p3"] .pm-name { font-family: var(--p3-display); font-style: italic; font-weight: 800; font-size: 18px; letter-spacing: .02em; }
+[data-skin="p3"] .pm.lead { border-left-color: var(--p3-cyan); background: linear-gradient(90deg, color-mix(in srgb, var(--sk-main) 45%, var(--surface)), var(--surface)); }
+[data-skin="p3"] .pm.lead i { background: var(--p3-cyan); color: var(--p3-navy); }
+[data-skin="p3"] .pm.lead .pm-role { color: var(--accent); }
