@@ -1,10 +1,10 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=7368983b";
-import { mountShopping } from "./lists.js?v=7368983b";
-import { mountPlans } from "./timeline.js?v=7368983b";
-import { mountCarpool } from "./carpool.js?v=7368983b";
-import { mountWeather } from "./weather.js?v=7368983b";
+import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=90ff39b3";
+import { mountShopping } from "./lists.js?v=90ff39b3";
+import { mountPlans } from "./timeline.js?v=90ff39b3";
+import { mountCarpool } from "./carpool.js?v=90ff39b3";
+import { mountWeather } from "./weather.js?v=90ff39b3";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -73,6 +73,27 @@ const photoURL = (l, i = 0) => {
 };
 
 const mapsURL = (address) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+const appleMapsURL = (address) => `https://maps.apple.com/?q=${encodeURIComponent(address)}`;
+
+// Address with a copy button; map buttons open Apple Maps or Google Maps (the app on phones, the web otherwise)
+const copyBtn = (text) => `<button type="button" class="copy-btn" data-copy="${esc(text)}" title="复制地址">复制</button>`;
+const mapButtons = (address) => `<div class="map-btns">
+    <a class="btn ghost" href="${esc(appleMapsURL(address))}" target="_blank" rel="noopener">Apple 地图 ↗</a>
+    <a class="btn ghost" href="${esc(mapsURL(address))}" target="_blank" rel="noopener">Google 地图 ↗</a>
+  </div>`;
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-copy]");
+  if (!b) return;
+  const text = b.dataset.copy;
+  try { await navigator.clipboard.writeText(text); }
+  catch {
+    const ta = Object.assign(document.createElement("textarea"), { value: text });
+    document.body.append(ta); ta.select(); document.execCommand("copy"); ta.remove();
+  }
+  const was = b.textContent;
+  b.textContent = "已复制"; b.classList.add("done");
+  setTimeout(() => { b.textContent = was; b.classList.remove("done"); }, 1500);
+});
 
 // The booked house: photo, check-in/out, amount paid split per person, links
 function bookingCard(c) {
@@ -88,7 +109,7 @@ function bookingCard(c) {
   return `<section class="booking">
     <a class="booking-photo ph" href="${details}">${photo ? `<img src="${esc(photo)}" alt="">` : "<span>Photo</span>"}</a>
     <div class="booking-body">
-      <p class="where">${esc(c.address || l.location || l.city)}</p>
+      <p class="where">${esc(c.address || l.location || l.city)}${c.address ? ` ${copyBtn(c.address)}` : ""}</p>
       <h2><a href="${details}">${esc(l.name)}</a></h2>
       <div class="io-row">
         ${inOut("Check-in", c.check_in, { day: d.long_label.split(" – ")[0], time: l.check_in_time ?? "" })}
@@ -110,6 +131,7 @@ function bookingCard(c) {
         <a class="btn" href="${details}">House details</a>
         ${c.receipt_url ? `<a class="btn ghost" href="${esc(c.receipt_url)}" target="_blank" rel="noopener">Receipt ↗</a>` : ""}
       </div>
+      ${c.address ? mapButtons(c.address) : ""}
     </div>
   </section>`;
 }
@@ -259,7 +281,7 @@ function reservationDetails(c) {
     </div>`).join("");
     cards.push(`<article class="info-card wide">
       <h3>到达</h3>
-      <div class="addr"><b>${esc(c.address)}</b> <a class="btn maps-btn" href="${esc(mapsURL(c.address))}" target="_blank" rel="noopener">Open in Maps ↗</a></div>
+      <div class="addr"><b>${esc(c.address)} ${copyBtn(c.address)}</b>${mapButtons(c.address)}</div>
       ${[c.parking, c.ev_charging].filter(Boolean).map((x) => `<div class="extra"><b>${esc(x.title)}</b>${x.facts.map((f) => `<span>${esc(f)}</span>`).join("")}
         <em>${x.contact ? `${esc(x.note)}：打电话或短信 ${esc(x.contact.name)} <a href="tel:${esc(x.contact.phone.replace(/\D/g, ""))}">${esc(x.contact.phone)}</a>` : esc(x.note)}</em></div>`).join("")}
       ${routes ? `<details class="directions">
