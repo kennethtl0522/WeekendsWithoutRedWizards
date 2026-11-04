@@ -429,10 +429,10 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .compared .table-wrap { border: 0; border-radius: 0 0 var(--radius) var(--radius); }
 .matrix tr.picked th { box-shadow: inset 4px 0 var(--accent); }
 
-/* Phone: keep a free strip on the right so a thumb can scroll the page
-   instead of grabbing the timeline, table or a house block's own scroll */
+/* Phone: on the date page each house block scrolls on its own, so keep a free strip on the right
+   for the thumb to scroll the page. The main page has no inner scroll areas and uses the full width. */
 @media (max-width: 640px) {
-  .overview, .board { padding-right: 44px; }
+  .board { padding-right: 44px; }
 }
 
 /* ---------- 采购清单 (overview) ---------- */
@@ -761,12 +761,22 @@ ul.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 
 /* Copy-address button + Apple / Google map buttons */
 .copy-btn {
-  font: inherit; font-size: 12px; font-weight: 700; padding: 2px 9px; margin-left: 6px; vertical-align: 1px; cursor: pointer;
-  color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 999px;
+  display: inline-grid; place-items: center; width: 26px; height: 26px; padding: 0; margin-left: 6px; vertical-align: middle; cursor: pointer;
+  color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 8px;
 }
+.copy-btn svg { width: 15px; height: 15px; }
 .copy-btn:hover { filter: brightness(1.08); }
 .copy-btn.done { color: var(--accent-ink); background: var(--accent); }
 .map-btns { display: flex; flex-wrap: wrap; gap: 8px; }
 .map-btns .btn { padding: 8px 14px; font-size: 14px; }
 .booking .map-btns { margin-top: 2px; }
 .addr .map-btns { flex: none; }
+
+/* Section nav: the section in view */
+.secnav a { transition: background .15s, color .15s, border-color .15s; }
+.secnav a.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* Plan A / B headers: name never breaks; the 推荐 badge sits beside it, or under it when the column is narrow */
+.pl-head { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 8px; padding: 6px 4px; }
+.pl-head .pl-name { white-space: nowrap; }
+.pl-head .rec-badge { position: static; padding: 1px 8px; font-size: 11px; letter-spacing: .04em; white-space: nowrap; }

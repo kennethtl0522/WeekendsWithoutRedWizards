@@ -159,7 +159,7 @@ export function mountPlans(root, { dayNames, quiet }) {
   </div>
   <div class="pl-grid">
     <div></div>
-    ${KEYS.map((k) => `<div class="pl-head${k === RECOMMENDED ? " rec" : ""}">Plan ${k}${k === RECOMMENDED ? ' <span class="rec-badge">Recommended</span>' : ""}</div>`).join("")}
+    ${KEYS.map((k) => `<div class="pl-head${k === RECOMMENDED ? " rec" : ""}"><span class="pl-name">Plan ${k}</span>${k === RECOMMENDED ? '<span class="rec-badge">推荐</span>' : ""}</div>`).join("")}
     <div class="pl-axis"></div>
     ${KEYS.map((k) => `<div class="pl-track" data-plan="${k}"></div>`).join("")}
   </div>

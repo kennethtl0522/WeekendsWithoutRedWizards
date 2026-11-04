@@ -359,3 +359,9 @@
 [data-skin="p3"] .pm.lead .pm-role { color: var(--accent); }
 [data-skin="p5"] .pick.rain { background: var(--sk-block); color: var(--sk-block-ink); }
 [data-skin="p3"] .pick.rain { background: var(--sk-main); color: #fff; }
+
+/* The theme switch sits in the header's top-right corner, apart from the section nav */
+.hero-head { position: relative; }
+.hero-head > .skin-switch { position: absolute; top: 18px; right: 16px; margin: 0; z-index: 2; }
+[data-skin="p5"] .secnav a.active { background: var(--sk-main); color: #fff; transform: rotate(-2deg); }
+[data-skin="p3"] .secnav a.active { background: var(--p3-cyan); color: var(--p3-navy); box-shadow: 4px 4px 0 var(--sk-main); }

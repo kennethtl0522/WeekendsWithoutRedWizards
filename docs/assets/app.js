@@ -1,10 +1,10 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=90ff39b3";
-import { mountShopping } from "./lists.js?v=90ff39b3";
-import { mountPlans } from "./timeline.js?v=90ff39b3";
-import { mountCarpool } from "./carpool.js?v=90ff39b3";
-import { mountWeather } from "./weather.js?v=90ff39b3";
+import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=4417fb00";
+import { mountShopping } from "./lists.js?v=4417fb00";
+import { mountPlans } from "./timeline.js?v=4417fb00";
+import { mountCarpool } from "./carpool.js?v=4417fb00";
+import { mountWeather } from "./weather.js?v=4417fb00";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -76,7 +76,9 @@ const mapsURL = (address) => `https://www.google.com/maps/search/?api=1&query=${
 const appleMapsURL = (address) => `https://maps.apple.com/?q=${encodeURIComponent(address)}`;
 
 // Address with a copy button; map buttons open Apple Maps or Google Maps (the app on phones, the web otherwise)
-const copyBtn = (text) => `<button type="button" class="copy-btn" data-copy="${esc(text)}" title="复制地址">复制</button>`;
+const COPY_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>`;
+const CHECK_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
+const copyBtn = (text) => `<button type="button" class="copy-btn" data-copy="${esc(text)}" title="复制地址" aria-label="复制地址">${COPY_ICON}</button>`;
 const mapButtons = (address) => `<div class="map-btns">
     <a class="btn ghost" href="${esc(appleMapsURL(address))}" target="_blank" rel="noopener">Apple 地图 ↗</a>
     <a class="btn ghost" href="${esc(mapsURL(address))}" target="_blank" rel="noopener">Google 地图 ↗</a>
@@ -90,9 +92,8 @@ document.addEventListener("click", async (e) => {
     const ta = Object.assign(document.createElement("textarea"), { value: text });
     document.body.append(ta); ta.select(); document.execCommand("copy"); ta.remove();
   }
-  const was = b.textContent;
-  b.textContent = "已复制"; b.classList.add("done");
-  setTimeout(() => { b.textContent = was; b.classList.remove("done"); }, 1500);
+  b.innerHTML = CHECK_ICON; b.classList.add("done"); b.title = "已复制";
+  setTimeout(() => { b.innerHTML = COPY_ICON; b.classList.remove("done"); b.title = "复制地址"; }, 1500);
 });
 
 // The booked house: photo, check-in/out, amount paid split per person, links
@@ -261,6 +262,39 @@ function carpool(c) {
   </section>`;
 }
 
+// Section nav follows the scroll: the link for the section under the sticky nav gets .active,
+// and on phones the nav scrolls sideways to keep that link in view
+function followNav() {
+  const nav = document.querySelector(".secnav");
+  if (!nav) return;
+  const links = [...nav.querySelectorAll('a[href^="#"]')];
+  const targets = links.map((a) => document.getElementById(a.getAttribute("href").slice(1)));
+  let current = null;
+  const update = () => {
+    const line = nav.getBoundingClientRect().bottom + 24;
+    let k = -1;
+    targets.forEach((el, i) => { if (el && el.getBoundingClientRect().top <= line) k = i; });
+    // At the very bottom, the last section counts even if its top never reached the line
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) k = targets.length - 1;
+    const link = links[k] || null;
+    if (link === current) return;
+    current?.classList.remove("active"); current?.removeAttribute("aria-current");
+    current = link;
+    if (!link) return;
+    link.classList.add("active"); link.setAttribute("aria-current", "true");
+    const l = link.getBoundingClientRect().left - nav.getBoundingClientRect().left + nav.scrollLeft, r = l + link.offsetWidth;
+    if (l < nav.scrollLeft || r > nav.scrollLeft + nav.clientWidth) nav.scrollTo({ left: l - 16, behavior: "smooth" });
+  };
+  let queued = false;
+  window.addEventListener("scroll", () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; update(); });
+  }, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+}
+
 function nearby(c, key, zh, en) {
   const groups = c.nearby?.[key] || [];
   const home = listings[c.id];
@@ -371,6 +405,7 @@ function overview() {
   if (c) {
     app.innerHTML = `
 <header class="hero-head">
+  ${skinSwitchHTML()}
   <p class="eyebrow">Trip plan</p>
   ${heroTitle()}
   <div class="status">
@@ -380,7 +415,6 @@ function overview() {
 </header>
 <nav class="secnav" aria-label="Sections">
   <a href="#weather-sec">天气</a><a href="#plan">行程</a><a href="#carpool">拼车</a><a href="#stay">入住须知</a><a href="#shop">采购</a><a href="#around">周边</a>
-  ${skinSwitchHTML()}
 </nav>
 <main class="overview">
   ${bookingCard(c)}
@@ -404,6 +438,7 @@ function overview() {
     const home = listings[c.id], stay = dateOf(c.dates);
     mountWeather(document.getElementById("weather"), { lat: home.lat, lng: home.lng, start: stay.check_in, end: stay.check_out, esc });
     if (c.carpool) mountCarpool(document.getElementById("pool"), { endpoint: trip.lists_url, seed: c.carpool.cars, esc });
+    followNav();
     mountPlans(document.getElementById("plans"), { dayNames: weekdaysFrom(dateOf(c.dates).check_in), quiet: c.quiet_hours });
     mountShopping(document.getElementById("shopping"), { endpoint: trip.lists_url, getPeople, cents, esc });
     return;
@@ -411,6 +446,7 @@ function overview() {
 
   app.innerHTML = `
 <header class="hero-head">
+  ${skinSwitchHTML()}
   <p class="eyebrow">Trip plan</p>
   ${heroTitle()}
   <p class="split-line">Per-person prices split between ${counterHTML()} people</p>
