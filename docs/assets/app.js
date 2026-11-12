@@ -1,10 +1,10 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=3cbc17d8";
-import { mountShopping } from "./lists.js?v=3cbc17d8";
-import { mountPlans } from "./timeline.js?v=3cbc17d8";
-import { mountCarpool } from "./carpool.js?v=3cbc17d8";
-import { mountWeather } from "./weather.js?v=3cbc17d8";
+import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=8927f518";
+import { mountShopping } from "./lists.js?v=8927f518";
+import { mountPlans } from "./timeline.js?v=8927f518";
+import { mountCarpool } from "./carpool.js?v=8927f518";
+import { mountWeather } from "./weather.js?v=8927f518";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
