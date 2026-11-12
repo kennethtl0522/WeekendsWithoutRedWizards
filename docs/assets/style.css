@@ -788,3 +788,4 @@ svg.ext { width: .85em; height: .85em; margin-left: .3em; vertical-align: -.06em
 /* Touch: blocks and palette chips let the page (and palette) scroll; a long press picks them up */
 .blk, .tl-chip { touch-action: manipulation; -webkit-touch-callout: none; }
 .blk.held, .tl-chip.held { box-shadow: 0 0 0 2px var(--accent), 0 6px 18px rgb(0 0 0 / .25); }
+.btn.small { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; font-size: 13px; border-radius: 8px; }

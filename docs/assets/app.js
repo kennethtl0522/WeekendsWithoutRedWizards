@@ -1,10 +1,10 @@
 // Single-page app: picks a view from the URL and renders it from data/model.json.
 // Pitches themselves come from the shared component in pitch.js.
-import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=8927f518";
-import { mountShopping } from "./lists.js?v=8927f518";
-import { mountPlans } from "./timeline.js?v=8927f518";
-import { mountCarpool } from "./carpool.js?v=8927f518";
-import { mountWeather } from "./weather.js?v=8927f518";
+import { SITE, cents, counterHTML, esc, skinSwitchHTML, ttl, getPeople, loadModel, money, mountPitches, pageLink } from "./pitch.js?v=204ab452";
+import { mountShopping } from "./lists.js?v=204ab452";
+import { mountPlans } from "./timeline.js?v=204ab452";
+import { mountCarpool } from "./carpool.js?v=204ab452";
+import { mountWeather } from "./weather.js?v=204ab452";
 
 const app = document.getElementById("app");
 const query = new URLSearchParams(location.search);
@@ -300,8 +300,9 @@ function nearby(c, key, zh, en) {
   const groups = c.nearby?.[key] || [];
   const home = listings[c.id];
   if (!groups.length || !home?.lat) return "";
+  const guide = c.host_note?.guidebook_url;
   return `<section id="${key === "shops" ? "where" : "around"}">
-    ${ttl(zh, en)}
+    ${guide ? `<div class="ttl-row">${ttl(zh, en)}<a class="btn ghost small" href="${esc(guide)}" target="_blank" rel="noopener">房东的中央海岸指南${ARROW_ICON}</a></div>` : ttl(zh, en)}
     <div class="near-grid">${placeCards(groups, home)}</div>
   </section>`;
 }
@@ -333,7 +334,7 @@ function reservationDetails(c) {
       <div class="ci-times">${io("Check-in", c.check_in)}${io("Checkout", c.check_out)}</div>
       <p>${esc(c.check_in_method)}</p>
       ${c.confirmation_code ? `<p class="code">Confirmation code <b>${esc(c.confirmation_code)}</b></p>` : ""}
-      ${c.host_note ? `<p class="host-note">${esc(c.host_note.note)}${c.host_note.guidebook_url ? ` · <a href="${esc(c.host_note.guidebook_url)}" target="_blank" rel="noopener">房东的周边指南 ↗</a>` : ""}</p>` : ""}
+      ${c.host_note ? `<p class="host-note">${esc(c.host_note.note)}</p>` : ""}
     </article>`);
   }
   if (c.contacts?.length) {
